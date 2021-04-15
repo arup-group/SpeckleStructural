@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Other\Enums.cs" />
+    <Compile Include="Other\GsaResultParams.cs" />
     <Compile Include="Other\GwaRecord.cs" />
     <Compile Include="Other\Helper.cs" />
     <Compile Include="Other\MockGSAApp.cs" />
