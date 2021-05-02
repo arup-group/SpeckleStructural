@@ -120,14 +120,12 @@ namespace SpeckleStructuralGSA.SchemaConversion
       for (var i = 0; i < coords.Count(); i += 3)
       {
         var nodeIndex = Initialiser.AppResources.Proxy.NodeAt(coords[i], coords[i + 1], coords[i + 2], Initialiser.AppResources.Settings.CoincidentNodeAllowance);
-        if (nodeIndices.Contains(nodeIndex))
+        if (!nodeIndices.Contains(nodeIndex))
         {
-          //Two nodes resolve to the same node
-          return false;
+          nodeIndices.Add(nodeIndex);
         }
-        nodeIndices.Add(nodeIndex);
       }
-      return true;
+      return (nodeIndices.Count() > 1);
     }
 
     public static bool IsZeroAxis(StructuralAxis axis)
