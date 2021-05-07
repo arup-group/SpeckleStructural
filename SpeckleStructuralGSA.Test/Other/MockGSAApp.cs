@@ -24,8 +24,6 @@ namespace SpeckleStructuralGSA.Test
       {
         var mockGSAObject = new Mock<IGSAProxy>();
 
-        mockGSAObject.Setup(x => x.ParseGeneralGwa(It.IsAny<string>(), out It.Ref<string>.IsAny, out It.Ref<int?>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<string>.IsAny, out It.Ref<GwaSetCommandType?>.IsAny, It.IsAny<bool>()))
-        .Callback(new MockGSAProxy.ParseCallback(MockGSAProxy.ParseGeneralGwa));
         mockGSAObject.Setup(x => x.NodeAt(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>()))
           .Returns(new Func<double, double, double, double, int>(MockGSAProxy.NodeAt));
         mockGSAObject.Setup(x => x.FormatApplicationIdSidTag(It.IsAny<string>()))

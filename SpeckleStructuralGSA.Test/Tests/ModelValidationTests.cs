@@ -76,7 +76,7 @@ namespace SpeckleStructuralGSA.Test
       var retrievedDict = new Dictionary<string, List<string>>();
       foreach (var gwa in retrievedGwa)
       {
-        Initialiser.AppResources.Proxy.ParseGeneralGwa(gwa.GwaWithoutSet, out string keyword, out _, out _, out _, out _, out _);
+        GSAProxy.ParseGeneralGwa(gwa.GwaWithoutSet, out string keyword, out _, out _, out _, out _, out _);
         if (!retrievedDict.ContainsKey(keyword))
         {
           retrievedDict.Add(keyword, new List<string>());
@@ -87,7 +87,7 @@ namespace SpeckleStructuralGSA.Test
       var fromFileDict = new Dictionary<string, List<string>>();
       foreach (var r in gwaRecordsFromFile)
       {
-        Initialiser.AppResources.Proxy.ParseGeneralGwa(r.GwaCommand, out string keyword, out _, out _, out _, out string gwaWithoutSet, out _);
+        GSAProxy.ParseGeneralGwa(r.GwaCommand, out string keyword, out _, out _, out _, out string gwaWithoutSet, out _);
         if (!fromFileDict.ContainsKey(keyword))
         {
           fromFileDict.Add(keyword, new List<string>());

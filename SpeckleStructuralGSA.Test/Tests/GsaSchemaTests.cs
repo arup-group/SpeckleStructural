@@ -1021,7 +1021,7 @@ namespace SpeckleStructuralGSA.Test
     {
       foreach (var gwaC in gwaCommands)
       {
-        Initialiser.AppResources.Proxy.ParseGeneralGwa(gwaC, out var keyword, out var index, out var streamId, out var applicationId, out var gwaWithoutSet, out var gwaSetCommandType);
+        GSAProxy.ParseGeneralGwa(gwaC, out var keyword, out var index, out var streamId, out var applicationId, out var gwaWithoutSet, out var gwaSetCommandType);
         if (!Initialiser.AppResources.Cache.Upsert(keyword, index.Value, gwaWithoutSet, streamId, applicationId, gwaSetCommandType.Value))
         {
           return false;

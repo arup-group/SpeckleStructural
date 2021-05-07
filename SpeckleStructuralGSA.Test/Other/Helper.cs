@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SpeckleGSAInterfaces;
 using SpeckleCore;
+using SpeckleGSAProxy;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -214,7 +215,7 @@ namespace SpeckleStructuralGSA.Test
       foreach (var l in lines)
       {
         //At this point the SID will be filled with the application ID
-        Initialiser.AppResources.Proxy.ParseGeneralGwa(l, out var keyword, out var foundIndex,
+        GSAProxy.ParseGeneralGwa(l, out var keyword, out var foundIndex,
           out var foundStreamId, out var foundApplicationId, out var gwaWithoutSet, out var gwaSetCommandType);
 
         var originalSid = Initialiser.AppResources.Proxy.FormatSidTags(foundStreamId, foundApplicationId);

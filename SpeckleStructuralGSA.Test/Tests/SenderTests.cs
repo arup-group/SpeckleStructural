@@ -106,8 +106,8 @@ namespace SpeckleStructuralGSA.Test
       var unmatchingLock = new object();
 
       //Compare each object
-      //foreach(var actualObject in actual.Keys)
-      Parallel.ForEach(actual.Keys, actualObject =>
+      foreach(var actualObject in actual.Keys)
+      //Parallel.ForEach(actual.Keys, actualObject =>
       {
         var actualJson = actual[actualObject];
         var actualType = actualObject.GetType();
@@ -130,11 +130,7 @@ namespace SpeckleStructuralGSA.Test
 
           if (matchingExpected.Count() == 0)
           {
-            var nearestMatching = new List<string>();
-            if (!string.IsNullOrEmpty(actualObject.ApplicationId))
-            {
-              nearestMatching.AddRange(matchingTypeAndId.Select(kvp => kvp.Item3));
-            }
+            var nearestMatching = matchingTypeAndId.Select(kvp => kvp.Item3).ToList();
 
             lock (unmatchingLock)
             {
@@ -165,7 +161,7 @@ namespace SpeckleStructuralGSA.Test
           }
         }
       }
-      );
+      //);
 
       Initialiser.AppResources.Proxy.Close();
       Assert.IsFalse(actual.Keys.Any(a => !a.Type.ToLower().EndsWith("result") && string.IsNullOrEmpty(a.ApplicationId)));

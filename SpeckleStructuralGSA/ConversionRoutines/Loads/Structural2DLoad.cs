@@ -99,22 +99,30 @@ namespace SpeckleStructuralGSA
       if (load.Loading == null)
         return "";
 
-      List<int> elementRefs;
-      List<int> groupRefs;
+      List<int> elementRefs = null;
+      List<int> groupRefs = null;
 
-      if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
+      if (load.ElementRefs == null)
       {
-        elementRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DElement).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
-        groupRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DElementMesh).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
-      }
-      else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
-      {
-        elementRefs = new List<int>();
-        groupRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DMember).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
+        Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Blank element references found for these Application IDs:",
+            load.ApplicationId);
       }
       else
       {
-        return "";
+        if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
+        {
+          elementRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DElement).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
+          groupRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DElementMesh).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
+        }
+        else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
+        {
+          elementRefs = new List<int>();
+          groupRefs = Initialiser.AppResources.Cache.LookupIndices(typeof(GSA2DMember).GetGSAKeyword(), load.ElementRefs).Where(x => x.HasValue).Select(x => x.Value).ToList();
+        }
+        else
+        {
+          return "";
+        }
       }
 
       var loadCaseKeyword = typeof(GSALoadCase).GetGSAKeyword();
@@ -143,6 +151,21 @@ namespace SpeckleStructuralGSA
       {
         if (load.Loading.Value[i] == 0) continue;
 
+        string elementList;
+        if (elementRefs == null && groupRefs == null)
+        {
+          elementList = "none";
+        }
+        else
+        {
+          // TODO: This is a hack.
+          elementList = (groupRefs == null) ? "" : string.Join(" ", elementRefs.Select(x => x.ToString()));
+          if (elementRefs != null)
+          {
+            elementList = elementList + " " + string.Join(" ", groupRefs.Select(x => "G" + x.ToString()));
+          }
+        }
+
         var index = Initialiser.AppResources.Cache.ResolveIndex(keyword);
 
         var sid = Helper.GenerateSID(load);
@@ -152,8 +175,7 @@ namespace SpeckleStructuralGSA
           index.ToString(),
           keyword + (string.IsNullOrEmpty(sid) ? "" : ":" + sid),
           load.Name == null || load.Name == "" ? " " : load.Name + (load.Name.All(char.IsDigit) ? " " : ""),
-          // TODO: This is a hack.
-          string.Join(" ", elementRefs.Select(x => x.ToString()).Concat(groupRefs.Select(x => "G" + x.ToString()))),
+          elementList,
           loadCaseRef.ToString(),
           load.AxisType == StructuralLoadAxisType.Local ? "LOCAL" : "GLOBAL", // Axis
           "CONS", // Type
