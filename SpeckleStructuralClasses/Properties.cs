@@ -20,7 +20,8 @@ namespace SpeckleStructuralClasses
     Circular,
     Rectangular,
     I,
-    T
+    T,
+    Angle
   }
 
   public enum Structural2DPropertyReferenceSurface
