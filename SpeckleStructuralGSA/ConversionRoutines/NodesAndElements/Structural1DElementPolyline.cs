@@ -1,7 +1,7 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SpeckleCore;
 using SpeckleCoreGeometryClasses;
 using SpeckleGSAInterfaces;
@@ -243,29 +243,53 @@ namespace SpeckleStructuralGSA
       var elements = obj.Explode();
       var gwaCommands = new List<string>();
 
-      if (elements.Count() == 1)
+      if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
       {
-        gwaCommands.Add((Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
-         ? new GSA1DElement() { Value = elements.First() }.SetGWACommand()
-         : new GSA1DMember() { Value = elements.First() }.SetGWACommand());
+        var coords = obj.basePolyline.Value.Take(3).Union(obj.basePolyline.Value.Skip(obj.basePolyline.Value.Count - 3).Take(3)).ToList();
+        var member1d = new Structural1DElement()
+        {
+          //This might have more than 6 items (i.e. 2 XYZ points) which is incompatible with SpeckleLine but there is no enforcement of 6 values for SpeckleLine at this point
+          //- the codebase around ToNative() for design-layer polylines needs to be refactored to avoid this "overloading" of the Value list
+          ApplicationId = obj.ApplicationId,
+          Name = obj.Name,
+          Value = obj.basePolyline.Value, 
+          ElementType = obj.ElementType,
+          PropertyRef = obj.PropertyRef,
+          EndRelease = obj.EndRelease,
+          Offset = obj.Offset,
+          Properties = obj.Properties,
+          GSAMeshSize = obj.GSAMeshSize,
+          GSADummy = obj.GSADummy
+        };
+        var gsa1dMember = new GSA1DMember() { Value = member1d };
+        gwaCommands.Add(gsa1dMember.SetGWACommand());
+      }
+      else if (elements.Count() == 1)
+      {
+        gwaCommands.Add(new GSA1DElement() { Value = elements.First() }.SetGWACommand());
       }
       else
       {
         var group = Initialiser.AppResources.Cache.ResolveIndex(typeof(GSA1DElementPolyline).GetGSAKeyword(), obj.ApplicationId);
 
+#if DEBUG
         foreach (var element in elements)
+#else
+        Parallel.ForEach(elements, element =>
+#endif
         {
-          gwaCommands.Add((Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
-            ? new GSA1DElement() { Value = element }.SetGWACommand(group)
-            : new GSA1DMember() { Value = element }.SetGWACommand(group));
+          gwaCommands.Add(new GSA1DElement() { Value = element }.SetGWACommand(group));
         }
+#if !DEBUG
+        );
+#endif
       }
       return string.Join("\n", gwaCommands);
     }
   }
 
   //This class is here to host the GSAObject attribute which is picked up in the reflection-based construction of the type hierarchy
-  [GSAObject("MEMB.8", new string[] { }, "model", false, true, new Type[] { typeof(GSA1DProperty), typeof(GSA1DMember), typeof(GSA1DLoad), typeof(GSA1DElementResult), typeof(GSAAssembly), typeof(GSAConstructionStage), typeof(GSA1DInfluenceEffect) }, new Type[] { typeof(GSA1DProperty), typeof(GSA1DMember) })]
+  [GSAObject("MEMB.8", new string[] { }, "model", false, true, new Type[] { typeof(GSA1DProperty), typeof(GSA1DLoad), typeof(GSA1DElementResult), typeof(GSAAssembly), typeof(GSAConstructionStage), typeof(GSA1DInfluenceEffect) }, new Type[] { typeof(GSA1DProperty) })]
   public class GSA1DMemberFromPolyline : GSABase<Structural1DElementPolyline>
   {
   }

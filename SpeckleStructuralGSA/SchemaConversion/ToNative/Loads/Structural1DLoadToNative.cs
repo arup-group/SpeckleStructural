@@ -26,7 +26,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
         var loadCaseIndex = Initialiser.AppResources.Cache.ResolveIndex(GsaRecord.GetKeyword<GsaLoadCase>(), load.LoadCaseRef);
 
         var entityKeyword = (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design) ? GsaRecord.GetKeyword<GsaMemb>() : GsaRecord.GetKeyword<GsaEl>();
-        var entityIndices = Initialiser.AppResources.Cache.LookupIndices(entityKeyword, load.ElementRefs).Where(i => i.HasValue).Select(i => i.Value).ToList();
+        var entityIndices = (load.ElementRefs == null) ? null : Initialiser.AppResources.Cache.LookupIndices(entityKeyword, load.ElementRefs).Where(i => i.HasValue).Select(i => i.Value).ToList();
 
         var loadingDict = Helper.ExplodeLoading(load.Loading);
         foreach (var k in loadingDict.Keys)

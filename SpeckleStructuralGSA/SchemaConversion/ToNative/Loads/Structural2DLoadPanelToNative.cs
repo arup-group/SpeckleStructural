@@ -4,7 +4,6 @@ using System.Linq;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
-using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {

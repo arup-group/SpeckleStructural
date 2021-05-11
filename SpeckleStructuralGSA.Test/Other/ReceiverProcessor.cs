@@ -35,7 +35,7 @@ namespace SpeckleStructuralGSA.Test
       var gwaCommands = ((IGSACacheForTesting) this.appResources.Cache).GetGwaSetCommands();
       foreach (var gwaC in gwaCommands)
       {
-        this.appResources.Proxy.ParseGeneralGwa(gwaC, out var keyword, out int? index, out var streamId, out var applicationId, out var gwaWithoutSet, out GwaSetCommandType? gwaSetType);
+        GSAProxy.ParseGeneralGwa(gwaC, out var keyword, out int? index, out var streamId, out var applicationId, out var gwaWithoutSet, out GwaSetCommandType? gwaSetType);
         gwaRecords.Add(new GwaRecord(string.IsNullOrEmpty(applicationId) ? null : applicationId, gwaC));
       }
     }
@@ -102,7 +102,7 @@ namespace SpeckleStructuralGSA.Test
 
             for (var j = 0; j < gwaCommands.Count(); j++)
             {
-              appResources.Proxy.ParseGeneralGwa(gwaCommands[j], out keyword, out int? foundIndex, out var foundStreamId, out var foundApplicationId, 
+              GSAProxy.ParseGeneralGwa(gwaCommands[j], out keyword, out int? foundIndex, out var foundStreamId, out var foundApplicationId, 
                 out var gwaWithoutSet, out var gwaSetCommandType);
 
               //Only cache the object against, the top-level GWA command, not the sub-commands

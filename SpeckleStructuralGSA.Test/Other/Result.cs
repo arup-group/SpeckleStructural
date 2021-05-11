@@ -6,9 +6,9 @@ namespace SpeckleStructuralGSA.Test
   //Copied directly from SpeckleGSA
   public static class Result
   {
-    public static Dictionary<string, Tuple<int, int, List<string>>> NodalResultMap = new Dictionary<string, Tuple<int, int, List<string>>>()
+    public static Dictionary<string, GsaResultParams> NodalResultMap = new Dictionary<string, GsaResultParams>()
     {
-      { "Nodal Displacements",  new Tuple<int, int, List<string>>(12001000, 0, new List<string>() {
+      { "Nodal Displacements",  new GsaResultParams(12001000, 0, new List<string>() {
         "ux",
         "uy",
         "uz",
@@ -19,7 +19,7 @@ namespace SpeckleStructuralGSA.Test
         "|r|",
         "uxy",
       }) },
-      { "Nodal Velocity",  new Tuple<int, int, List<string>>(12002000, 0, new List<string>() {
+      { "Nodal Velocity",  new GsaResultParams(12002000, 0, new List<string>() {
         "vx",
         "vy",
         "vz",
@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA.Test
         "azz",
         "|r|",
       }) },
-      { "Nodal Acceleration",  new Tuple<int, int, List<string>>(12003000, 0, new List<string>() {
+      { "Nodal Acceleration",  new GsaResultParams(12003000, 0, new List<string>() {
         "ax",
         "ay",
         "az",
@@ -39,7 +39,7 @@ namespace SpeckleStructuralGSA.Test
         "azz",
         "|r|",
       }) },
-      { "Nodal Reaction",  new Tuple<int, int, List<string>>(12004000, 0, new List<string>() {
+      { "Nodal Reaction",  new GsaResultParams(12004000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
@@ -49,7 +49,7 @@ namespace SpeckleStructuralGSA.Test
         "mzz",
         "|m|",
       }) },
-      { "Constraint Forces",  new Tuple<int, int, List<string>>(12005000, 0, new List<string>() {
+      { "Constraint Forces",  new GsaResultParams(12005000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
@@ -59,7 +59,7 @@ namespace SpeckleStructuralGSA.Test
         "mzz",
         "|m|",
       }) },
-      { "Nodal Forces",  new Tuple<int, int, List<string>>(12006000, 0, new List<string>() {
+      { "Nodal Forces",  new GsaResultParams(12006000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
@@ -69,7 +69,7 @@ namespace SpeckleStructuralGSA.Test
         "mzz",
         "|m|",
       }) },
-      { "Nodal Mass",  new Tuple<int, int, List<string>>(12007000, 0, new List<string>() {
+      { "Nodal Mass",  new GsaResultParams(12007000, 0, new List<string>() {
         "ixx",
         "iyy",
         "izz",
@@ -78,7 +78,7 @@ namespace SpeckleStructuralGSA.Test
         "izx",
         "inertia",
       }) },
-      { "Nodal Soil",  new Tuple<int, int, List<string>>(12008000, 0, new List<string>() {
+      { "Nodal Soil",  new GsaResultParams(12008000, 0, new List<string>() {
         "ax",
         "px",
         "ay",
@@ -88,17 +88,17 @@ namespace SpeckleStructuralGSA.Test
         "as",
         "ps",
       }) },
-      { "0D Element Displacement",  new Tuple<int, int, List<string>>(13001000, 0, new List<string>() {
+      { "0D Element Displacement",  new GsaResultParams(13001000, 0, new List<string>() {
         "ux",
         "uy",
         "uz",
         "|u|",
-        "rxx" ,
+        "rxx",
         "ryy",
         "rzz",
-        "|r|"
+        "|r|",
       }) },
-      { "0D Element Force",  new Tuple<int, int, List<string>>(13002000, 0, new List<string>() {
+      { "0D Element Force",  new GsaResultParams(13002000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
@@ -110,9 +110,9 @@ namespace SpeckleStructuralGSA.Test
       }) },
     };
 
-    public static Dictionary<string, Tuple<int, int, List<string>>> Element1DResultMap = new Dictionary<string, Tuple<int, int, List<string>>>()
+    public static Dictionary<string, GsaResultParams> Element1DResultMap = new Dictionary<string, GsaResultParams>()
     {
-      { "1D Element Displacement",  new Tuple<int, int, List<string>>(14001000, 0, new List<string>() {
+      { "1D Element Displacement",  new GsaResultParams(14001000, 0, new List<string>() {
         "ux",
         "uy",
         "uz",
@@ -122,10 +122,10 @@ namespace SpeckleStructuralGSA.Test
         "rzz",
         "|r|",
       }) },
-      { "1D Element End Rotation",  new Tuple<int, int, List<string>>(14001500, 0, new List<string>() {
+      { "1D Element End Rotation",  new GsaResultParams(14001500, 0, new List<string>() {
         "major",
       }) },
-      { "1D Element Force",  new Tuple<int, int, List<string>>(14002000, 0, new List<string>() {
+      { "1D Element Force",  new GsaResultParams(14002000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
@@ -137,7 +137,7 @@ namespace SpeckleStructuralGSA.Test
         "fyz",
         "myz",
       }) },
-      { "1D Element Stress",  new Tuple<int, int, List<string>>(14003000, 0, new List<string>() {
+      { "1D Element Stress",  new GsaResultParams(14003000, 0, new List<string>() {
         "a",
         "sy",
         "sz",
@@ -150,26 +150,26 @@ namespace SpeckleStructuralGSA.Test
         "cy",
         "cz",
       }) },
-      { "1D Element Derived Stress",  new Tuple<int, int, List<string>>(14003200, 0, new List<string>() {
+      { "1D Element Derived Stress",  new GsaResultParams(14003200, 0, new List<string>() {
         "sy",
         "sz",
         "st",
         "vonMises",
       }) },
-      { "1D Element Strain",  new Tuple<int, int, List<string>>(14003500, 0, new List<string>() {
+      { "1D Element Strain",  new GsaResultParams(14003500, 0, new List<string>() {
         "a",
       }) },
-      { "1D Element Strain Energy Density",  new Tuple<int, int, List<string>>(14004000, 0, new List<string>() {
+      { "1D Element Strain Energy Density",  new GsaResultParams(14004000, 0, new List<string>() {
         "web",
         "flange",
         "total",
       }) },
-      { "1D Element Average Strain Energy Density",  new Tuple<int, int, List<string>>(14005000, 0, new List<string>() {
+      { "1D Element Average Strain Energy Density",  new GsaResultParams(14005000, 0, new List<string>() {
         "web",
         "flange",
         "total",
       }) },
-      { "1D Element Steel Utilization",  new Tuple<int, int, List<string>>(14006000, 0, new List<string>() {
+      { "1D Element Steel Utilization",  new GsaResultParams(14006000, 0, new List<string>() {
         "overall",
         "localCombined",
         "bucklingCombined",
@@ -188,15 +188,15 @@ namespace SpeckleStructuralGSA.Test
       }) },
     };
 
-    public static Dictionary<string, Tuple<int, int, List<string>>> Element2DResultMap = new Dictionary<string, Tuple<int, int, List<string>>>()
+    public static Dictionary<string, GsaResultParams> Element2DResultMap = new Dictionary<string, GsaResultParams>()
     {
-      { "2D Element Displacement",  new Tuple<int, int, List<string>>(15001000, 0x10, new List<string>() {
+      { "2D Element Displacement",  new GsaResultParams(15001000, 0x10, new List<string>() {
         "ux",
         "uy",
         "uz",
         "|u|",
       }) },
-      { "2D Element Derived Force",  new Tuple<int, int, List<string>>(15002000, 0x10, new List<string>() {
+      { "2D Element Derived Force",  new GsaResultParams(15002000, 0x10, new List<string>() {
         "principalN",
         "principalM",
         "mMax",
@@ -207,7 +207,7 @@ namespace SpeckleStructuralGSA.Test
         "nAng",
         "qMax",
       }) },
-      { "2D Element Projected Moment",  new Tuple<int, int, List<string>>(15003000, 0x10, new List<string>() {
+      { "2D Element Projected Moment",  new GsaResultParams(15003000, 0x10, new List<string>() {
         "m",
         "mx",
         "my",
@@ -215,7 +215,7 @@ namespace SpeckleStructuralGSA.Test
         "mx+mxy",
         "my+myx",
       }) },
-      { "2D Element Projected Force",  new Tuple<int, int, List<string>>(15004000, 0x10, new List<string>() {
+      { "2D Element Projected Force",  new GsaResultParams(15004000, 0x10, new List<string>() {
         "n",
         "q",
         "nx",
@@ -224,7 +224,7 @@ namespace SpeckleStructuralGSA.Test
         "qx",
         "qy",
       }) },
-      { "2D Element Derived Stress - Bottom",  new Tuple<int, int, List<string>>(15005000, 0x1, new List<string>() {
+      { "2D Element Derived Stress - Bottom",  new GsaResultParams(15005000, 0x1, new List<string>() {
         "principal",
         "max",
         "min",
@@ -233,7 +233,7 @@ namespace SpeckleStructuralGSA.Test
         "vonMises",
         "average",
       }) },
-      { "2D Element Derived Stress - Middle",  new Tuple<int, int, List<string>>(15005000, 0x2, new List<string>() {
+      { "2D Element Derived Stress - Middle",  new GsaResultParams(15005000, 0x2, new List<string>() {
         "principal",
         "max",
         "min",
@@ -242,7 +242,7 @@ namespace SpeckleStructuralGSA.Test
         "vonMises",
         "average",
       }) },
-      { "2D Element Derived Stress - Top",  new Tuple<int, int, List<string>>(15005000, 0x4, new List<string>() {
+      { "2D Element Derived Stress - Top",  new GsaResultParams(15005000, 0x4, new List<string>() {
         "principal",
         "max",
         "min",
@@ -251,7 +251,7 @@ namespace SpeckleStructuralGSA.Test
         "vonMises",
         "average",
       }) },
-      { "2D Element Ax Stress - Bottom",  new Tuple<int, int, List<string>>(15006000, 0x1, new List<string>() {
+      { "2D Element Ax Stress - Bottom",  new GsaResultParams(15006000, 0x1, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -259,7 +259,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "2D Element Ax Stress - Middle",  new Tuple<int, int, List<string>>(15006000, 0x2, new List<string>() {
+      { "2D Element Ax Stress - Middle",  new GsaResultParams(15006000, 0x2, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -267,7 +267,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "2D Element Ax Stress - Top",  new Tuple<int, int, List<string>>(15006000, 0x4, new List<string>() {
+      { "2D Element Ax Stress - Top",  new GsaResultParams(15006000, 0x4, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -275,7 +275,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "2D Element Projected Stress - Bottom",  new Tuple<int, int, List<string>>(15007000, 0x1, new List<string>() {
+      { "2D Element Projected Stress - Bottom",  new GsaResultParams(15007000, 0x1, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -283,7 +283,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "2D Element Projected Stress - Middle",  new Tuple<int, int, List<string>>(15007000, 0x2, new List<string>() {
+      { "2D Element Projected Stress - Middle",  new GsaResultParams(15007000, 0x2, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -291,7 +291,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "2D Element Projected Stress - Top",  new Tuple<int, int, List<string>>(15007000, 0x4, new List<string>() {
+      { "2D Element Projected Stress - Top",  new GsaResultParams(15007000, 0x4, new List<string>() {
         "xx",
         "yy",
         "zz",
@@ -299,7 +299,7 @@ namespace SpeckleStructuralGSA.Test
         "yz",
         "zx",
       }) },
-      { "RC Slab Reinforcement",  new Tuple<int, int, List<string>>(15010000, 0, new List<string>() {
+      { "RC Slab Reinforcement",  new GsaResultParams(15010000, 0, new List<string>() {
         "note",
         "topA",
         "topB",
@@ -310,7 +310,7 @@ namespace SpeckleStructuralGSA.Test
       }) },
     };
 
-    public static Dictionary<string, Tuple<string, int, int, List<string>>> MiscResultMap = new Dictionary<string, Tuple<string, int, int, List<string>>>()
+    public static Dictionary<string, GsaResultParams> MiscResultMap = new Dictionary<string, GsaResultParams>()
     {
       // TODO: UNCOMMENT THIS ONCE THE ARRAY OUTPUT FUNCTION IS WORKING FOR THESE RESULTS
       //{ "Assembly Displacements",  new Tuple<string,int, int, List<string>>("ASSEMBLY.3", 18001000, 0, new List<string>() {
@@ -345,7 +345,7 @@ namespace SpeckleStructuralGSA.Test
       //  "|r|",
       //  "uxy",
       //}) },
-      { "Assembly Forces and Moments",  new Tuple<string,int, int, List<string>>("ASSEMBLY.3", 18002000, 0, new List<string>() {
+      { "Assembly Forces and Moments",  new GsaResultParams("ASSEMBLY.3", 18002000, 0, new List<string>() {
         "fx",
         "fy",
         "fz",
