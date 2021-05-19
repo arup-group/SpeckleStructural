@@ -50,6 +50,10 @@ namespace SpeckleStructuralGSA
       {
         obj.Restraint = Helper.RestraintFromCode(pieces[counter++]); // restraint
       }
+      if (obj.Restraint != null && obj.Restraint.Value != null && obj.Restraint.Value.Any(v => v))
+      {
+        this.ForceSend = true;
+      }
 
       if (counter < pieces.Length)
       {

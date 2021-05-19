@@ -92,7 +92,9 @@ namespace SpeckleStructuralGSA
         this.SubGWACommand.AddRange(targetNodes.Select(n => n.GWACommand));
 
         foreach (var n in targetNodes)
+        {
           n.ForceSend = true;
+        }
       }
 
       var gwaStageDefGsaIds = pieces[counter++].ListSplit(" ");
