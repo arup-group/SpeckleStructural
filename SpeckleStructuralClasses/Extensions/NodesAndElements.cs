@@ -380,6 +380,12 @@ namespace SpeckleStructuralClasses
         }
       }
 
+      //The ScaleProperties method doesn't scale primitive properties, which is correct for most cases
+      //except for: gsaMeshSize
+      if (GSAMeshSize.HasValue && GSAMeshSize.Value > 0)
+      {
+        GSAMeshSize *= factor;
+      }
       Helper.ScaleProperties(Properties, factor);
       GenerateHash();
     }
