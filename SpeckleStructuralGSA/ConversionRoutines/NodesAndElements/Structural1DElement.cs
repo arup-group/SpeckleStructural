@@ -213,7 +213,7 @@ namespace SpeckleStructuralGSA
         index.ToString(),
         element.Name == null || element.Name == "" ? " " : element.Name,
         "NO_RGB",
-        "BEAM", // Type
+        element.ElementType == Structural1DElementType.Spring ? "SPRING" : "BEAM", // Type
         propRef.ToString(), // Prop
         group.ToString() // Group
       };
