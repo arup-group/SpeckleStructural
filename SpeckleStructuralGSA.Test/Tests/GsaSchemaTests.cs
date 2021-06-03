@@ -150,6 +150,68 @@ namespace SpeckleStructuralGSA.Test
       Assert.IsTrue(ModelValidation(gwa, GsaRecord.GetKeyword<GsaLoadNode>(), 1, out var _));
     }
 
+    [Test]
+    public void GsaNodeSimple()
+    {
+      var nodeGwas = new List<string>()
+      {
+        "NODE.3\t1\t\tNO_RGB\t628.3\t-107\t222.8",
+        "NODE.3\t1\t\tNO_RGB\t628.3\t-107\t222.8\tfree\tGLOBAL\t0\t1\t2",
+        "NODE.3\t1\t\tNO_RGB\t628.3\t-107\t222.8\txz\tGLOBAL\t45\t1\t2"
+      };
+      var nodes = new List<GsaNode>();
+      foreach (var g in nodeGwas)
+      {
+        var n = new GsaNode();
+        Assert.IsTrue(n.FromGwa(g));
+        Assert.AreEqual(628.3, n.X);
+        Assert.AreEqual(-107, n.Y);
+        Assert.AreEqual(222.8, n.Z);
+        nodes.Add(n);
+      }
+
+      Assert.AreEqual(NodeRestraint.Free, nodes[0].NodeRestraint);
+      Assert.IsTrue(nodes[0].Restraints == null || nodes[0].Restraints.Count() == 0);
+      Assert.IsNull(nodes[0].SpringPropertyIndex);
+      Assert.IsNull(nodes[0].MassPropertyIndex);
+
+      Assert.AreEqual(NodeRestraint.Free, nodes[1].NodeRestraint);
+      Assert.IsTrue(nodes[1].Restraints == null || nodes[1].Restraints.Count() == 0);
+      Assert.AreEqual(1, nodes[1].SpringPropertyIndex);
+      Assert.AreEqual(2, nodes[1].MassPropertyIndex);
+
+      Assert.AreEqual(NodeRestraint.Custom, nodes[2].NodeRestraint);
+      Assert.IsTrue(nodes[2].Restraints.SequenceEqual(new AxisDirection6[] { AxisDirection6.X, AxisDirection6.Z }));
+      Assert.AreEqual(45, nodes[2].MeshSize);
+
+      for (int i = 0; i < nodes.Count(); i++)
+      {
+        Assert.IsTrue(nodes[i].Gwa(out var gwa));
+        Assert.IsTrue(nodeGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaPropMassSimple()
+    {
+      var massGwas = new List<string>()
+      {
+        "PROP_MASS.3\t1\tMass prop. 1\tNO_RGB\t4\t0\t0\t0\t0\t0\t0\tMOD\t100%\t100%\t100%"
+      };
+      var masses = new List<GsaPropMass>();
+      foreach (var g in massGwas)
+      {
+        var m = new GsaPropMass();
+        Assert.IsTrue(m.FromGwa(g));
+        masses.Add(m);
+      }
+
+      for (int i = 0; i < masses.Count(); i++)
+      {
+        Assert.IsTrue(masses[i].Gwa(out var gwa));
+        Assert.IsTrue(massGwas[i].Equals(gwa.First()));
+      }
+    }
 
     //Note for understanding:
     //StructuralStorey <-> GRID_PLANE

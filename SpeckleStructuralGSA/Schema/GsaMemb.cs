@@ -6,7 +6,7 @@ using SpeckleGSAInterfaces;
 namespace SpeckleStructuralGSA.Schema
 {
   [GsaType(GwaKeyword.MEMB, GwaSetCommandType.Set, true, true, false, 
-    GwaKeyword.PROP_SPR, GwaKeyword.SECTION, GwaKeyword.PROP_2D, GwaKeyword.PROP_MASS)]
+    GwaKeyword.PROP_SPR, GwaKeyword.SECTION, GwaKeyword.PROP_2D)]
   public class GsaMemb : GsaRecord
   {
     //Not supporting: 3D members, or 2D reinforcement

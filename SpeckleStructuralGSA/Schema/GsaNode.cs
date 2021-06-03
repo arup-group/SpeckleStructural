@@ -5,7 +5,7 @@ using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.Schema
 {
-  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true)]
+  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true, true, true, GwaKeyword.PROP_MASS)]
   public class GsaNode : GsaRecord
   {
     public string Name { get => name; set { name = value; } }
@@ -20,7 +20,10 @@ namespace SpeckleStructuralGSA.Schema
     public double? MeshSize;
     public int? SpringPropertyIndex;
     public int? MassPropertyIndex;
-    public int? DamperPropertyIndex;
+   
+
+    private static readonly List<AxisDirection6> axisDirs = Enum.GetValues(typeof(AxisDirection6)).Cast<AxisDirection6>().Where(e => e != AxisDirection6.NotSet).ToList();
+    //Damper property is left out at this point
 
     public GsaNode() : base()
     {
@@ -35,17 +38,45 @@ namespace SpeckleStructuralGSA.Schema
         return false;
       }
       var items = remainingItems;
-      items = items.Skip(1).ToList();  //Skip colour
+      FromGwaByFuncs(items, out remainingItems, AddName);
+
+      items = remainingItems.Skip(1).ToList();  //Skip colour
 
       //NODE.3 | num | name | colour | x | y | z | restraint | axis | mesh_size | springProperty | massProperty | damperProperty
       //Zero values are valid for origin, but not for vectors below
-      if (!FromGwaByFuncs(items, out remainingItems, AddName, (v) => double.TryParse(v, out X), (v) => double.TryParse(v, out Y), (v) => double.TryParse(v, out Z),
-        AddRestraints, AddAxis, (v) => AddNullableDoubleValue(v, out MeshSize), (v) => AddNullableIndex(v, out SpringPropertyIndex), 
-        (v) => AddNullableIndex(v, out MassPropertyIndex), (v) => AddNullableIndex(v, out DamperPropertyIndex)))
+      if (!FromGwaByFuncs(items, out remainingItems, (v) => double.TryParse(v, out X), (v) => double.TryParse(v, out Y), (v) => double.TryParse(v, out Z)))
       {
         return false;
       }
+      items = remainingItems;
+      if (items.Count() > 0)
+      {
+        FromGwaByFuncs(items, out remainingItems, AddRestraints);
+      }
 
+      items = remainingItems;
+      if (items.Count() > 0)
+      {
+        FromGwaByFuncs(items, out remainingItems, AddAxis);
+      }
+
+      items = remainingItems;
+      if (items.Count() > 0)
+      {
+        FromGwaByFuncs(items, out remainingItems, (v) => AddNullableDoubleValue(v, out MeshSize));
+      }
+
+      items = remainingItems;
+      if (items.Count() > 0)
+      {
+        FromGwaByFuncs(items, out remainingItems, (v) => AddNullableIndex(v, out SpringPropertyIndex));
+      }
+
+      items = remainingItems;
+      if (items.Count() > 0)
+      {
+        FromGwaByFuncs(items, out remainingItems, (v) => AddNullableIndex(v, out MassPropertyIndex));
+      }
       return true;
     }
 
@@ -58,8 +89,50 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //NODE.3 | num | name | colour | x | y | z | restraint | axis | mesh_size | springProperty | massProperty | damperProperty
-      AddItems(ref items, Name, "NO_RGB", X, Y, Z, AddRestraints(), AddAxis(), MeshSize ?? 0, SpringPropertyIndex ?? 0, MassPropertyIndex ?? 0, 
-        DamperPropertyIndex ?? 0);
+      AddItems(ref items, Name, "NO_RGB", X, Y, Z);
+
+      int numRemainingParameters = 0;
+      if (MassPropertyIndex.HasValue && MassPropertyIndex.Value > 0)
+      {
+        numRemainingParameters = 5;
+      }
+      else if (SpringPropertyIndex.HasValue && SpringPropertyIndex.Value > 0)
+      {
+        numRemainingParameters = 4;
+      }
+      else if (MeshSize.HasValue && MeshSize.Value > 0)
+      {
+        numRemainingParameters = 3;
+      }
+      else if (AxisRefType == AxisRefType.Local || AxisRefType == AxisRefType.Reference)
+      {
+        numRemainingParameters = 2;
+      }
+      else if (Restraints != null && Restraints.Count() > 0)
+      {
+        numRemainingParameters = 1;
+      }
+
+      if (numRemainingParameters >= 1)
+      {
+        AddItems(ref items, AddRestraints());
+      }
+      if (numRemainingParameters >= 2)
+      {
+        AddItems(ref items, AddAxis());
+      }
+      if (numRemainingParameters >= 3)
+      {
+        AddItems(ref items, MeshSize ?? 0);
+      }
+      if (numRemainingParameters >= 4)
+      {
+        AddItems(ref items, SpringPropertyIndex ?? 0);
+      }
+      if (numRemainingParameters >= 5)
+      {
+        AddItems(ref items, MassPropertyIndex ?? 0);
+      }
 
       gwa = (Join(items, out var gwaLine)) ? new List<string>() { gwaLine } : new List<string>();
       return gwa.Count() > 0;
@@ -69,12 +142,32 @@ namespace SpeckleStructuralGSA.Schema
 
     private string AddRestraints()
     {
-      return "";
+      if (NodeRestraint == NodeRestraint.Custom)
+      {
+        var custom = "";
+        foreach (var r in Restraints)
+        {
+          custom += r.ToString().ToLowerInvariant();
+        }
+        return custom;
+      }
+      else
+      {
+        return NodeRestraint.ToString().ToLowerInvariant();
+      }
     }
 
     private string AddAxis()
     {
-      return "";
+      if (AxisRefType == AxisRefType.Reference)
+      {
+        return AxisIndex.ToString();
+      }
+      else if (AxisRefType == AxisRefType.NotSet)
+      {
+        return "";
+      }
+      return AxisRefType.ToString().ToUpperInvariant();
     }
     #endregion
 
@@ -101,7 +194,6 @@ namespace SpeckleStructuralGSA.Schema
       else
       {
         NodeRestraint = NodeRestraint.Custom;
-        var axisDirs = Enum.GetValues(typeof(AxisDirection6)).Cast<AxisDirection6>().Where(e => e != AxisDirection6.NotSet).ToList();
         for (var i = 0; i < 6; i++)
         {
           if (boolRestraints[i])
@@ -124,6 +216,11 @@ namespace SpeckleStructuralGSA.Schema
       if (v.Trim().Equals(AxisRefType.Global.ToString(), StringComparison.InvariantCultureIgnoreCase))
       {
         AxisRefType = AxisRefType.Global;
+        return true;
+      }
+      if (v.Trim().Equals(AxisRefType.Local.ToString(), StringComparison.InvariantCultureIgnoreCase))
+      {
+        AxisRefType = AxisRefType.Local;
         return true;
       }
       else

@@ -252,6 +252,7 @@
     <Compile Include="Schema\GsaAssembly.cs" />
     <Compile Include="Schema\GsaEl.cs" />
     <Compile Include="Schema\GsaMemb.cs" />
+    <Compile Include="Schema\GsaPropMass.cs" />
     <Compile Include="Schema\Loading\GsaAnal.cs" />
     <Compile Include="Schema\Loading\GsaCombination.cs" />
     <Compile Include="Schema\Loading\GsaLoad2dThermal.cs" />
