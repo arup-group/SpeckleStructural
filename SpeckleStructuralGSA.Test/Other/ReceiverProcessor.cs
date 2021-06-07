@@ -51,7 +51,8 @@ namespace SpeckleStructuralGSA.Test
     private void ScaleObjects()
     {
       //Status.ChangeStatus("Scaling objects");
-      var scaleFactor = (1.0).ConvertUnit("mm", "m");
+      var units = Initialiser.AppResources.Settings.Units;
+      var scaleFactor = (1.0).ConvertUnit(units, "m");
       foreach (var o in receivedObjects)
       {
         try

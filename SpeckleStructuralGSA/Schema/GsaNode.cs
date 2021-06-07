@@ -108,7 +108,7 @@ namespace SpeckleStructuralGSA.Schema
       {
         numRemainingParameters = 2;
       }
-      else if (Restraints != null && Restraints.Count() > 0)
+      else if ((Restraints != null && Restraints.Count() > 0) || NodeRestraint != NodeRestraint.Free)
       {
         numRemainingParameters = 1;
       }

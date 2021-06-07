@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
-using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {
@@ -14,6 +12,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
     {
       var kw = GsaRecord.GetKeyword<GsaSection>();
       var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(kw);
+
+      int numAdded = 0;
 
       var structural1DPropertyExplicits = new List<Structural1DPropertyExplicit>();
       
@@ -56,7 +56,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
               var materialDict = (comp.MaterialType == Section1dMaterialType.CONCRETE) ? concreteMaterials : steelMaterials;
               structuralProp.MaterialRef = (materialIndex > 0 && materialDict.ContainsKey(materialIndex)) ? materialDict[materialIndex] : null;
             }
-
             return structuralProp;
           }
           return new SpeckleNull();
@@ -64,14 +63,17 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
         if (!(obj is SpeckleNull))
         {
-          structural1DPropertyExplicits.Add((Structural1DPropertyExplicit)obj);
+          Initialiser.GsaKit.GSASenderObjects.Add(new GSA1DPropertyExplicit() { Value = (Structural1DPropertyExplicit)obj, GSAId = i });
+          //structural1DPropertyExplicits.Add((Structural1DPropertyExplicit)obj);
+          numAdded++;
         }
       }
 
-      var props = structural1DPropertyExplicits.Select(pe => new GSA1DPropertyExplicit() { Value = pe }).ToList();
+      //var props = structural1DPropertyExplicits.Select(pe => new GSA1DPropertyExplicit() { Value = pe }).ToList();
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(props);
-      return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      //Initialiser.GsaKit.GSASenderObjects.AddRange(props);
+      //return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      return (numAdded > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 
     private static bool FindExpDetails(GsaSection gsaSection, out SectionComp comp, out ProfileDetailsExplicit profileDetailsExplicit)

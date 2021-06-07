@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using SpeckleCore;
 using SpeckleCoreGeometryClasses;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
+using SpeckleStructuralGSA.Schema;
+using SpeckleStructuralGSA.SchemaConversion;
 
 namespace SpeckleStructuralGSA
 {
@@ -214,6 +213,7 @@ namespace SpeckleStructuralGSA
     }
   }
 
+  /*
   //Note this relies on GSANode being called first - which creates the nodes to be received/sent.  The nodes are then altered by the methods
   //for GSA0DElement
   [GSAObject("EL.4", new string[] { "PROP_MASS.2" }, "model", true, false, new Type[] { typeof(GSANode) }, new Type[] { typeof(GSANode) })]
@@ -331,7 +331,8 @@ namespace SpeckleStructuralGSA
       return Convert.ToDouble(pieces[5]);
     }
   }
-  
+  */
+
   public static partial class Conversions
   {
     public static string ToNative(this SpecklePoint inputObject)
@@ -351,6 +352,8 @@ namespace SpeckleStructuralGSA
       });
     }
 
+    public static SpeckleObject ToSpeckle(this GSANode dummyObject) => (new GsaNode()).ToSpeckle();
+
     /*
     public static string ToNative(this StructuralNode node)
     {
@@ -361,7 +364,6 @@ namespace SpeckleStructuralGSA
           new GSA0DElement() { Value = node }.SetGWACommand() 
         }));
     }
-    */
 
     public static SpeckleObject ToSpeckle(this GSANode dummyObject)
     {
@@ -448,5 +450,7 @@ namespace SpeckleStructuralGSA
 
       return (changed) ? new SpeckleObject() : new SpeckleNull();
     }
+
+    */
   }
 }

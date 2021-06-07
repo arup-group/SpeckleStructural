@@ -4,6 +4,7 @@ using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
 using SpeckleGSAInterfaces;
+using System.Threading.Tasks;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {
@@ -21,7 +22,10 @@ namespace SpeckleStructuralGSA.SchemaConversion
       var structuralNodes = new List<StructuralNode>();
       var structural0dSprings = new List<Structural0DSpring>();
 
-      foreach (var i in newNodeLines.Keys)
+      int numToBeSent = 0;
+
+      //foreach (var i in newNodeLines.Keys)
+      Parallel.ForEach(newNodeLines.Keys, i =>
       {
         GsaNode gsaNode = null;
         var objNode = Helper.ToSpeckleTryCatch(nodeKw, i, () =>
@@ -34,9 +38,25 @@ namespace SpeckleStructuralGSA.SchemaConversion
               Name = gsaNode.Name,
               ApplicationId = SpeckleStructuralGSA.Helper.GetApplicationId(nodeKw, i),
               Value = new List<double>() { gsaNode.X, gsaNode.Y, gsaNode.Z },
-              GSALocalMeshSize = gsaNode.MeshSize ?? 0,
-              Restraint = Helper.AxisDirDictToStructuralVectorBoolSix(gsaNode.Restraints)
             };
+
+            if (gsaNode.MeshSize.HasValue && gsaNode.MeshSize.Value > 0)
+            {
+              structuralNode.GSALocalMeshSize = gsaNode.MeshSize.Value;
+            }
+
+            if (gsaNode.NodeRestraint == NodeRestraint.Custom && gsaNode.Restraints != null && gsaNode.Restraints.Count() > 0)
+            {
+              structuralNode.Restraint = Helper.AxisDirDictToStructuralVectorBoolSix(gsaNode.Restraints);
+            }
+            else if (gsaNode.NodeRestraint == NodeRestraint.Fix)
+            {
+              structuralNode.Restraint = new StructuralVectorBoolSix(Enumerable.Repeat(true, 6));
+            }
+            else if (gsaNode.NodeRestraint == NodeRestraint.Pin)
+            {
+              structuralNode.Restraint = new StructuralVectorBoolSix(Enumerable.Repeat(true, 3).Concat(Enumerable.Repeat(false, 3)));
+            }
 
             if (gsaNode.MassPropertyIndex.HasValue && gsaNode.MassPropertyIndex.Value > 0)
             {
@@ -50,7 +70,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
                 }
               }
             }
-
             return structuralNode;
           }
           return new SpeckleNull();
@@ -58,7 +77,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
         if (!(objNode is SpeckleNull))
         {
-          structuralNodes.Add((StructuralNode)objNode);
+          Initialiser.GsaKit.GSASenderObjects.Add(new GSANode() { Value = (StructuralNode)objNode, GSAId = i });
+          numToBeSent++;
         }
 
         if (gsaNode.SpringPropertyIndex.HasValue && gsaNode.SpringPropertyIndex.Value > 0)
@@ -85,12 +105,14 @@ namespace SpeckleStructuralGSA.SchemaConversion
           });
           if (!(objSpring is SpeckleNull))
           {
-            structural0dSprings.Add((Structural0DSpring)objSpring);
+            Initialiser.GsaKit.GSASenderObjects.Add(new GSA0DSpring() { Value = (Structural0DSpring)objSpring, GSAId = i });
+            numToBeSent++;
           }
         }
       }
-
-      var nodes = structuralNodes.Select(n => new GSANode() { Value = n }).ToList();
+      );
+      /*
+      var nodes = structuralNodes.Select(n => new GSANode() { Value = n, GSAId =  }).ToList();
       var springs = structural0dSprings.Select(s => new GSA0DSpring() { Value = s }).ToList();
 
       if (nodes.Count() > 0)
@@ -101,7 +123,9 @@ namespace SpeckleStructuralGSA.SchemaConversion
       {
         Initialiser.GsaKit.GSASenderObjects.AddRange(springs);
       }
-      return (nodes.Count() > 0 || springs.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      */
+      //return (nodes.Count() > 0 || springs.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      return (numToBeSent > 0) ? new SpeckleObject() : new SpeckleNull();
     }
   }
 }

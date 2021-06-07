@@ -11,7 +11,7 @@ namespace SpeckleStructuralGSA.Test
     public int PollingRate = 2000;
 
     //Default values for properties specified in the interface
-    public string Units { get; set; }
+    public string Units { get; set; } = "m";
     public GSATargetLayer TargetLayer { get; set; } = GSATargetLayer.Design;
     public double CoincidentNodeAllowance { get; set; } = 0.1;
     public bool SendOnlyResults { get; set; } = false;

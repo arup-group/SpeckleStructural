@@ -104,6 +104,12 @@ namespace SpeckleStructuralGSA.Test
           RemoveNullEmptyFields(jt1, new[] { "properties" });
           RemoveNullEmptyFields(jt2, new[] { "properties" });
 
+          RemoveNullEmptyFields(jt1, new[] { "name" });
+          RemoveNullEmptyFields(jt2, new[] { "name" });
+
+          RemoveNullEmptyFields(jt1, new[] { "hash" });
+          RemoveNullEmptyFields(jt2, new[] { "hash" });
+
           var newResult = JToken.DeepEquals(jt1, jt2);
         }
 

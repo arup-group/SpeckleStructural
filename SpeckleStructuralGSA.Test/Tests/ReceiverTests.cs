@@ -64,6 +64,7 @@ namespace SpeckleStructuralGSA.Test
       var mockGsaCom = SetupMockGsaCom();
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
+
       var receiverProcessor = new ReceiverProcessor(TestDataDirectory, Initialiser.AppResources);
 
       //Run conversion to GWA keywords

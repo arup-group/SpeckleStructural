@@ -64,14 +64,15 @@ namespace SpeckleStructuralGSA.SchemaConversion
         var loadings = gList.Select(gl => Helper.GsaLoadToLoading(gl.LoadDirection, gl.Load.Value)).ToList();
         var combinedLoading = new StructuralVectorSix(Enumerable.Range(0, 6).Select(i => loadings.Sum(l => l.Value[i])));
 
-        structural1DLoads.Add(new Structural1DLoad()
+        var load = new Structural1DLoad()
         {
           ApplicationId = applicationId,
           Name = name,
           ElementRefs = elementRefs,
           LoadCaseRef = loadCaseRef,
           Loading = combinedLoading
-        });
+        };
+        structural1DLoads.Add(load);
       }
       return true; 
     }
@@ -134,14 +135,15 @@ namespace SpeckleStructuralGSA.SchemaConversion
           var entityIndices = uniqueToLoadingsList[ul].SelectMany(ei => glByIndex[ei].Entities).Distinct().OrderBy(n => n).ToList();
           var elementRefs = entityIndices.Select(ei => Initialiser.AppResources.Cache.GetApplicationId(entityKeyword, ei)).Where(aid => !string.IsNullOrEmpty(aid)).ToList();
           var loadCaseRef = (gsaGroup.First().LoadCaseIndex.HasValue) ? Initialiser.AppResources.Cache.GetApplicationId(loadCaseKeyword, gsaGroup.First().LoadCaseIndex.Value) : null;
-          structural1DLoads.Add(new Structural1DLoad()
+          var load = new Structural1DLoad()
           {
             ApplicationId = SpeckleStructuralGSA.Helper.FormatApplicationId(keyword, uniqueToLoadingsList[ul]),
             Name = gsaGroup.First().Name,
             ElementRefs = elementRefs,
             LoadCaseRef = loadCaseRef,
             Loading = uniqueLoadings[ul]
-          });
+          };
+          structural1DLoads.Add(load);
         }
       }
 
@@ -189,11 +191,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
       public int Index;
       public int? LoadCaseIndex;
       public List<int> EntityIndices;
-      /*
-      public int? UniqueLoadingIndex;
-      public string Name;
-      public string ApplicationId;
-      */
 
       public D1LoadingSummary(int index, int? loadCaseIndex, List<int> entityIndices)
       {

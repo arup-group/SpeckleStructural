@@ -16,6 +16,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
       var kw = GsaRecord.GetKeyword<GsaPropSpr>();
       var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(kw);
 
+      int numAdded = 0;
+
       var structuralSpringProperties = new List<StructuralSpringProperty>();
 
       foreach (var i in newLines.Keys)
@@ -33,7 +35,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
               SpringType = gsaPropSpr.PropertyType,
               Stiffness = Helper.AxisDirDictToStructuralVectorSix(gsaPropSpr.Stiffnesses)
             };
-
             return structuralProp;
           }
           return new SpeckleNull();
@@ -41,13 +42,15 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
         if (!(obj is SpeckleNull))
         {
-          structuralSpringProperties.Add((StructuralSpringProperty)obj);
+          Initialiser.GsaKit.GSASenderObjects.Add(new GSASpringProperty() { Value = (StructuralSpringProperty)obj, GSAId = i } );
+          numAdded++;
         }
       }
 
-      var props = structuralSpringProperties.Select(pe => new GSASpringProperty() { Value = pe }).ToList();
-      Initialiser.GsaKit.GSASenderObjects.AddRange(props);
-      return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      //var props = structuralSpringProperties.Select(pe => new GSASpringProperty() { Value = pe }).ToList();
+      //Initialiser.GsaKit.GSASenderObjects.AddRange(props);
+      //return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      return (numAdded > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 
   }

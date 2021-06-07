@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
+using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA
 {
-  [GSAObject("EL.4", new string[] { "NODE.3" }, "model", true, false, new Type[] { typeof(GSANode) }, new Type[] { typeof(GSANode), typeof(GSA1DProperty) })]
+  //[GSAObject("EL.4", new string[] { "NODE.3" }, "model", true, false, new Type[] { typeof(GSANode) }, new Type[] { typeof(GSANode), typeof(GSA1DProperty) })]
+  [GSAObject("NODE.3", new string[] { }, "model", true, true, new Type[] { typeof(GSANode), typeof(GSASpringProperty) }, new Type[] { typeof(GSANode), typeof(GSASpringProperty) })]
   public class GSA0DSpring : GSABase<Structural0DSpring>
   {
     public int Member;
@@ -145,6 +147,9 @@ namespace SpeckleStructuralGSA
     }
     */
 
+    //The ToSpeckle() for this type isn't needed as it's covered by the ToSpeckle for nodes
+
+    /*
     //Sending to Speckle, search through a
     public static SpeckleObject ToSpeckle(this GSA0DSpring dummyObject)
     {
@@ -195,5 +200,6 @@ namespace SpeckleStructuralGSA
 
       return (springs.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }
+    */
   }
 }

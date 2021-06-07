@@ -533,13 +533,14 @@ namespace SpeckleStructuralGSA.Test
       ((IGSACache)Initialiser.AppResources.Cache).Snapshot(streamId1);
 
       //PREREQUISITES/REFERENCES - CONVERT TO SPECKLE
-
-      Conversions.ToSpeckle(new GSANode());
+      GsaNodeToSpeckle.ToSpeckle(new GsaNode());
+      //Conversions.ToSpeckle(new GSANode());
       Conversions.ToSpeckle(new GSALoadCase());
 
       //OBJECT UNDER TEST - CONVERT TO SPECKLE
 
-      Conversions.ToSpeckle(new GSA0DLoad());
+      GsaLoadNodeToSpeckle.ToSpeckle(new GsaLoadNode());
+      //Conversions.ToSpeckle(new GSA0DLoad());
 
       var sentObjectsDict = Initialiser.GsaKit.GSASenderObjects.GetAll();
       Assert.IsTrue(sentObjectsDict.ContainsKey(typeof(GSA0DLoad)));
