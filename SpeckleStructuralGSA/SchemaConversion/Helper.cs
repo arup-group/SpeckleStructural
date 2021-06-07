@@ -10,6 +10,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
 {
   public static class Helper
   {
+    public static List<AxisDirection6> AxisDirs = Enum.GetValues(typeof(AxisDirection6)).Cast<AxisDirection6>().Where(v => v != AxisDirection6.NotSet).ToList();
+
     //This is necessary because SpeckleCore swallows exceptions thrown within ToNative methods
     public static string ToNativeTryCatch(SpeckleObject so, Func<object> toNativeMethod)
     {
@@ -188,6 +190,41 @@ namespace SpeckleStructuralGSA.SchemaConversion
         case StructuralLoadCaseType.Thermal: return ("LC_VAR_TEMP");
         default: return ("LC_UNDEF");
       }
+    }
+
+    public static StructuralVectorSix AxisDirDictToStructuralVectorSix(Dictionary<AxisDirection6, double> d)
+    {
+      if (d == null || d.Keys.Count() == 0)
+      {
+        return null;
+      }
+      var v = new StructuralVectorSix();
+      var values = new double[6];
+      for (int i = 0; i < AxisDirs.Count(); i++)
+      {
+        if (d.ContainsKey(AxisDirs[i]))
+        {
+          values[i] = d[AxisDirs[i]];
+        }
+      }
+      v.Value = values.ToList();
+      return v;
+    }
+
+    public static StructuralVectorBoolSix AxisDirDictToStructuralVectorBoolSix(List<AxisDirection6> l)
+    {
+      if (l == null || l.Count() == 0)
+      {
+        return null;
+      }
+      var v = new StructuralVectorBoolSix();
+      var values = new bool[6];
+      for (int i = 0; i < AxisDirs.Count(); i++)
+      {
+        values[i] = l.Contains(AxisDirs[i]);
+      }
+      v.Value = values.ToList();
+      return v;
     }
 
     public static List<U> GetNewFromCache<T, U>() where U : GsaRecord  //T = old type, U = new schema type

@@ -351,6 +351,7 @@ namespace SpeckleStructuralGSA
       });
     }
 
+    /*
     public static string ToNative(this StructuralNode node)
     {
       return SchemaConversion.Helper.ToNativeTryCatch(node, () => 
@@ -360,6 +361,7 @@ namespace SpeckleStructuralGSA
           new GSA0DElement() { Value = node }.SetGWACommand() 
         }));
     }
+    */
 
     public static SpeckleObject ToSpeckle(this GSANode dummyObject)
     {

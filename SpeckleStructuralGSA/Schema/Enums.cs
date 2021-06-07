@@ -535,6 +535,16 @@
     Explicit
   }
 
+  public enum MassModification
+  {
+    [StringValue("")]
+    NotSet = 0,
+    [StringValue("MOD")]
+    Modified,
+    [StringValue("DEF")]
+    Defined,
+  }
+
   public enum Colour
   {
     NotSet = 0,

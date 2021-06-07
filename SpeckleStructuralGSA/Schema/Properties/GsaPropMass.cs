@@ -15,7 +15,10 @@ namespace SpeckleStructuralGSA.Schema
     public double Ixy;
     public double Iyz;
     public double Izx;
-    //The rest of the parameters are not implemented at this stage
+    public MassModification Mod;
+    public double? ModXPercentage;
+    public double? ModYPercentage;
+    public double? ModZPercentage;
 
     public GsaPropMass() : base()
     {
@@ -38,7 +41,9 @@ namespace SpeckleStructuralGSA.Schema
       //Zero values are valid for origin, but not for vectors below
       if (!FromGwaByFuncs(items, out remainingItems, (v) => double.TryParse(v, out Mass), 
         (v) => double.TryParse(v, out Ixx), (v) => double.TryParse(v, out Iyy), (v) => double.TryParse(v, out Izz),
-        (v) => double.TryParse(v, out Ixy), (v) => double.TryParse(v, out Iyz), (v) => double.TryParse(v, out Izx)))
+        (v) => double.TryParse(v, out Ixy), (v) => double.TryParse(v, out Iyz), (v) => double.TryParse(v, out Izx),
+        (v) => v.TryParseStringValue(out Mod), (v) => AddNullableDoubleValue(v.Replace("%", ""), out ModXPercentage), 
+        (v) => AddNullableDoubleValue(v.Replace("%", ""), out ModYPercentage), (v) => AddNullableDoubleValue(v.Replace("%", ""), out ModZPercentage)))
       {
         return false;
       }
@@ -55,7 +60,8 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //PROP_MASS.3 | num | name | colour | mass | Ixx | Iyy | Izz | Ixy | Iyz | Izx | mod { | mod_x | mod_y | mod_z }
-      AddItems(ref items, Name, "NO_RGB", Mass, Ixx, Iyy, Izz, Ixy, Iyz, Izx, "MOD", "100%", "100%", "100%");
+      AddItems(ref items, Name, "NO_RGB", Mass, Ixx, Iyy, Izz, Ixy, Iyz, Izx, Mod.GetStringValue(), 
+        ModXPercentage  + "%", ModYPercentage + "%", ModZPercentage + "%");
 
       gwa = (Join(items, out var gwaLine)) ? new List<string>() { gwaLine } : new List<string>();
       return gwa.Count() > 0;

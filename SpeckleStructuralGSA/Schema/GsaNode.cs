@@ -5,7 +5,7 @@ using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.Schema
 {
-  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true, true, true, GwaKeyword.PROP_MASS)]
+  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true, true, true, GwaKeyword.AXIS, GwaKeyword.PROP_MASS, GwaKeyword.PROP_SPR)]
   public class GsaNode : GsaRecord
   {
     public string Name { get => name; set { name = value; } }
@@ -38,13 +38,9 @@ namespace SpeckleStructuralGSA.Schema
         return false;
       }
       var items = remainingItems;
-      FromGwaByFuncs(items, out remainingItems, AddName);
-
-      items = remainingItems.Skip(1).ToList();  //Skip colour
-
       //NODE.3 | num | name | colour | x | y | z | restraint | axis | mesh_size | springProperty | massProperty | damperProperty
       //Zero values are valid for origin, but not for vectors below
-      if (!FromGwaByFuncs(items, out remainingItems, (v) => double.TryParse(v, out X), (v) => double.TryParse(v, out Y), (v) => double.TryParse(v, out Z)))
+      if (!FromGwaByFuncs(items, out remainingItems, AddName, null, (v) => double.TryParse(v, out X), (v) => double.TryParse(v, out Y), (v) => double.TryParse(v, out Z)))
       {
         return false;
       }
@@ -58,6 +54,10 @@ namespace SpeckleStructuralGSA.Schema
       if (items.Count() > 0)
       {
         FromGwaByFuncs(items, out remainingItems, AddAxis);
+      }
+      else
+      {
+        AxisRefType = AxisRefType.Global;
       }
 
       items = remainingItems;
@@ -165,7 +165,7 @@ namespace SpeckleStructuralGSA.Schema
       }
       else if (AxisRefType == AxisRefType.NotSet)
       {
-        return "";
+        return AxisRefType.Global.ToString().ToUpperInvariant();
       }
       return AxisRefType.ToString().ToUpperInvariant();
     }

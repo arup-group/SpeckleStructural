@@ -134,6 +134,7 @@ namespace SpeckleStructuralGSA
 
   public static partial class Conversions
   {
+    /*
     public static string ToNative(this Structural0DSpring spring)
     {
       return SchemaConversion.Helper.ToNativeTryCatch(spring, () =>
@@ -142,6 +143,7 @@ namespace SpeckleStructuralGSA
         return new GSA0DSpring() { Value = spring }.SetGWACommand(Initialiser.AppResources.Proxy, group);
       });
     }
+    */
 
     //Sending to Speckle, search through a
     public static SpeckleObject ToSpeckle(this GSA0DSpring dummyObject)

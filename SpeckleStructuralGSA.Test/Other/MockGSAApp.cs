@@ -22,6 +22,7 @@ namespace SpeckleStructuralGSA.Test
       Settings = settings ?? new MockSettings();
       if (proxy == null)
       {
+        /*
         var mockGSAObject = new Mock<IGSAProxy>();
 
         mockGSAObject.Setup(x => x.NodeAt(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>()))
@@ -36,6 +37,8 @@ namespace SpeckleStructuralGSA.Test
         mockGSAObject.Setup(x => x.GetUnits()).Returns("m");
 
         Proxy = mockGSAObject.Object;
+        */
+        proxy = new TestProxy();
       }
       else
       {

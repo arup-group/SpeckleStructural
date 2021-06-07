@@ -191,10 +191,12 @@ namespace SpeckleStructuralGSA
 
   public static partial class Conversions
   {
+    /*
     public static string ToNative(this StructuralSpringProperty prop)
     {
       return SchemaConversion.Helper.ToNativeTryCatch(prop, () => new GSASpringProperty() { Value = prop }.SetGWACommand());
     }
+    */
 
     public static SpeckleObject ToSpeckle(this GSASpringProperty dummyObject)
     {

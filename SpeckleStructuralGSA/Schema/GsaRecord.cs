@@ -170,7 +170,7 @@ namespace SpeckleStructuralGSA.Schema
 
     #region common_to_gwa_fns
 
-    public string AddEntities(List<int> entities)
+    protected string AddEntities(List<int> entities)
     {
       //For now assume that an empty list means "all"
       if (entities == null || entities.Count() == 0)
@@ -194,7 +194,7 @@ namespace SpeckleStructuralGSA.Schema
         : string.Join(" ", entities);
     }
 
-    public string AddNodes(List<int> indices)
+    protected string AddNodes(List<int> indices)
     {
       //For now assume that an empty list means "all"
       if (indices == null || indices.Count() == 0)
@@ -484,7 +484,7 @@ namespace SpeckleStructuralGSA.Schema
     {
       try
       {
-        v = (T)Enum.Parse(typeof(T), s);
+        v = (T)Enum.Parse(typeof(T), s, true);
         return true;
       }
       catch

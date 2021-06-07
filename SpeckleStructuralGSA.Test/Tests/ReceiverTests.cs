@@ -24,7 +24,7 @@ namespace SpeckleStructuralGSA.Test
 
       //If this isn't called, then the GetObjectSubtypeBetter method in SpeckleCore will cause a {"Value cannot be null.\r\nParameter name: source"} message
       SpeckleInitializer.Initialize();
-      Initialiser.AppResources = new MockGSAApp();
+      Initialiser.AppResources = new MockGSAApp(proxy: new TestProxy());
       //gsaInterfacer = new GSAProxy();
       //gsaCache = new GSACache();
 

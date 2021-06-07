@@ -7,7 +7,7 @@ namespace SpeckleStructuralClasses
 {
   public enum StructuralMaterialType
   {
-    NotSet,
+    NotSet = 0,
     Generic,
     Steel,
     Concrete
@@ -15,7 +15,7 @@ namespace SpeckleStructuralClasses
 
   public enum Structural1DPropertyShape
   {
-    NotSet,
+    NotSet = 0,
     Generic,
     Circular,
     Rectangular,
@@ -26,7 +26,7 @@ namespace SpeckleStructuralClasses
 
   public enum Structural2DPropertyReferenceSurface
   {
-    NotSet,
+    NotSet = 0,
     Top,
     Middle,
     Bottom,
@@ -34,7 +34,7 @@ namespace SpeckleStructuralClasses
 
   public enum StructuralSpringPropertyType
   {
-    NotSet,
+    NotSet = 0,
     General,
     Axial,
     Torsional,
