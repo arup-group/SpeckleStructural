@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
-using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {
@@ -12,7 +10,10 @@ namespace SpeckleStructuralGSA.SchemaConversion
   {
     public static SpeckleObject ToSpeckle(this GsaSection dummyObject)
     {
-      var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(dummyObject.Keyword);
+      var kw = GsaRecord.GetKeyword<GsaSection>();
+      var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(kw);
+
+      int numAdded = 0;
 
       var structural1DPropertyExplicits = new List<Structural1DPropertyExplicit>();
       
@@ -23,15 +24,19 @@ namespace SpeckleStructuralGSA.SchemaConversion
       //Filtering out all but explicit properties:
       //1.  First exclude any GWA lines with the exact string "EXP" - make first pass at filtering them out
       //2.  Call FromGwa for all and perform logic check of values of GsaSection (and subclass) instances
-      var keysContainingEXP = newLines.Keys.Where(k => newLines[k].Contains("EXP")).ToList();
+      var indicesContainingEXP = newLines.Keys.Where(k => newLines[k].Contains("EXP")).ToList();
       var gsaSectionsExp = new List<GsaSection>();
-      foreach (var k in keysContainingEXP)
+      foreach (var i in indicesContainingEXP)
       {
-        var obj = Helper.ToSpeckleTryCatch(dummyObject.Keyword, k, () =>
+        var obj = Helper.ToSpeckleTryCatch(dummyObject.Keyword, i, () =>
         {
           var gsaSection = new GsaSection();
-          if (gsaSection.FromGwa(newLines[k]) && FindExpDetails(gsaSection, out var comp, out var pde))
+          if (gsaSection.FromGwa(newLines[i]) && FindExpDetails(gsaSection, out var comp, out var pde))
           {
+            if (string.IsNullOrEmpty(gsaSection.ApplicationId))
+            {
+              gsaSection.ApplicationId = SpeckleStructuralGSA.Helper.FormatApplicationId(kw, i);
+            }
             var structuralProp = new Structural1DPropertyExplicit()
             {
               Name = gsaSection.Name,
@@ -51,7 +56,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
               var materialDict = (comp.MaterialType == Section1dMaterialType.CONCRETE) ? concreteMaterials : steelMaterials;
               structuralProp.MaterialRef = (materialIndex > 0 && materialDict.ContainsKey(materialIndex)) ? materialDict[materialIndex] : null;
             }
-
             return structuralProp;
           }
           return new SpeckleNull();
@@ -59,13 +63,12 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
         if (!(obj is SpeckleNull))
         {
-          structural1DPropertyExplicits.Add((Structural1DPropertyExplicit)obj);
+          Initialiser.GsaKit.GSASenderObjects.Add(new GSA1DPropertyExplicit() { Value = (Structural1DPropertyExplicit)obj, GSAId = i });
+          numAdded++;
         }
       }
 
-      var props = structural1DPropertyExplicits.Select(pe => new GSA1DPropertyExplicit() { Value = pe }).ToList();
-      Initialiser.GsaKit.GSASenderObjects.AddRange(props);
-      return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
+      return (numAdded > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 
     private static bool FindExpDetails(GsaSection gsaSection, out SectionComp comp, out ProfileDetailsExplicit profileDetailsExplicit)

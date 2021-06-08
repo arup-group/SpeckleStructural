@@ -15,6 +15,7 @@ namespace SpeckleStructuralGSA
     public void Clear() => ExecuteWithLock(() => dict.Clear());
 
     public int Count<T>() => ExecuteWithLock(() => (dict.ContainsKey(typeof(T))) ? dict[typeof(T)].Count() : 0);
+    public int Count(Type t) => ExecuteWithLock(() => (dict.ContainsKey(t)) ? dict[t].Count() : 0);
 
     public List<T> Get<T>() => ExecuteWithLock(() => (dict.ContainsKey(typeof(T))) ? dict[typeof(T)].Cast<T>().ToList() : new List<T>());
 

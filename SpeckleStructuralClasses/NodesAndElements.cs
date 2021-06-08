@@ -372,7 +372,7 @@ namespace SpeckleStructuralClasses
       set { if (value != null && value.Count() > 0) StructuralProperties["zAxis"] = value; }
     }
 
-    /// <summary>List of X, Y, Z, Rx, Ry, and Rz releases of each node.</summary>
+    /// <summary>List of X, Y, Z, Rx, Ry, and Rz releases of each end node.</summary>
     [JsonIgnore]
     public List<StructuralVectorBoolSix> EndRelease
     {

@@ -149,7 +149,19 @@ namespace SpeckleStructuralGSA
       
       ls.Add("0"); // Orientation node
       ls.Add("0"); // Angles
-      ls.Add("1"); // Target mesh size
+      // Target mesh size
+      if (Initialiser.AppResources.Proxy.GetUnits() == "mm")
+      {
+        ls.Add("1000");
+      }
+      else if (Initialiser.AppResources.Proxy.GetUnits() == "in")
+      {
+        ls.Add("39.3701");
+      }
+      else
+      {
+        ls.Add("1");
+      }
       ls.Add("YES"); // intersector
       ls.Add("LINEAR"); // Element type
       ls.Add("0"); // Fire resistance (mins)
@@ -163,8 +175,21 @@ namespace SpeckleStructuralGSA
       ls.Add("NO"); // Internal auto offset
       //These are default values - filled in here to avoid instances of GWA comparisons (when upserting into the cache) showing change where there isn't
       ls.Add("REBAR_2D.1");
-      ls.Add("0.03");
-      ls.Add("0.03");
+      if (Initialiser.AppResources.Proxy.GetUnits() == "mm")
+      {
+        ls.Add("30");
+        ls.Add("30");
+      }
+      else if (Initialiser.AppResources.Proxy.GetUnits() == "in")
+      {
+        ls.Add("1");
+        ls.Add("1");
+      }
+      else
+      {
+        ls.Add("0.03");
+        ls.Add("0.03");
+      }
       ls.Add("0");
       return (string.Join(Initialiser.AppResources.Proxy.GwaDelimiter.ToString(), ls));
     }

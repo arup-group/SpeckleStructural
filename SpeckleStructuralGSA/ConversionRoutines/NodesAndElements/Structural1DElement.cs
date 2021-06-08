@@ -177,7 +177,7 @@ namespace SpeckleStructuralGSA
       {
         Initialiser.AppResources.Cache.RemoveFromProvisional(keyword, element.ApplicationId);
         Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, 
-          "Coordinates resolve to identical GSA nodes for application ID:", element.ApplicationId);
+          "All coordinates resolve to identical GSA node for application ID:", element.ApplicationId);
         return "";
       }
 
@@ -213,7 +213,7 @@ namespace SpeckleStructuralGSA
         index.ToString(),
         element.Name == null || element.Name == "" ? " " : element.Name,
         "NO_RGB",
-        "BEAM", // Type
+        element.ElementType == Structural1DElementType.Spring ? "SPRING" : "BEAM", // Type
         propRef.ToString(), // Prop
         group.ToString() // Group
       };
@@ -505,7 +505,9 @@ namespace SpeckleStructuralGSA
 
       var member = this.Value as Structural1DElement;
       if (member.Value == null || member.Value.Count() == 0)
+      {
         return "";
+      }
 
       var keyword = typeof(GSA1DMember).GetGSAKeyword();
 
@@ -694,7 +696,7 @@ namespace SpeckleStructuralGSA
 
     public static string ToNative(this Structural1DElement beam)
     {
-      return SchemaConversion.Helper.ToNativeTryCatch(beam, () => (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis) 
+      return SchemaConversion.Helper.ToNativeTryCatch(beam, () => (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
         ? new GSA1DElement() { Value = beam }.SetGWACommand()
         : new GSA1DMember() { Value = beam }.SetGWACommand());
     }

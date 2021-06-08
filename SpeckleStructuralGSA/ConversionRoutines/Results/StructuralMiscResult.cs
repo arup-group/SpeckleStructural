@@ -38,7 +38,7 @@ namespace SpeckleStructuralGSA
           {
             try
             {
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.Item2, kvp.Value.Item3, kvp.Value.Item4, loadCase, axisStr);
+              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr);
 
               if (resultExport == null || resultExport.Count() == 0)
               {

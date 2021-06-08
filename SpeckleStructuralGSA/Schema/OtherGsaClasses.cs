@@ -38,8 +38,9 @@ namespace SpeckleStructuralGSA.Schema
   [GsaType(GwaKeyword.PROP_SEC, GwaSetCommandType.Set, true, GwaKeyword.MAT_STEEL, GwaKeyword.MAT_CONCRETE)]
   public class GsaPropSec : BlankGsaRecord { }
 
-  [GsaType(GwaKeyword.PROP_SPR, GwaSetCommandType.Set, true, GwaKeyword.AXIS)]
+  /*[GsaType(GwaKeyword.PROP_SPR, GwaSetCommandType.Set, true, GwaKeyword.AXIS)]
   public class GsaPropSpr : BlankGsaRecord { }
+  */
 
   [GsaType(GwaKeyword.USER_VEHICLE, GwaSetCommandType.Set, true, GwaKeyword.LOAD_TITLE, GwaKeyword.TASK)]
   public class GsaUserVehicle : BlankGsaRecord { }

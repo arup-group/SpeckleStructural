@@ -305,7 +305,7 @@ namespace SpeckleStructuralGSA
                     webThickness, depth, 0,
                     0, depth, 0});
         (prop.Profile as SpecklePolyline).Closed = true;
-        prop.Shape = Structural1DPropertyShape.Generic;
+        prop.Shape = Structural1DPropertyShape.Angle;
         prop.Hollow = false;
       }
       else if (type == "TR")
@@ -478,7 +478,7 @@ namespace SpeckleStructuralGSA
             var T = yDist[3] - yDist[2];
             var t = xDist[2] - xDist[1];
 
-            return "STD%I(" + gsaUnit + ")%" + depth.ToString() + "%" + width.ToString() + "%" + T.ToString() + "%" + t.ToString();
+            return "STD%I(" + gsaUnit + ")%" + depth.ToString() + "%" + width.ToString() + "%" + t.ToString() + "%" + T.ToString();
           }
         }
         else if (prop.Shape == Structural1DPropertyShape.T)
@@ -493,14 +493,31 @@ namespace SpeckleStructuralGSA
           {
             var width = xDist.Max() - xDist.Min();
             var depth = yDist.Max() - yDist.Min();
-            var T = yDist[2] - yDist[1];
             var t = xDist[2] - xDist[1];
+            var T = yDist[2] - yDist[1];
 
-            return "STD%T(" + gsaUnit + ")%" + depth.ToString() + "%" + width.ToString() + "%" + T.ToString() + "%" + t.ToString();
+            return "STD%T(" + gsaUnit + ")%" + depth.ToString() + "%" + width.ToString() + "%" + t.ToString() + "%" + T.ToString();
+          }
+        }
+        else if (prop.Shape == Structural1DPropertyShape.Angle)
+        {
+          var xDist = X.Distinct().ToList();
+          var yDist = Y.Distinct().ToList();
+
+          xDist.Sort();
+          yDist.Sort();
+
+          if (xDist.Count() == 3 && yDist.Count() == 3)
+          {
+            var width = xDist.Max() - xDist.Min();
+            var depth = yDist.Max() - yDist.Min();
+            var T = Math.Min(yDist[1] - yDist[0], yDist[2] - yDist[1]);
+            var t = Math.Min(xDist[1] - xDist[0], xDist[2] - xDist[1]);
+
+            return "STD%A(" + gsaUnit + ")%" + depth.ToString() + "%" + width.ToString() + "%" + T.ToString() + "%" + t.ToString();
           }
         }
         // Structural1DPropertyShape.Generic
-
 
 
         if (X.Count() < 3 || Y.Count() < 3) return "";

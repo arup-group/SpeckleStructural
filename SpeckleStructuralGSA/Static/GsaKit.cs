@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA
       get
       {
         var elementKw = Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design ? GwaKeyword.MEMB : GwaKeyword.EL;
-        return new Dictionary<Type, string>()
+        var typeData = new Dictionary<Type, string>()
         { { typeof(StructuralLoadCase), GwaKeyword.LOAD_TITLE.GetStringValue() },
           //Removed because combos can be self-referential
           //{ typeof(StructuralLoadCombo), GwaKeyword.COMBINATION.GetStringValue() },
@@ -45,6 +45,11 @@ namespace SpeckleStructuralGSA
           { typeof(StructuralMaterialConcrete), GwaKeyword.MAT_CONCRETE.GetStringValue() },
           { typeof(StructuralMaterialSteel), GwaKeyword.MAT_STEEL.GetStringValue() }
         };
+        if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
+        {
+          typeData.Add(typeof(Structural1DElementPolyline), elementKw.GetStringValue());
+        }
+        return typeData;
       }
     }
 

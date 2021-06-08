@@ -11,6 +11,8 @@ using SpeckleStructuralClasses;
 using MathNet.Spatial;
 using MathNet.Spatial.Euclidean;
 using System.IO;
+using SpeckleStructuralGSA.SchemaConversion;
+using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -104,11 +106,12 @@ namespace SpeckleStructuralGSA.Test
           );
       }
 
-      var dummy = Activator.CreateInstance(typeof(GSANode));
-      var retObject = Conversions.ToSpeckle((GSANode)dummy);
+      //var dummy = Activator.CreateInstance(typeof(GSANode));
+      GsaNodeToSpeckle.ToSpeckle(new GsaNode());
+      //var retObject = Conversions.ToSpeckle((GSANode)dummy);
 
-      dummy = Activator.CreateInstance(typeof(GSA2DMember));
-      retObject = Conversions.ToSpeckle((GSA2DMember)dummy);
+      var dummy = Activator.CreateInstance(typeof(GSA2DMember));
+      var retObject = Conversions.ToSpeckle((GSA2DMember)dummy);
 
       var meshes = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DMember>();
       Assert.AreEqual(50, meshes.Count);
