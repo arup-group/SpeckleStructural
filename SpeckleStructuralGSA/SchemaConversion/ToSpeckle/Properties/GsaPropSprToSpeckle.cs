@@ -35,6 +35,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
               SpringType = gsaPropSpr.PropertyType,
               Stiffness = Helper.AxisDirDictToStructuralVectorSix(gsaPropSpr.Stiffnesses)
             };
+            ((Dictionary<string, object>)structuralProp.Properties["structural"]).Add("NativeId", i.ToString());
             return structuralProp;
           }
           return new SpeckleNull();

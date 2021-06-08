@@ -38,7 +38,7 @@ namespace SpeckleStructuralGSA.Test
 
         Proxy = mockGSAObject.Object;
         */
-        proxy = new TestProxy();
+        Proxy = new TestProxy();
       }
       else
       {

@@ -43,7 +43,7 @@ namespace SpeckleStructuralGSA.Test
     protected TestBase(string directory)
     {
       TestDataDirectory = directory;
-      //appResources = new MockGSAApp();
+      Initialiser.AppResources = new MockGSAApp();
     }
 
     protected Mock<IComAuto> SetupMockGsaCom()

@@ -5365,10 +5365,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-1",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5380,10 +5379,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-10",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5395,7 +5393,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-101",
-    "name": "",
     "properties": {}
   },
   {
@@ -5406,10 +5403,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-102",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5421,10 +5417,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-103",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5436,10 +5431,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-104",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5451,10 +5445,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-105",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -5466,10 +5459,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-106",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5481,7 +5473,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-107",
-    "name": "",
     "properties": {}
   },
   {
@@ -5492,7 +5483,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-108",
-    "name": "",
     "properties": {}
   },
   {
@@ -5503,10 +5493,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-109",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -5518,10 +5507,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-11",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5533,10 +5521,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-111",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5548,10 +5535,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-112",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -5563,10 +5549,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-114",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5578,10 +5563,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-115",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -5593,10 +5577,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-117",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5608,10 +5591,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-118",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5623,10 +5605,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-119",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5638,10 +5619,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-12",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -5653,10 +5633,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-120",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -5668,10 +5647,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-121",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5683,7 +5661,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-122",
-    "name": "",
     "properties": {}
   },
   {
@@ -5694,7 +5671,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-123",
-    "name": "",
     "properties": {}
   },
   {
@@ -5705,10 +5681,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-124",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5720,10 +5695,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-125",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5735,10 +5709,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-126",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5750,10 +5723,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-127",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5765,10 +5737,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-128",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5780,10 +5751,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-129",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5795,7 +5765,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-13",
-    "name": "",
     "properties": {}
   },
   {
@@ -5806,7 +5775,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-130",
-    "name": "",
     "properties": {}
   },
   {
@@ -5817,7 +5785,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-131",
-    "name": "",
     "properties": {}
   },
   {
@@ -5828,7 +5795,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-133",
-    "name": "",
     "properties": {}
   },
   {
@@ -5839,10 +5805,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-134",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5854,7 +5819,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-135",
-    "name": "",
     "properties": {}
   },
   {
@@ -5865,10 +5829,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-136",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5880,7 +5843,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-137",
-    "name": "",
     "properties": {}
   },
   {
@@ -5891,7 +5853,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-138",
-    "name": "",
     "properties": {}
   },
   {
@@ -5902,7 +5863,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-139",
-    "name": "",
     "properties": {}
   },
   {
@@ -5913,10 +5873,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-14",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5928,7 +5887,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-140",
-    "name": "",
     "properties": {}
   },
   {
@@ -5939,7 +5897,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-141",
-    "name": "",
     "properties": {}
   },
   {
@@ -5950,10 +5907,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-142",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5965,10 +5921,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-143",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -5980,10 +5935,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-144",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -5995,10 +5949,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-145",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -6010,10 +5963,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-146",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6025,10 +5977,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-147",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6040,10 +5991,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-148",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6055,10 +6005,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-149",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -6070,10 +6019,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-15",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6085,10 +6033,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-150",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6100,10 +6047,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-151",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6115,10 +6061,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-152",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6130,10 +6075,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-153",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -6145,10 +6089,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-154",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6160,7 +6103,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-155",
-    "name": "",
     "properties": {}
   },
   {
@@ -6171,7 +6113,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-156",
-    "name": "",
     "properties": {}
   },
   {
@@ -6182,10 +6123,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-157",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6197,10 +6137,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-158",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6212,10 +6151,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-159",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -6227,10 +6165,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-16",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6242,10 +6179,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-160",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6257,7 +6193,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-161",
-    "name": "",
     "properties": {}
   },
   {
@@ -6268,10 +6203,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-162",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6283,10 +6217,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-163",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,true],"hash":"4797fe12406830913abe59a72f9c57f3","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,true],"properties":{}}
       }
     }
   },
@@ -6298,7 +6231,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-164",
-    "name": "",
     "properties": {}
   },
   {
@@ -6309,7 +6241,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-165",
-    "name": "",
     "properties": {}
   },
   {
@@ -6320,10 +6251,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-166",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6335,10 +6265,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-167",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6350,7 +6279,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-168",
-    "name": "",
     "properties": {}
   },
   {
@@ -6361,7 +6289,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-169",
-    "name": "",
     "properties": {}
   },
   {
@@ -6372,10 +6299,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-17",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -6387,7 +6313,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-170",
-    "name": "",
     "properties": {}
   },
   {
@@ -6398,10 +6323,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-171",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6413,7 +6337,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-172",
-    "name": "",
     "properties": {}
   },
   {
@@ -6424,10 +6347,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-173",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6439,10 +6361,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-174",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"hash":"7280e41441388141469414a01cf9d7c4","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"properties":{}}
       }
     }
   },
@@ -6454,7 +6375,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-175",
-    "name": "",
     "properties": {}
   },
   {
@@ -6465,10 +6385,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-176",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -6480,10 +6399,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-177",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6495,10 +6413,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-178",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6510,7 +6427,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-179",
-    "name": "",
     "properties": {}
   },
   {
@@ -6521,10 +6437,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-18",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6536,10 +6451,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-180",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"hash":"7280e41441388141469414a01cf9d7c4","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"properties":{}}
       }
     }
   },
@@ -6551,10 +6465,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-181",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6566,10 +6479,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-182",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -6581,10 +6493,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-183",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6596,10 +6507,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-184",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6611,10 +6521,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-185",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6626,7 +6535,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-186",
-    "name": "",
     "properties": {}
   },
   {
@@ -6637,10 +6545,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-187",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6652,7 +6559,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-188",
-    "name": "",
     "properties": {}
   },
   {
@@ -6663,10 +6569,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-189",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6678,10 +6583,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-19",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,true],"hash":"11267dc5682f0248c1bde38d5c9acf85","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,true],"properties":{}}
       }
     }
   },
@@ -6693,10 +6597,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-190",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"hash":"7280e41441388141469414a01cf9d7c4","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"properties":{}}
       }
     }
   },
@@ -6708,10 +6611,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-191",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6723,10 +6625,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-192",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -6738,10 +6639,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-193",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6753,10 +6653,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-194",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6768,10 +6667,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-195",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -6783,10 +6681,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-196",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -6798,10 +6695,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-197",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6813,7 +6709,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-198",
-    "name": "",
     "properties": {}
   },
   {
@@ -6824,10 +6719,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-199",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6839,10 +6733,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-2",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6854,10 +6747,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-20",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6869,10 +6761,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-200",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6884,10 +6775,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-201",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6899,10 +6789,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-203",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6914,7 +6803,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-204",
-    "name": "",
     "properties": {}
   },
   {
@@ -6925,10 +6813,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-205",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6940,10 +6827,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-206",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -6955,10 +6841,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-208",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6970,10 +6855,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-209",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -6985,7 +6869,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-21",
-    "name": "",
     "properties": {}
   },
   {
@@ -6996,10 +6879,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-210",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7011,10 +6893,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-211",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7026,10 +6907,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-212",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7041,10 +6921,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-213",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7056,10 +6935,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-214",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7071,10 +6949,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-215",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7086,7 +6963,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-216",
-    "name": "",
     "properties": {}
   },
   {
@@ -7097,7 +6973,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-217",
-    "name": "",
     "properties": {}
   },
   {
@@ -7108,10 +6983,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-218",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7123,10 +6997,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-219",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7138,10 +7011,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-22",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7153,10 +7025,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-220",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7168,10 +7039,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-221",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7183,7 +7053,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-222",
-    "name": "",
     "properties": {}
   },
   {
@@ -7194,7 +7063,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-223",
-    "name": "",
     "properties": {}
   },
   {
@@ -7205,7 +7073,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-224",
-    "name": "",
     "properties": {}
   },
   {
@@ -7216,7 +7083,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-225",
-    "name": "",
     "properties": {}
   },
   {
@@ -7227,7 +7093,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-226",
-    "name": "",
     "properties": {}
   },
   {
@@ -7238,7 +7103,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-227",
-    "name": "",
     "properties": {}
   },
   {
@@ -7249,7 +7113,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-228",
-    "name": "",
     "properties": {}
   },
   {
@@ -7260,7 +7123,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-229",
-    "name": "",
     "properties": {}
   },
   {
@@ -7271,10 +7133,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-23",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7286,7 +7147,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-230",
-    "name": "",
     "properties": {}
   },
   {
@@ -7297,7 +7157,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-231",
-    "name": "",
     "properties": {}
   },
   {
@@ -7308,7 +7167,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-232",
-    "name": "",
     "properties": {}
   },
   {
@@ -7319,7 +7177,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-233",
-    "name": "",
     "properties": {}
   },
   {
@@ -7330,7 +7187,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-234",
-    "name": "",
     "properties": {}
   },
   {
@@ -7341,7 +7197,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-235",
-    "name": "",
     "properties": {}
   },
   {
@@ -7352,7 +7207,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-236",
-    "name": "",
     "properties": {}
   },
   {
@@ -7363,7 +7217,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-237",
-    "name": "",
     "properties": {}
   },
   {
@@ -7374,7 +7227,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-238",
-    "name": "",
     "properties": {}
   },
   {
@@ -7385,7 +7237,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-239",
-    "name": "",
     "properties": {}
   },
   {
@@ -7396,10 +7247,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-24",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -7411,7 +7261,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-240",
-    "name": "",
     "properties": {}
   },
   {
@@ -7422,7 +7271,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-241",
-    "name": "",
     "properties": {}
   },
   {
@@ -7433,7 +7281,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-242",
-    "name": "",
     "properties": {}
   },
   {
@@ -7444,7 +7291,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-243",
-    "name": "",
     "properties": {}
   },
   {
@@ -7455,7 +7301,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-244",
-    "name": "",
     "properties": {}
   },
   {
@@ -7466,7 +7311,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-245",
-    "name": "",
     "properties": {}
   },
   {
@@ -7477,7 +7321,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-246",
-    "name": "",
     "properties": {}
   },
   {
@@ -7488,7 +7331,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-247",
-    "name": "",
     "properties": {}
   },
   {
@@ -7499,7 +7341,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-248",
-    "name": "",
     "properties": {}
   },
   {
@@ -7510,7 +7351,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-249",
-    "name": "",
     "properties": {}
   },
   {
@@ -7521,10 +7361,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-25",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -7536,7 +7375,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-250",
-    "name": "",
     "properties": {}
   },
   {
@@ -7547,7 +7385,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-251",
-    "name": "",
     "properties": {}
   },
   {
@@ -7558,7 +7395,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-252",
-    "name": "",
     "properties": {}
   },
   {
@@ -7569,7 +7405,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-253",
-    "name": "",
     "properties": {}
   },
   {
@@ -7580,7 +7415,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-254",
-    "name": "",
     "properties": {}
   },
   {
@@ -7591,7 +7425,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-255",
-    "name": "",
     "properties": {}
   },
   {
@@ -7602,7 +7435,6 @@
       -0.1252524
     ],
     "applicationId": "gsa/NODE-256",
-    "name": "",
     "properties": {}
   },
   {
@@ -7613,7 +7445,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-257",
-    "name": "",
     "properties": {}
   },
   {
@@ -7624,7 +7455,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-258",
-    "name": "",
     "properties": {}
   },
   {
@@ -7635,7 +7465,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-259",
-    "name": "",
     "properties": {}
   },
   {
@@ -7646,10 +7475,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-26",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -7661,7 +7489,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-260",
-    "name": "",
     "properties": {}
   },
   {
@@ -7672,7 +7499,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-261",
-    "name": "",
     "properties": {}
   },
   {
@@ -7683,7 +7509,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-262",
-    "name": "",
     "properties": {}
   },
   {
@@ -7694,7 +7519,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-263",
-    "name": "",
     "properties": {}
   },
   {
@@ -7705,7 +7529,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-264",
-    "name": "",
     "properties": {}
   },
   {
@@ -7716,7 +7539,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-265",
-    "name": "",
     "properties": {}
   },
   {
@@ -7727,7 +7549,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-266",
-    "name": "",
     "properties": {}
   },
   {
@@ -7738,7 +7559,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-267",
-    "name": "",
     "properties": {}
   },
   {
@@ -7749,7 +7569,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-268",
-    "name": "",
     "properties": {}
   },
   {
@@ -7760,7 +7579,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-269",
-    "name": "",
     "properties": {}
   },
   {
@@ -7771,7 +7589,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-27",
-    "name": "",
     "properties": {}
   },
   {
@@ -7782,7 +7599,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-270",
-    "name": "",
     "properties": {}
   },
   {
@@ -7793,7 +7609,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-271",
-    "name": "",
     "properties": {}
   },
   {
@@ -7804,7 +7619,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-272",
-    "name": "",
     "properties": {}
   },
   {
@@ -7815,7 +7629,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-273",
-    "name": "",
     "properties": {}
   },
   {
@@ -7826,7 +7639,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-274",
-    "name": "",
     "properties": {}
   },
   {
@@ -7837,7 +7649,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-275",
-    "name": "",
     "properties": {}
   },
   {
@@ -7848,7 +7659,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-276",
-    "name": "",
     "properties": {}
   },
   {
@@ -7859,7 +7669,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-277",
-    "name": "",
     "properties": {}
   },
   {
@@ -7870,7 +7679,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-278",
-    "name": "",
     "properties": {}
   },
   {
@@ -7881,7 +7689,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-279",
-    "name": "",
     "properties": {}
   },
   {
@@ -7892,10 +7699,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-28",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -7907,7 +7713,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-280",
-    "name": "",
     "properties": {}
   },
   {
@@ -7918,7 +7723,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-281",
-    "name": "",
     "properties": {}
   },
   {
@@ -7929,7 +7733,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-282",
-    "name": "",
     "properties": {}
   },
   {
@@ -7940,7 +7743,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-283",
-    "name": "",
     "properties": {}
   },
   {
@@ -7951,7 +7753,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-284",
-    "name": "",
     "properties": {}
   },
   {
@@ -7962,7 +7763,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-285",
-    "name": "",
     "properties": {}
   },
   {
@@ -7973,7 +7773,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-286",
-    "name": "",
     "properties": {}
   },
   {
@@ -7984,7 +7783,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-287",
-    "name": "",
     "properties": {}
   },
   {
@@ -7995,7 +7793,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-288",
-    "name": "",
     "properties": {}
   },
   {
@@ -8006,7 +7803,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-289",
-    "name": "",
     "properties": {}
   },
   {
@@ -8017,10 +7813,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-29",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -8032,7 +7827,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-290",
-    "name": "",
     "properties": {}
   },
   {
@@ -8043,7 +7837,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-291",
-    "name": "",
     "properties": {}
   },
   {
@@ -8054,7 +7847,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-292",
-    "name": "",
     "properties": {}
   },
   {
@@ -8065,7 +7857,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-293",
-    "name": "",
     "properties": {}
   },
   {
@@ -8076,7 +7867,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-294",
-    "name": "",
     "properties": {}
   },
   {
@@ -8087,7 +7877,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-295",
-    "name": "",
     "properties": {}
   },
   {
@@ -8098,7 +7887,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-296",
-    "name": "",
     "properties": {}
   },
   {
@@ -8109,7 +7897,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-297",
-    "name": "",
     "properties": {}
   },
   {
@@ -8120,7 +7907,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-298",
-    "name": "",
     "properties": {}
   },
   {
@@ -8131,7 +7917,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-299",
-    "name": "",
     "properties": {}
   },
   {
@@ -8142,10 +7927,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-3",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -8157,10 +7941,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-30",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -8172,7 +7955,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-301",
-    "name": "",
     "properties": {}
   },
   {
@@ -8183,7 +7965,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-302",
-    "name": "",
     "properties": {}
   },
   {
@@ -8194,7 +7975,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-303",
-    "name": "",
     "properties": {}
   },
   {
@@ -8205,7 +7985,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-304",
-    "name": "",
     "properties": {}
   },
   {
@@ -8216,7 +7995,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-305",
-    "name": "",
     "properties": {}
   },
   {
@@ -8227,7 +8005,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-306",
-    "name": "",
     "properties": {}
   },
   {
@@ -8238,7 +8015,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-307",
-    "name": "",
     "properties": {}
   },
   {
@@ -8249,7 +8025,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-308",
-    "name": "",
     "properties": {}
   },
   {
@@ -8260,7 +8035,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-309",
-    "name": "",
     "properties": {}
   },
   {
@@ -8271,10 +8045,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-31",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"hash":"85cc6277290aaaa3cc85b77856699a29","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,false,true,false],"properties":{}}
       }
     }
   },
@@ -8286,7 +8059,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-310",
-    "name": "",
     "properties": {}
   },
   {
@@ -8297,7 +8069,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-311",
-    "name": "",
     "properties": {}
   },
   {
@@ -8308,7 +8079,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-312",
-    "name": "",
     "properties": {}
   },
   {
@@ -8319,7 +8089,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-313",
-    "name": "",
     "properties": {}
   },
   {
@@ -8330,7 +8099,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-314",
-    "name": "",
     "properties": {}
   },
   {
@@ -8341,7 +8109,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-315",
-    "name": "",
     "properties": {}
   },
   {
@@ -8352,7 +8119,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-316",
-    "name": "",
     "properties": {}
   },
   {
@@ -8363,7 +8129,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-317",
-    "name": "",
     "properties": {}
   },
   {
@@ -8374,7 +8139,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-318",
-    "name": "",
     "properties": {}
   },
   {
@@ -8385,7 +8149,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-319",
-    "name": "",
     "properties": {}
   },
   {
@@ -8396,7 +8159,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-32",
-    "name": "",
     "properties": {}
   },
   {
@@ -8407,7 +8169,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-320",
-    "name": "",
     "properties": {}
   },
   {
@@ -8418,7 +8179,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-321",
-    "name": "",
     "properties": {}
   },
   {
@@ -8429,7 +8189,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-322",
-    "name": "",
     "properties": {}
   },
   {
@@ -8440,7 +8199,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-323",
-    "name": "",
     "properties": {}
   },
   {
@@ -8451,7 +8209,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-324",
-    "name": "",
     "properties": {}
   },
   {
@@ -8462,7 +8219,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-325",
-    "name": "",
     "properties": {}
   },
   {
@@ -8473,7 +8229,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-326",
-    "name": "",
     "properties": {}
   },
   {
@@ -8484,7 +8239,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-327",
-    "name": "",
     "properties": {}
   },
   {
@@ -8495,7 +8249,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-328",
-    "name": "",
     "properties": {}
   },
   {
@@ -8506,7 +8259,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-329",
-    "name": "",
     "properties": {}
   },
   {
@@ -8517,7 +8269,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-33",
-    "name": "",
     "properties": {}
   },
   {
@@ -8528,7 +8279,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-330",
-    "name": "",
     "properties": {}
   },
   {
@@ -8539,7 +8289,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-331",
-    "name": "",
     "properties": {}
   },
   {
@@ -8550,7 +8299,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-332",
-    "name": "",
     "properties": {}
   },
   {
@@ -8561,7 +8309,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-333",
-    "name": "",
     "properties": {}
   },
   {
@@ -8572,7 +8319,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-334",
-    "name": "",
     "properties": {}
   },
   {
@@ -8583,7 +8329,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-335",
-    "name": "",
     "properties": {}
   },
   {
@@ -8594,7 +8339,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-336",
-    "name": "",
     "properties": {}
   },
   {
@@ -8605,7 +8349,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-337",
-    "name": "",
     "properties": {}
   },
   {
@@ -8616,7 +8359,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-338",
-    "name": "",
     "properties": {}
   },
   {
@@ -8627,7 +8369,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-339",
-    "name": "",
     "properties": {}
   },
   {
@@ -8638,10 +8379,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-34",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -8653,7 +8393,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-340",
-    "name": "",
     "properties": {}
   },
   {
@@ -8664,7 +8403,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-341",
-    "name": "",
     "properties": {}
   },
   {
@@ -8675,7 +8413,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-342",
-    "name": "",
     "properties": {}
   },
   {
@@ -8686,7 +8423,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-343",
-    "name": "",
     "properties": {}
   },
   {
@@ -8697,7 +8433,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-344",
-    "name": "",
     "properties": {}
   },
   {
@@ -8708,7 +8443,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-345",
-    "name": "",
     "properties": {}
   },
   {
@@ -8719,7 +8453,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-346",
-    "name": "",
     "properties": {}
   },
   {
@@ -8730,7 +8463,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-347",
-    "name": "",
     "properties": {}
   },
   {
@@ -8741,7 +8473,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-348",
-    "name": "",
     "properties": {}
   },
   {
@@ -8752,7 +8483,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-349",
-    "name": "",
     "properties": {}
   },
   {
@@ -8763,7 +8493,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-35",
-    "name": "",
     "properties": {}
   },
   {
@@ -8774,7 +8503,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-350",
-    "name": "",
     "properties": {}
   },
   {
@@ -8785,7 +8513,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-351",
-    "name": "",
     "properties": {}
   },
   {
@@ -8796,7 +8523,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-352",
-    "name": "",
     "properties": {}
   },
   {
@@ -8807,7 +8533,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-353",
-    "name": "",
     "properties": {}
   },
   {
@@ -8818,7 +8543,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-354",
-    "name": "",
     "properties": {}
   },
   {
@@ -8829,7 +8553,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-355",
-    "name": "",
     "properties": {}
   },
   {
@@ -8840,7 +8563,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-356",
-    "name": "",
     "properties": {}
   },
   {
@@ -8851,7 +8573,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-357",
-    "name": "",
     "properties": {}
   },
   {
@@ -8862,7 +8583,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-358",
-    "name": "",
     "properties": {}
   },
   {
@@ -8873,7 +8593,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-359",
-    "name": "",
     "properties": {}
   },
   {
@@ -8884,10 +8603,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-36",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -8899,7 +8617,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-360",
-    "name": "",
     "properties": {}
   },
   {
@@ -8910,7 +8627,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-361",
-    "name": "",
     "properties": {}
   },
   {
@@ -8921,7 +8637,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-362",
-    "name": "",
     "properties": {}
   },
   {
@@ -8932,7 +8647,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-363",
-    "name": "",
     "properties": {}
   },
   {
@@ -8943,7 +8657,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-364",
-    "name": "",
     "properties": {}
   },
   {
@@ -8954,7 +8667,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-365",
-    "name": "",
     "properties": {}
   },
   {
@@ -8965,7 +8677,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-366",
-    "name": "",
     "properties": {}
   },
   {
@@ -8976,7 +8687,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-367",
-    "name": "",
     "properties": {}
   },
   {
@@ -8987,7 +8697,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-368",
-    "name": "",
     "properties": {}
   },
   {
@@ -8998,7 +8707,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-369",
-    "name": "",
     "properties": {}
   },
   {
@@ -9009,7 +8717,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-37",
-    "name": "",
     "properties": {}
   },
   {
@@ -9020,7 +8727,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-370",
-    "name": "",
     "properties": {}
   },
   {
@@ -9031,7 +8737,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-371",
-    "name": "",
     "properties": {}
   },
   {
@@ -9042,7 +8747,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-372",
-    "name": "",
     "properties": {}
   },
   {
@@ -9053,7 +8757,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-373",
-    "name": "",
     "properties": {}
   },
   {
@@ -9064,7 +8767,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-374",
-    "name": "",
     "properties": {}
   },
   {
@@ -9075,7 +8777,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-375",
-    "name": "",
     "properties": {}
   },
   {
@@ -9086,7 +8787,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-376",
-    "name": "",
     "properties": {}
   },
   {
@@ -9097,7 +8797,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-377",
-    "name": "",
     "properties": {}
   },
   {
@@ -9108,7 +8807,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-378",
-    "name": "",
     "properties": {}
   },
   {
@@ -9119,7 +8817,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-379",
-    "name": "",
     "properties": {}
   },
   {
@@ -9130,10 +8827,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-38",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -9145,7 +8841,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-380",
-    "name": "",
     "properties": {}
   },
   {
@@ -9156,7 +8851,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-381",
-    "name": "",
     "properties": {}
   },
   {
@@ -9167,7 +8861,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-382",
-    "name": "",
     "properties": {}
   },
   {
@@ -9178,7 +8871,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-383",
-    "name": "",
     "properties": {}
   },
   {
@@ -9189,7 +8881,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-384",
-    "name": "",
     "properties": {}
   },
   {
@@ -9200,7 +8891,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-385",
-    "name": "",
     "properties": {}
   },
   {
@@ -9211,7 +8901,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-386",
-    "name": "",
     "properties": {}
   },
   {
@@ -9222,7 +8911,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-387",
-    "name": "",
     "properties": {}
   },
   {
@@ -9233,7 +8921,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-388",
-    "name": "",
     "properties": {}
   },
   {
@@ -9244,7 +8931,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-389",
-    "name": "",
     "properties": {}
   },
   {
@@ -9255,10 +8941,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-39",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -9270,7 +8955,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-390",
-    "name": "",
     "properties": {}
   },
   {
@@ -9281,7 +8965,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-391",
-    "name": "",
     "properties": {}
   },
   {
@@ -9292,7 +8975,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-392",
-    "name": "",
     "properties": {}
   },
   {
@@ -9303,7 +8985,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-393",
-    "name": "",
     "properties": {}
   },
   {
@@ -9314,7 +8995,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-394",
-    "name": "",
     "properties": {}
   },
   {
@@ -9325,7 +9005,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-395",
-    "name": "",
     "properties": {}
   },
   {
@@ -9336,7 +9015,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-396",
-    "name": "",
     "properties": {}
   },
   {
@@ -9347,7 +9025,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-397",
-    "name": "",
     "properties": {}
   },
   {
@@ -9358,7 +9035,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-398",
-    "name": "",
     "properties": {}
   },
   {
@@ -9369,7 +9045,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-399",
-    "name": "",
     "properties": {}
   },
   {
@@ -9380,10 +9055,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-4",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -9395,10 +9069,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-40",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"hash":"7280e41441388141469414a01cf9d7c4","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"properties":{}}
       }
     }
   },
@@ -9410,7 +9083,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-400",
-    "name": "",
     "properties": {}
   },
   {
@@ -9421,7 +9093,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-401",
-    "name": "",
     "properties": {}
   },
   {
@@ -9432,7 +9103,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-402",
-    "name": "",
     "properties": {}
   },
   {
@@ -9443,7 +9113,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-403",
-    "name": "",
     "properties": {}
   },
   {
@@ -9454,7 +9123,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-404",
-    "name": "",
     "properties": {}
   },
   {
@@ -9465,7 +9133,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-405",
-    "name": "",
     "properties": {}
   },
   {
@@ -9476,7 +9143,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-406",
-    "name": "",
     "properties": {}
   },
   {
@@ -9487,7 +9153,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-407",
-    "name": "",
     "properties": {}
   },
   {
@@ -9498,7 +9163,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-408",
-    "name": "",
     "properties": {}
   },
   {
@@ -9509,7 +9173,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-409",
-    "name": "",
     "properties": {}
   },
   {
@@ -9520,10 +9183,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-41",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -9535,7 +9197,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-410",
-    "name": "",
     "properties": {}
   },
   {
@@ -9546,7 +9207,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-411",
-    "name": "",
     "properties": {}
   },
   {
@@ -9557,7 +9217,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-412",
-    "name": "",
     "properties": {}
   },
   {
@@ -9568,7 +9227,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-413",
-    "name": "",
     "properties": {}
   },
   {
@@ -9579,7 +9237,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-414",
-    "name": "",
     "properties": {}
   },
   {
@@ -9590,7 +9247,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-415",
-    "name": "",
     "properties": {}
   },
   {
@@ -9601,7 +9257,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-416",
-    "name": "",
     "properties": {}
   },
   {
@@ -9612,7 +9267,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-417",
-    "name": "",
     "properties": {}
   },
   {
@@ -9623,7 +9277,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-418",
-    "name": "",
     "properties": {}
   },
   {
@@ -9634,7 +9287,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-419",
-    "name": "",
     "properties": {}
   },
   {
@@ -9645,7 +9297,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-42",
-    "name": "",
     "properties": {}
   },
   {
@@ -9656,7 +9307,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-420",
-    "name": "",
     "properties": {}
   },
   {
@@ -9667,7 +9317,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-421",
-    "name": "",
     "properties": {}
   },
   {
@@ -9678,7 +9327,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-422",
-    "name": "",
     "properties": {}
   },
   {
@@ -9689,7 +9337,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-424",
-    "name": "",
     "properties": {}
   },
   {
@@ -9700,7 +9347,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-425",
-    "name": "",
     "properties": {}
   },
   {
@@ -9711,7 +9357,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-426",
-    "name": "",
     "properties": {}
   },
   {
@@ -9722,7 +9367,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-427",
-    "name": "",
     "properties": {}
   },
   {
@@ -9733,7 +9377,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-428",
-    "name": "",
     "properties": {}
   },
   {
@@ -9744,7 +9387,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-429",
-    "name": "",
     "properties": {}
   },
   {
@@ -9755,7 +9397,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-43",
-    "name": "",
     "properties": {}
   },
   {
@@ -9766,7 +9407,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-430",
-    "name": "",
     "properties": {}
   },
   {
@@ -9777,7 +9417,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-431",
-    "name": "",
     "properties": {}
   },
   {
@@ -9788,7 +9427,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-432",
-    "name": "",
     "properties": {}
   },
   {
@@ -9799,7 +9437,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-433",
-    "name": "",
     "properties": {}
   },
   {
@@ -9810,7 +9447,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-434",
-    "name": "",
     "properties": {}
   },
   {
@@ -9821,7 +9457,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-435",
-    "name": "",
     "properties": {}
   },
   {
@@ -9832,7 +9467,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-436",
-    "name": "",
     "properties": {}
   },
   {
@@ -9843,7 +9477,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-437",
-    "name": "",
     "properties": {}
   },
   {
@@ -9854,7 +9487,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-438",
-    "name": "",
     "properties": {}
   },
   {
@@ -9865,7 +9497,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-439",
-    "name": "",
     "properties": {}
   },
   {
@@ -9876,7 +9507,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-44",
-    "name": "",
     "properties": {}
   },
   {
@@ -9887,7 +9517,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-440",
-    "name": "",
     "properties": {}
   },
   {
@@ -9898,7 +9527,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-441",
-    "name": "",
     "properties": {}
   },
   {
@@ -9909,7 +9537,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-442",
-    "name": "",
     "properties": {}
   },
   {
@@ -9920,7 +9547,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-443",
-    "name": "",
     "properties": {}
   },
   {
@@ -9931,7 +9557,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-444",
-    "name": "",
     "properties": {}
   },
   {
@@ -9942,7 +9567,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-445",
-    "name": "",
     "properties": {}
   },
   {
@@ -9953,7 +9577,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-446",
-    "name": "",
     "properties": {}
   },
   {
@@ -9964,7 +9587,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-447",
-    "name": "",
     "properties": {}
   },
   {
@@ -9975,7 +9597,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-448",
-    "name": "",
     "properties": {}
   },
   {
@@ -9986,7 +9607,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-449",
-    "name": "",
     "properties": {}
   },
   {
@@ -9997,10 +9617,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-45",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10012,7 +9631,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-450",
-    "name": "",
     "properties": {}
   },
   {
@@ -10023,7 +9641,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-451",
-    "name": "",
     "properties": {}
   },
   {
@@ -10034,7 +9651,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-452",
-    "name": "",
     "properties": {}
   },
   {
@@ -10045,7 +9661,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-453",
-    "name": "",
     "properties": {}
   },
   {
@@ -10056,7 +9671,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-454",
-    "name": "",
     "properties": {}
   },
   {
@@ -10067,7 +9681,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-455",
-    "name": "",
     "properties": {}
   },
   {
@@ -10078,7 +9691,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-456",
-    "name": "",
     "properties": {}
   },
   {
@@ -10089,7 +9701,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-457",
-    "name": "",
     "properties": {}
   },
   {
@@ -10100,7 +9711,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-458",
-    "name": "",
     "properties": {}
   },
   {
@@ -10111,7 +9721,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-459",
-    "name": "",
     "properties": {}
   },
   {
@@ -10122,7 +9731,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-46",
-    "name": "",
     "properties": {}
   },
   {
@@ -10133,7 +9741,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-460",
-    "name": "",
     "properties": {}
   },
   {
@@ -10144,7 +9751,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-461",
-    "name": "",
     "properties": {}
   },
   {
@@ -10155,7 +9761,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-462",
-    "name": "",
     "properties": {}
   },
   {
@@ -10166,7 +9771,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-463",
-    "name": "",
     "properties": {}
   },
   {
@@ -10177,7 +9781,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-464",
-    "name": "",
     "properties": {}
   },
   {
@@ -10188,7 +9791,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-465",
-    "name": "",
     "properties": {}
   },
   {
@@ -10199,7 +9801,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-466",
-    "name": "",
     "properties": {}
   },
   {
@@ -10210,7 +9811,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-467",
-    "name": "",
     "properties": {}
   },
   {
@@ -10221,7 +9821,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-468",
-    "name": "",
     "properties": {}
   },
   {
@@ -10232,10 +9831,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-469",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10247,7 +9845,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-47",
-    "name": "",
     "properties": {}
   },
   {
@@ -10258,10 +9855,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-470",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10273,10 +9869,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-471",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10288,7 +9883,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-472",
-    "name": "",
     "properties": {}
   },
   {
@@ -10299,7 +9893,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-473",
-    "name": "",
     "properties": {}
   },
   {
@@ -10310,7 +9903,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-474",
-    "name": "",
     "properties": {}
   },
   {
@@ -10321,7 +9913,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-475",
-    "name": "",
     "properties": {}
   },
   {
@@ -10332,10 +9923,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-48",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10347,7 +9937,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-49",
-    "name": "",
     "properties": {}
   },
   {
@@ -10358,7 +9947,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-5",
-    "name": "",
     "properties": {}
   },
   {
@@ -10369,7 +9957,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-50",
-    "name": "",
     "properties": {}
   },
   {
@@ -10380,10 +9967,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-51",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10395,10 +9981,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-52",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10410,10 +9995,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-53",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10425,10 +10009,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-54",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10440,10 +10023,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-55",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10455,10 +10037,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-56",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10470,10 +10051,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-58",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10485,10 +10065,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-59",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10500,7 +10079,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-6",
-    "name": "",
     "properties": {}
   },
   {
@@ -10511,10 +10089,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-60",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10526,10 +10103,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-61",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -10541,10 +10117,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-62",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10556,10 +10131,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-63",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10571,7 +10145,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-64",
-    "name": "",
     "properties": {}
   },
   {
@@ -10582,7 +10155,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-65",
-    "name": "",
     "properties": {}
   },
   {
@@ -10593,7 +10165,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-66",
-    "name": "",
     "properties": {}
   },
   {
@@ -10604,7 +10175,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-67",
-    "name": "",
     "properties": {}
   },
   {
@@ -10615,10 +10185,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-68",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10630,10 +10199,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-69",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10645,10 +10213,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-7",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10660,10 +10227,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-70",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10675,10 +10241,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-71",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10690,10 +10255,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-72",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10705,10 +10269,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-73",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"hash":"1dcd9430a36b8dc7937cc72f5103f6e7","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[false,false,false,true,false,false],"properties":{}}
       }
     }
   },
@@ -10720,10 +10283,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-74",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"390099dfe0fdbf8c77c5c0b31a181fde","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,false,false],"hash":"67bdeaaaafed67e5f8d4f36340542fc9","properties":{}}
       }
     }
   },
@@ -10735,10 +10297,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-75",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10750,10 +10311,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-76",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10765,10 +10325,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-77",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10780,10 +10339,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-78",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10795,7 +10353,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-79",
-    "name": "",
     "properties": {}
   },
   {
@@ -10806,10 +10363,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-8",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10821,7 +10377,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-80",
-    "name": "",
     "properties": {}
   },
   {
@@ -10832,7 +10387,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-81",
-    "name": "",
     "properties": {}
   },
   {
@@ -10843,7 +10397,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-82",
-    "name": "",
     "properties": {}
   },
   {
@@ -10854,7 +10407,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-83",
-    "name": "",
     "properties": {}
   },
   {
@@ -10865,7 +10417,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-84",
-    "name": "",
     "properties": {}
   },
   {
@@ -10876,10 +10427,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-85",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10891,10 +10441,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-86",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10906,10 +10455,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-87",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10921,7 +10469,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-88",
-    "name": "",
     "properties": {}
   },
   {
@@ -10932,7 +10479,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-89",
-    "name": "",
     "properties": {}
   },
   {
@@ -10943,10 +10489,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-9",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10958,10 +10503,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-90",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -10973,10 +10517,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-91",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"hash":"7280e41441388141469414a01cf9d7c4","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,false,false],"properties":{}}
       }
     }
   },
@@ -10988,10 +10531,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-92",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -11003,7 +10545,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-93",
-    "name": "",
     "properties": {}
   },
   {
@@ -11014,7 +10555,6 @@
       0.0
     ],
     "applicationId": "gsa/NODE-94",
-    "name": "",
     "properties": {}
   },
   {
@@ -11025,10 +10565,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-95",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -11040,10 +10579,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-96",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -11055,10 +10593,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-97",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"hash":"47d442ef7d359b909ec9e5d6580651bd","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,false,true,false],"properties":{}}
       }
     }
   },
@@ -11070,10 +10607,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-98",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
@@ -11085,10 +10621,9 @@
       0.0
     ],
     "applicationId": "gsa/NODE-99",
-    "name": "",
     "properties": {
       "structural": {
-        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"4d8dc7866fe2f80672e65c3a2620ae93","properties":{}}
+        "restraint": {"type":"StructuralVectorBoolSix","value":[true,true,true,true,true,true],"hash":"b9a3c327532ae6c0df9305e97e3c853e","properties":{}}
       }
     }
   },
