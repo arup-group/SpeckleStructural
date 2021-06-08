@@ -11,6 +11,8 @@ using AutoMapper;
 using SpeckleUtil;
 using SpeckleCoreGeometryClasses;
 using SpeckleGSAProxy;
+using SpeckleStructuralGSA.SchemaConversion;
+using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -107,7 +109,7 @@ namespace SpeckleStructuralGSA.Test
       {
         var testResult = m.Map(newObj, existingObj);
       }
-      catch(Exception ex)
+      catch
       {
         exceptionThrown = true;
       }
@@ -121,13 +123,13 @@ namespace SpeckleStructuralGSA.Test
     [Test]
     public void MergeTestGSA_WithMerger()
     {
-      var ls1 = new object[] { "PROP_SPR.4:{speckle_app_id:gh/a}", 1, "LSPxGeneral", "NO_RGB", "GLOBAL", "GENERAL", 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 21, 0.21 };
+      var ls1 = new object[] { "PROP_SPR.4:{speckle_app_id:gh/a}", 1, "LSPxGeneral", "NO_RGB", "GENERAL", 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 21, 0.21 };
       var gwa1 = string.Join(GSAProxy.GwaDelimiter.ToString(), ls1.Select(l => l.ToString()));
 
       PrepareInterfacerForGwaToSpeckle<GSASpringProperty>(gwa1, "PROP_SPR", "gh/a");
 
       //Call the ToSpeckle method, which just adds to the GSASenderObjects collection-
-      Conversions.ToSpeckle(new GSASpringProperty());
+      GsaPropSprToSpeckle.ToSpeckle(new GsaPropSpr());
       var existing = (StructuralSpringProperty)Initialiser.GsaKit.GSASenderObjects.Get<GSASpringProperty>().First().Value;
 
       var newToMerge = new StructuralSpringProperty() { DampingRatio = 1.5 };
@@ -166,13 +168,13 @@ namespace SpeckleStructuralGSA.Test
     [Test]
     public void MergeTestGSA()
     {
-      var ls1 = new object[] { "PROP_SPR.4:{speckle_app_id:gh/a}", 1, "LSPxGeneral", "NO_RGB", "GLOBAL", "GENERAL", 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 21, 0.21 };
+      var ls1 = new object[] { "PROP_SPR.4:{speckle_app_id:gh/a}", 1, "LSPxGeneral", "NO_RGB", "GENERAL", 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 21, 0.21 };
       var gwa1 = string.Join(GSAProxy.GwaDelimiter.ToString(), ls1.Select(l => l.ToString()));
 
       PrepareInterfacerForGwaToSpeckle<GSASpringProperty>(gwa1, "PROP_SPR", "gh/a");
 
       //Call the ToSpeckle method, which just adds to the GSASenderObjects collection
-      Conversions.ToSpeckle(new GSASpringProperty());
+      GsaPropSprToSpeckle.ToSpeckle(new GsaPropSpr());
       var existing = (StructuralSpringProperty)Initialiser.GsaKit.GSASenderObjects.Get<GSASpringProperty>().First().Value;
 
       var newToMerge = new StructuralSpringProperty() { DampingRatio = 1.5 };

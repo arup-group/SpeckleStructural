@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
@@ -11,7 +7,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
 {
   public static class GsaPropSprToSpeckle
   {
-    public static SpeckleObject ToSpeckle(GsaPropSpr dummy)
+    public static SpeckleObject ToSpeckle(this GsaPropSpr dummy)
     {
       var kw = GsaRecord.GetKeyword<GsaPropSpr>();
       var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(kw);
@@ -20,7 +16,11 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       var structuralSpringProperties = new List<StructuralSpringProperty>();
 
+#if DEBUG
       foreach (var i in newLines.Keys)
+#else
+      Parallel.ForEach(newLines.Keys, i =>
+#endif
       {
         var obj = Helper.ToSpeckleTryCatch(kw, i, () =>
         {
@@ -46,10 +46,10 @@ namespace SpeckleStructuralGSA.SchemaConversion
           numAdded++;
         }
       }
+#if !DEBUG
+      );
+#endif
 
-      //var props = structuralSpringProperties.Select(pe => new GSASpringProperty() { Value = pe }).ToList();
-      //Initialiser.GsaKit.GSASenderObjects.AddRange(props);
-      //return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
       return (numAdded > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 

@@ -64,15 +64,10 @@ namespace SpeckleStructuralGSA.SchemaConversion
         if (!(obj is SpeckleNull))
         {
           Initialiser.GsaKit.GSASenderObjects.Add(new GSA1DPropertyExplicit() { Value = (Structural1DPropertyExplicit)obj, GSAId = i });
-          //structural1DPropertyExplicits.Add((Structural1DPropertyExplicit)obj);
           numAdded++;
         }
       }
 
-      //var props = structural1DPropertyExplicits.Select(pe => new GSA1DPropertyExplicit() { Value = pe }).ToList();
-
-      //Initialiser.GsaKit.GSASenderObjects.AddRange(props);
-      //return (props.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
       return (numAdded > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 

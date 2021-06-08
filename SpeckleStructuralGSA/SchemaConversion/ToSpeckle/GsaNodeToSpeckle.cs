@@ -3,7 +3,6 @@ using System.Linq;
 using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
-using SpeckleGSAInterfaces;
 using System.Threading.Tasks;
 
 namespace SpeckleStructuralGSA.SchemaConversion
@@ -111,20 +110,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
         }
       }
       );
-      /*
-      var nodes = structuralNodes.Select(n => new GSANode() { Value = n, GSAId =  }).ToList();
-      var springs = structural0dSprings.Select(s => new GSA0DSpring() { Value = s }).ToList();
 
-      if (nodes.Count() > 0)
-      {
-        Initialiser.GsaKit.GSASenderObjects.AddRange(nodes);
-      }
-      if (springs.Count() > 0)
-      {
-        Initialiser.GsaKit.GSASenderObjects.AddRange(springs);
-      }
-      */
-      //return (nodes.Count() > 0 || springs.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
       return (numToBeSent > 0) ? new SpeckleObject() : new SpeckleNull();
     }
   }
