@@ -26,7 +26,6 @@ namespace SpeckleStructuralGSA.TestPrep
       SpeckleInitializer.Initialize();
 
       var TestDataDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\..\SpeckleStructuralGSA.Test\TestData\";
-
       ReceiverTestPrep receiverTestPrep;
       if (blankRefs)
       {

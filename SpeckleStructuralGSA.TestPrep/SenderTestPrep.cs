@@ -12,7 +12,7 @@ namespace SpeckleStructuralGSA.TestPrep
 
     public void SetupContext(string gsaFileName)
     {
-      Initialiser.AppResources = new MockGSAApp();
+      Initialiser.AppResources = new MockGSAApp(proxy: new SpeckleGSAProxy.GSAProxy());
       Initialiser.AppResources.Proxy.OpenFile(Path.Combine(TestDataDirectory, gsaFileName));
     }
 

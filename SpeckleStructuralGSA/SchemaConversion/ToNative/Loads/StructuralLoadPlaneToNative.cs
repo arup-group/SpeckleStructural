@@ -1,9 +1,6 @@
 ﻿using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
-using SpeckleGSAInterfaces;
-using System.Collections.Generic;
 using System.Linq;
-using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {

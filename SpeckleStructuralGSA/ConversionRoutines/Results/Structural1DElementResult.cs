@@ -71,7 +71,7 @@ namespace SpeckleStructuralGSA
                 continue;
               }
 
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.Item1, kvp.Value.Item2, kvp.Value.Item3, loadCase, axisStr, num1dPos);
+              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr, num1dPos);
 
               if (resultExport == null || resultExport.Count() == 0)
               {
@@ -147,7 +147,7 @@ namespace SpeckleStructuralGSA
 
             try
             {
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(id, kvp.Value.Item1, kvp.Value.Item2, kvp.Value.Item3, loadCase, axisStr, num1dPos);
+              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(id, kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr, num1dPos);
 
               if (resultExport == null)
               {

@@ -1,22 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>SpecCxStructuralClasses</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>Speckle</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/speckleworks/SpeckleStructural</projectUrl>
-    <iconUrl>https://avatars2.githubusercontent.com/u/31284874</iconUrl>
+    <projectUrl>https://github.com/arup-group/SpeckleStructural</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A set of core structural classes for Speckle.</description>
+    <description>A set of core structural classes.</description>
     <releaseNotes></releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>speckle structural</tags>
+    <tags>speccx core community cx structural</tags>
     <dependencies>
-      <dependency id="SpeckleCoreGeometry" version="1.2.8" />
-      <dependency id="SpeckleCore" version="1.6.9" />
+      <dependency id="SpecCxCoreGeometry" version="1.3.25" />
+      <dependency id="SpecCxCore" version="1.2.1" />
     </dependencies>
   </metadata>
 </package>

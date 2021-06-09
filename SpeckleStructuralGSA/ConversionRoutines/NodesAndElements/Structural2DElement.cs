@@ -493,8 +493,21 @@ namespace SpeckleStructuralGSA
       ls.Add("NO"); // Internal auto offset
       //These are default values - filled in here to avoid instances of GWA comparisons (when upserting into the cache) showing change where there isn't
       ls.Add("REBAR_2D.1");
-      ls.Add("0.03");
-      ls.Add("0.03");
+      if (Initialiser.AppResources.Proxy.GetUnits() == "mm")
+      {
+        ls.Add("30");
+        ls.Add("30");
+      }
+      else if (Initialiser.AppResources.Proxy.GetUnits() == "in")
+      {
+        ls.Add("1");
+        ls.Add("1");
+      }
+      else
+      {
+        ls.Add("0.03");
+        ls.Add("0.03");
+      }
       ls.Add("0");
       gwaCommands.Add(string.Join(Initialiser.AppResources.Proxy.GwaDelimiter.ToString(), ls));
 

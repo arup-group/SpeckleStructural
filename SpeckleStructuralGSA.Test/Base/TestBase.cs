@@ -43,7 +43,7 @@ namespace SpeckleStructuralGSA.Test
     protected TestBase(string directory)
     {
       TestDataDirectory = directory;
-      //appResources = new MockGSAApp();
+      Initialiser.AppResources = new MockGSAApp();
     }
 
     protected Mock<IComAuto> SetupMockGsaCom()
@@ -103,6 +103,12 @@ namespace SpeckleStructuralGSA.Test
           //which would bring it in line with the default creation of empty dictionaries when they are created by other means
           RemoveNullEmptyFields(jt1, new[] { "properties" });
           RemoveNullEmptyFields(jt2, new[] { "properties" });
+
+          RemoveNullEmptyFields(jt1, new[] { "name" });
+          RemoveNullEmptyFields(jt2, new[] { "name" });
+
+          RemoveNullEmptyFields(jt1, new[] { "hash" });
+          RemoveNullEmptyFields(jt2, new[] { "hash" });
 
           var newResult = JToken.DeepEquals(jt1, jt2);
         }
