@@ -12,6 +12,43 @@ namespace SpeckleStructuralGSA.SchemaConversion
   {
     public static List<AxisDirection6> AxisDirs = Enum.GetValues(typeof(AxisDirection6)).Cast<AxisDirection6>().Where(v => v != AxisDirection6.NotSet).ToList();
 
+    //For insertion into the Result.Value property
+    // [ load case [ result type [ column [ values ] ] ] ]
+    public static Dictionary<string, Dictionary<string, object>> GetSpeckleResultHierarchy(Dictionary<string, Tuple<List<string>, object[,]>> data,
+      int elementIdColIndex = 0, int caseColIndex = 1)
+    {
+      var value = new Dictionary<string, Dictionary<string, object>>();
+
+      //Each result type (e.g. "Nodal Velocity")
+      foreach (var rt in data.Keys)
+      {
+        for (var r = 0; r < data[rt].Item2.GetLength(0); r++)
+        {
+          var loadCase = data[rt].Item2[r, caseColIndex].ToString();
+          if (!value.Keys.Contains(loadCase))
+          {
+            value.Add(loadCase, new Dictionary<string, object>());
+          }
+          if (!value[loadCase].ContainsKey(rt))
+          {
+            value[loadCase].Add(rt, new Dictionary<string, object>());
+          }
+          foreach (var c in Enumerable.Range(0, data[rt].Item1.Count()).Except(new[] { elementIdColIndex, caseColIndex }))
+          {
+            var col = data[rt].Item1[c];
+            var val = data[rt].Item2[r, c];
+            if (!((Dictionary<string, object>)value[loadCase][rt]).ContainsKey(col))
+            {
+              ((Dictionary<string, object>)value[loadCase][rt]).Add(col, new List<object>());
+            }
+            ((List<object>)((Dictionary<string, object>)value[loadCase][rt])[col]).Add(val);
+          }
+        }
+      }
+
+      return value;
+    }
+
     //This is necessary because SpeckleCore swallows exceptions thrown within ToNative methods
     public static string ToNativeTryCatch(SpeckleObject so, Func<object> toNativeMethod)
     {
