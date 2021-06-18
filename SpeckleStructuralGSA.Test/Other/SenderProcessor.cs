@@ -5,6 +5,7 @@ using Interop.Gsa_10_1;
 using Moq;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
+using SpeckleGSAProxy;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -28,6 +29,9 @@ namespace SpeckleStructuralGSA.Test
       {
         ((MockSettings)this.appResources.Settings).SendResults = true;
       }
+      ((MockSettings)this.appResources.Settings).ResultInLocalAxis = false;
+      ((MockSettings)this.appResources.Settings).Result1DNumPosition = 3;
+      ((MockSettings)this.appResources.Settings).Units = "m";
     }
 
     public void JsonGwaCacheFileToCacheRecords(string savedJsonFileName, string directory, out Dictionary<string, object> gwaCacheRecords)

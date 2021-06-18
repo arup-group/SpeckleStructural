@@ -27,8 +27,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       int numToBeSent = 0;
 
-      //foreach (var i in newNodeLines.Keys)
-      Parallel.ForEach(newNodeLines.Keys, i =>
+      foreach (var i in newNodeLines.Keys)
+      //Parallel.ForEach(newNodeLines.Keys, i =>
       {
         GsaNode gsaNode = null;
         var objNode = Helper.ToSpeckleTryCatch(nodeKw, i, () =>
@@ -77,41 +77,57 @@ namespace SpeckleStructuralGSA.SchemaConversion
             var results = Helper.GetSpeckleResultHierarchy(data);
             if (results != null)
             {
+              var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
               if (embedResults)
               {
-                foreach (var loadCase in results.Keys)
+                foreach (var loadCase in orderedLoadCases)
                 {
-                  var nodeResult = new StructuralNodeResult()
+                  if (!FormatResults(results[loadCase], out Dictionary<string, object> sendableResults))
                   {
-                    IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                    Value = results[loadCase]
-                  };
-                  var loadCaseRef = GsaCaseToRef(loadCase, loadTaskKw, comboKw);
-                  if (!string.IsNullOrEmpty(loadCaseRef))
-                  {
-                    nodeResult.LoadCaseRef = loadCaseRef;
+                    continue;
                   }
-                  if (structuralNode.Result == null)
-                  {
-                    structuralNode.Result = new Dictionary<string, object>();
-                  }
-                  structuralNode.Result.Add(loadCase, nodeResult);
-                }
-              }
-              else
-              {
-                foreach (var loadCase in results.Keys)
-                {
                   var nodeResult = new StructuralNodeResult()
                   {
                     IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
                     TargetRef = structuralNode.ApplicationId,
-                    Value = results[loadCase]
+                    Value = sendableResults
                   };
                   var loadCaseRef = GsaCaseToRef(loadCase, loadTaskKw, comboKw);
                   if (!string.IsNullOrEmpty(loadCaseRef))
                   {
-                    nodeResult.LoadCaseRef = loadCaseRef;
+                    //nodeResult.LoadCaseRef = loadCaseRef;
+                    nodeResult.LoadCaseRef = loadCase;
+                  }
+                  if (structuralNode.Result == null)
+                  {
+                    //Can't just allocate an empty dictionary as the Result set property won't allow it
+                    structuralNode.Result = new Dictionary<string, object>() { { loadCase, nodeResult } };
+                  }
+                  else
+                  {
+                    structuralNode.Result.Add(loadCase, nodeResult);
+                  }
+                }
+              }
+              else
+              {
+                foreach (var loadCase in orderedLoadCases)
+                {
+                  if (!FormatResults(results[loadCase], out Dictionary<string, object> sendableResults))
+                  {
+                    continue;
+                  }
+                  var nodeResult = new StructuralNodeResult()
+                  {
+                    IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                    TargetRef = structuralNode.ApplicationId,
+                    Value = sendableResults
+                  };
+                  var loadCaseRef = GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+                  if (!string.IsNullOrEmpty(loadCaseRef))
+                  {
+                    //nodeResult.LoadCaseRef = loadCaseRef;
+                    nodeResult.LoadCaseRef = loadCase;
                   }
 
                   Initialiser.GsaKit.GSASenderObjects.Add(new GSANodeResult { Value = nodeResult, GSAId = i });
@@ -154,9 +170,15 @@ namespace SpeckleStructuralGSA.SchemaConversion
           } //if spring object needs to be added
         } //if node object was successfully created
       }
-      );
+      //);
 
       return (numToBeSent > 0) ? new SpeckleObject() : new SpeckleNull();
+    }
+
+    private static bool FormatResults(Dictionary<string, object> inValue, out Dictionary<string, object> outValue)
+    {
+      outValue = inValue;
+      return true;
     }
 
     private static StructuralVectorBoolSix GetRestraint(GsaNode gsaNode)

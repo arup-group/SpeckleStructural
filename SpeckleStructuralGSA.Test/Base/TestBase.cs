@@ -64,6 +64,13 @@ namespace SpeckleStructuralGSA.Test
       //((IGSACache) appResources.Cache).Clear();
       ((IGSACache)Initialiser.AppResources.Cache).Clear();
 
+      ((GSAProxy)Initialiser.AppResources.Proxy).SetUnits("m");
+
+      if (resultsToSend.Length > 0 && cases.Length > 0)
+      {
+        Initialiser.AppResources.Proxy.PrepareResults(3, resultsToSend.ToList(), cases.ToList());
+      }
+
       //Clear out all sender objects that might be there from the last test preparation
       Initialiser.GsaKit.GSASenderObjects.Clear();
 
