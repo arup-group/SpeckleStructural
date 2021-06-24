@@ -184,12 +184,12 @@ namespace SpeckleStructuralGSA
                   {
                     foreach (var resultKey in ((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>).Keys)
                     {
-                      var res = (resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<double>;
+                      var res = (resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<object>;
                       if (reverseCoordinates)
                       {
                         res.Reverse();
                       }
-                      (((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<double>)
+                      (((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<object>)
                         .AddRange(res);
                     }
                   }

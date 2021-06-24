@@ -92,7 +92,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
                     TargetRef = structuralNode.ApplicationId,
                     Value = sendableResults
                   };
-                  var loadCaseRef = GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+                  var loadCaseRef = Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
                   if (!string.IsNullOrEmpty(loadCaseRef))
                   {
                     //nodeResult.LoadCaseRef = loadCaseRef;
@@ -123,7 +123,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
                     TargetRef = structuralNode.ApplicationId,
                     Value = sendableResults
                   };
-                  var loadCaseRef = GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+                  var loadCaseRef = Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
                   if (!string.IsNullOrEmpty(loadCaseRef))
                   {
                     //nodeResult.LoadCaseRef = loadCaseRef;
@@ -207,23 +207,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
       resultTypes = sendNodeResults ? resultTypes = Initialiser.AppResources.Settings.NodalResults.Keys.ToList() : null;
       resultCases = sendNodeResults ? Initialiser.AppResources.Settings.ResultCases.ToList() : null;
       return sendNodeResults;
-    }
-
-    private static string GsaCaseToRef(string loadCase, string loadTaskKw, string comboKw)
-    {
-      string loadCaseRef = null;
-      if (int.TryParse(loadCase.Substring(1), out int loadCaseIndex) && loadCaseIndex > 0)
-      {
-        if (loadCase.StartsWith("a", System.StringComparison.InvariantCultureIgnoreCase))
-        {
-          loadCaseRef = SpeckleStructuralGSA.Helper.GetApplicationId(loadTaskKw, loadCaseIndex);
-        }
-        else if (loadCase.StartsWith("c", System.StringComparison.InvariantCultureIgnoreCase))
-        {
-          loadCaseRef = SpeckleStructuralGSA.Helper.GetApplicationId(comboKw, loadCaseIndex);
-        }
-      }
-      return string.IsNullOrEmpty(loadCaseRef) ? loadCase : loadCaseRef;
     }
   }
 }

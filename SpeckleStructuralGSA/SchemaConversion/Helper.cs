@@ -15,7 +15,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
     //For insertion into the Result.Value property
     // [ load case [ result type [ column [ values ] ] ] ]
     public static Dictionary<string, Dictionary<string, object>> GetSpeckleResultHierarchy(Dictionary<string, Tuple<List<string>, object[,]>> data,
-      string elementIdCol = "id", string caseCol = "case_id")
+      bool simplifySingleItemLists = true, string elementIdCol = "id", string caseCol = "case_id")
     {
       //This stores ALL the data in this one pass
       var value = new Dictionary<string, Dictionary<string, object>>();
@@ -101,14 +101,17 @@ namespace SpeckleStructuralGSA.SchemaConversion
         }
       }
 
-      foreach (var loadCase in retValue.Keys)
+      if (simplifySingleItemLists)
       {
-        foreach (var rt in retValue[loadCase].Keys)
+        foreach (var loadCase in retValue.Keys)
         {
-          var singleValueCols = ((Dictionary<string, object>)retValue[loadCase][rt]).Keys.Where(k => numColValues[loadCase][rt][k] == 1).ToList();
-          foreach (var col in singleValueCols)
+          foreach (var rt in retValue[loadCase].Keys)
           {
-            ((Dictionary<string, object>)retValue[loadCase][rt])[col] = ((List<object>)((Dictionary<string, object>)value[loadCase][rt])[col]).First();
+            var singleValueCols = ((Dictionary<string, object>)retValue[loadCase][rt]).Keys.Where(k => numColValues[loadCase][rt][k] == 1).ToList();
+            foreach (var col in singleValueCols)
+            {
+              ((Dictionary<string, object>)retValue[loadCase][rt])[col] = ((List<object>)((Dictionary<string, object>)value[loadCase][rt])[col]).First();
+            }
           }
         }
       }
@@ -406,5 +409,23 @@ namespace SpeckleStructuralGSA.SchemaConversion
         default: return null;
       }
     }
+
+    public static string GsaCaseToRef(string loadCase, string loadTaskKw, string comboKw)
+    {
+      string loadCaseRef = null;
+      if (int.TryParse(loadCase.Substring(1), out int loadCaseIndex) && loadCaseIndex > 0)
+      {
+        if (loadCase.StartsWith("a", System.StringComparison.InvariantCultureIgnoreCase))
+        {
+          loadCaseRef = SpeckleStructuralGSA.Helper.GetApplicationId(loadTaskKw, loadCaseIndex);
+        }
+        else if (loadCase.StartsWith("c", System.StringComparison.InvariantCultureIgnoreCase))
+        {
+          loadCaseRef = SpeckleStructuralGSA.Helper.GetApplicationId(comboKw, loadCaseIndex);
+        }
+      }
+      return string.IsNullOrEmpty(loadCaseRef) ? loadCase : loadCaseRef;
+    }
+
   }
 }

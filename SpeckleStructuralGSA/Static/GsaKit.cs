@@ -78,15 +78,20 @@ namespace SpeckleStructuralGSA
           var typeDeps = TypeDependencies(StreamDirection.Send);
           typeDepData.Add(new TypeDependencyData(StreamDirection.Send, currentLayer, typeDeps));
         }
+        
+        /*
         if (Initialiser.AppResources.Settings.SendResults && currentLayer == GSATargetLayer.Analysis && resultsTypeDepData.Count() == 0)
         {
           var resultTypeDeps = ResultTypeDependencies();
           resultsTypeDepData.Add(new TypeDependencyData(StreamDirection.Send, currentLayer, resultTypeDeps));
         }
+        */
+        
 
         var retDict = typeDepData.FirstOrDefault(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer).Dependencies
           .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
+        /*
         if (Initialiser.AppResources.Settings.SendResults && currentLayer == GSATargetLayer.Analysis)
         {
           foreach (var kvp in resultsTypeDepData.FirstOrDefault(td => td.Layer == currentLayer).Dependencies)
@@ -94,7 +99,7 @@ namespace SpeckleStructuralGSA
             retDict.Add(kvp.Key, kvp.Value);
           }
         }
-
+        */
         return retDict;
       }
     }
@@ -211,13 +216,13 @@ namespace SpeckleStructuralGSA
       var layerSchemaDict = layerKeywordTypes[Initialiser.AppResources.Settings.TargetLayer];
       var layerSchemaTypes = layerSchemaDict.Keys;
       var layerSchemaKeywords = layerSchemaDict.Values;
-      var kwDependencies = layerSchemaTypes.ToDictionary(t => layerSchemaDict[t],
+      var layerKwDependencies = layerSchemaTypes.ToDictionary(t => layerSchemaDict[t],
         t => GsaRecord.GetReferencedKeywords(t).Where(kw => layerSchemaKeywords.Contains(kw)).ToList());
 
       foreach (var oldT in oldSchemaTypes)
       {
         var oldTKeyword = ((string)oldT.GetAttribute<GSAObject>("GSAKeyword")).Split('.').First();
-        if (!kwDependencies.Keys.Any(k => k.GetStringValue().Equals(oldTKeyword, StringComparison.InvariantCultureIgnoreCase)))
+        if (!string.IsNullOrEmpty(oldTKeyword) && !layerKwDependencies.Keys.Any(k => k.GetStringValue().Equals(oldTKeyword, StringComparison.InvariantCultureIgnoreCase)))
         {
           continue;
         }
@@ -235,7 +240,9 @@ namespace SpeckleStructuralGSA
           //Remove version for comparison with keyword enum
           var kwPrereq = ((string)tPrereq.GetAttribute<GSAObject>("GSAKeyword")).Split('.').First();
 
-          if (kwDependencies.Keys.Any(k => k.GetStringValue().Equals(kwPrereq, StringComparison.InvariantCultureIgnoreCase)))
+          if (layerKwDependencies.Keys.Any(k => k.GetStringValue().Equals(kwPrereq, StringComparison.InvariantCultureIgnoreCase))
+            || (tPrereq.Name.Contains("Result") && Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis
+              && Initialiser.AppResources.Settings.SendResults))
           {
             typeDependencies[oldT].Add(tPrereq);
           }
@@ -245,6 +252,7 @@ namespace SpeckleStructuralGSA
       return typeDependencies;
     }
 
+    /*
     private Dictionary<Type, List<Type>> ResultTypeDependencies()
     {
       //Build up dictionary of new GSA schema types and keywords - to be used to construct dependencies based on these new types
@@ -278,6 +286,7 @@ namespace SpeckleStructuralGSA
       }
       return resultTypeDependencies;
     }
+    */
 
     private Dictionary<GSATargetLayer, bool> TypeLayers(Type t)
     {

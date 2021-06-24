@@ -4,6 +4,7 @@ using System.Linq;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
+using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA
 {
@@ -25,17 +26,21 @@ namespace SpeckleStructuralGSA
         return new SpeckleNull();
       }
 
+      var kw = GsaRecord.GetKeyword<GsaEl>();
+      var loadTaskKw = GsaRecord.GetKeyword<GsaLoadCase>();
+      var comboKw = GsaRecord.GetKeyword<GsaCombination>();
+
       var axisStr = Initialiser.AppResources.Settings.ResultInLocalAxis ? "local" : "global";
       var num1dPos = Initialiser.AppResources.Settings.Result1DNumPosition;
       var typeName = dummyObject.GetType().Name;
 
       if (Initialiser.AppResources.Settings.EmbedResults)
       {
-        Embed1DResults(typeName, axisStr, num1dPos);
+        Embed1DResults(typeName, axisStr, num1dPos, kw, loadTaskKw, comboKw);
       }
       else
       {
-        if (!Create1DElementResultObjects(typeName, axisStr, num1dPos))
+        if (!Create1DElementResultObjects(typeName, axisStr, num1dPos, loadTaskKw, comboKw))
         {
           return new SpeckleNull();
         }
@@ -44,11 +49,12 @@ namespace SpeckleStructuralGSA
       return new SpeckleObject();
     }
 
-    private static bool Create1DElementResultObjects(string typeName, string axisStr, int num1dPos)
+    private static bool Create1DElementResultObjects(string typeName, string axisStr, int num1dPos, string loadTaskKw, string comboKw)
     {
-      var results = new List<GSA1DElementResult>();
+      var gsaResults = new List<GSA1DElementResult>();
       var memberKw = typeof(GSA1DMember).GetGSAKeyword();
       var keyword = typeof(GSA1DElement).GetGSAKeyword();
+      var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
       //Unlike embedding, separate results doesn't necessarily mean that there is a Speckle object created for each 1d element.  There is always though
       //some GWA loaded into the cache
@@ -57,127 +63,91 @@ namespace SpeckleStructuralGSA
         return false;
       }
 
-      foreach (var kvp in Initialiser.AppResources.Settings.Element1DResults)
+      for (int i = 0; i < indices.Count(); i++)
       {
-        foreach (var loadCase in Initialiser.AppResources.Settings.ResultCases.Where(rc => Initialiser.AppResources.Proxy.CaseExist(rc)))
+        var entity = indices[i];
+        var applicationId = applicationIds[i];
+
+        try
         {
-          for (var i = 0; i < indices.Count(); i++)
+          var pPieces = gwa[i].ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
+          if (pPieces[4].ParseElementNumNodes() != 2 || entity == 0)
           {
-            try
+            continue;
+          }
+
+          var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
+
+          var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
+          if (results != null)
+          {
+            var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
+            foreach (var loadCase in orderedLoadCases)
             {
-              var pPieces = gwa[i].ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
-              if (pPieces[4].ParseElementNumNodes() != 2 || indices[i] == 0)
+              var elem1dResult = new Structural1DElementResult()
               {
-                continue;
+                IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                Value = results[loadCase],
+                TargetRef = applicationId
+              };
+              var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+              if (!string.IsNullOrEmpty(loadCaseRef))
+              {
+                elem1dResult.LoadCaseRef = loadCase;
               }
 
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr, num1dPos);
-
-              if (resultExport == null || resultExport.Count() == 0)
-              {
-                continue;
-              }
-
-              var targetRef = applicationIds[i];
-              if (string.IsNullOrEmpty(applicationIds[i]))
-              {
-                //The call to ToSpeckle() for 1D element would create application Ids in the cache, but when this isn't called (like for results-only sending)
-                //then the cache would be filled with elements' and members' GWA commands but not their non-Speckle-originated (i.e. stored in SIDs) application IDs, 
-                //and so in that case the application ID would need to be calculated in the same way as what would happen as a result of the ToSpeckle() call
-                if (Helper.GetElementParentIdFromGwa(gwa[i], out var memberIndex) && memberIndex > 0)
-                {
-                  targetRef = SpeckleStructuralClasses.Helper.CreateChildApplicationId(indices[i], Helper.GetApplicationId(memberKw, memberIndex));
-                }
-                else
-                {
-                  targetRef = Helper.GetApplicationId(keyword, indices[i]);
-                }
-              }
-
-              var existingRes = results.FirstOrDefault(x => x.Value.TargetRef == targetRef && x.Value.LoadCaseRef == loadCase);
-
-              if (existingRes == null)
-              {
-                var newRes = new Structural1DElementResult()
-                {
-                  Value = new Dictionary<string, object>(),
-                  TargetRef = targetRef,
-                  IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                  LoadCaseRef = loadCase
-                };
-                newRes.Value[kvp.Key] = resultExport;
-
-                newRes.GenerateHash();
-
-                results.Add(new GSA1DElementResult() { Value = newRes, GSAId = indices[i] });
-              }
-              else
-              {
-                existingRes.Value.Value[kvp.Key] = resultExport;
-              }
-            }
-            catch (Exception ex)
-            {
-              var contextDesc = string.Join(" ", typeName, kvp.Key, loadCase);
-              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
+              Initialiser.GsaKit.GSASenderObjects.Add(new GSA1DElementResult { Value = elem1dResult, GSAId = entity });
             }
           }
+
+        }
+        catch (Exception ex)
+        {
+          var contextDesc = string.Join(" ", typeName, entity);
+          Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
         }
       }
-
-      Initialiser.GsaKit.GSASenderObjects.AddRange(results);
-
+      
       return true;
     }
 
-    private static void Embed1DResults(string typeName, string axisStr, int num1dPos)
+    private static void Embed1DResults(string typeName, string axisStr, int num1dPos, string keyword, string loadTaskKw, string comboKw)
     {
       var elements = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>();
 
       var entities = elements.Cast<GSA1DElement>().ToList();
+      var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
-      foreach (var kvp in Initialiser.AppResources.Settings.Element1DResults)
+      foreach (var e in entities)
       {
-        foreach (var loadCase in Initialiser.AppResources.Settings.ResultCases.Where(rc => Initialiser.AppResources.Proxy.CaseExist(rc)))
+        var i = e.GSAId;
+        var obj = e.Value;
+        var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, i, out var data);
+        var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
+        if (results != null)
         {
-          foreach (var entity in entities)
+          var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
+          foreach (var loadCase in orderedLoadCases)
           {
-            var id = entity.GSAId;
-            var obj = entity.Value;
-
-            try
+            var nodeResult = new Structural1DElementResult()
             {
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(id, kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr, num1dPos);
-
-              if (resultExport == null)
-              {
-                continue;
-              }
-
-              var newResult = new Structural1DElementResult()
-              {
-                TargetRef = obj.ApplicationId,
-                LoadCaseRef = loadCase,
-                Value = new Dictionary<string, object>()
-              };
-
-              //The setter of entity.Value.Result won't accept a value if there are no keys (to avoid issues during merging), so
-              //setting a value here needs to be done with at least one key in it
-              if (obj.Result == null)
-              {
-                obj.Result = new Dictionary<string, object>() { { loadCase, newResult } };
-              }
-              else if (!obj.Result.ContainsKey(loadCase))
-              {
-                obj.Result[loadCase] = newResult;
-              }
-
-              (obj.Result[loadCase] as Structural1DElementResult).Value[kvp.Key] = resultExport;
+              IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+              TargetRef = obj.ApplicationId,
+              Value = results[loadCase]
+            };
+            var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+            if (!string.IsNullOrEmpty(loadCaseRef))
+            {
+              nodeResult.LoadCaseRef = loadCase;
             }
-            catch (Exception ex)
+            if (obj.Result == null)
             {
-              var contextDesc = string.Join(" ", typeName, kvp.Key, loadCase);
-              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, id.ToString());
+              //Can't just allocate an empty dictionary as the Result set property won't allow it
+              obj.Result = new Dictionary<string, object>() { { loadCase, nodeResult } };
+            }
+            else
+            {
+              obj.Result.Add(loadCase, nodeResult);
             }
           }
         }

@@ -53,13 +53,26 @@ namespace SpeckleStructuralGSA
         elementAppIds.Add(e.Value.ApplicationId);
 
         // Result merging
-        if (obj.Result != null && ((Structural2DElement)e.Value).Result != null)
+        if (((Structural2DElement)e.Value).Result != null)
         {
           try
           {
             foreach (string loadCase in e.Value.Result.Keys)
             {
-              if (!obj.Result.ContainsKey(loadCase))
+              if (obj.Result == null)
+              {
+                //Can't assign an empty dictionary to obj.Result (due to schema's implementation)
+                obj.Result = new Dictionary<string, object>
+                {
+                  { loadCase, new Structural2DElementResult()
+                      {
+                        Value = new Dictionary<string, object>(),
+                        IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                      }
+                  }
+                };
+              }
+              else if (!obj.Result.ContainsKey(loadCase))
               {
                 obj.Result[loadCase] = new Structural2DElementResult()
                 {
@@ -79,8 +92,8 @@ namespace SpeckleStructuralGSA
                   else
                     foreach (var resultKey in ((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>).Keys)
                     {
-                      (((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<double>)
-                        .AddRange((resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<double>);
+                      (((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<object>)
+                        .AddRange((resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<object>);
                     }
                 }
               }
