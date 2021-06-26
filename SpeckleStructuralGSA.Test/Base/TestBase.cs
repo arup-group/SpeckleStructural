@@ -59,11 +59,39 @@ namespace SpeckleStructuralGSA.Test
       return mockGsaCom;
     }
 
-    protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, string[] resultsToSend = null)
+    protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, 
+      string[] nodeResultsToSend = null, string[] elem1dResultsToSend = null, string[] elem2dResultsToSend = null, string[] miscResultsToSend = null)
     {
-      if (cases != null && cases.Length > 0 && resultsToSend != null && resultsToSend.Length > 0)
+      bool sendResults = false;
+      List<string> allResults = null;
+      if (cases != null && cases.Length > 0 && 
+        ((nodeResultsToSend != null && nodeResultsToSend.Length > 0) || (elem1dResultsToSend != null && elem1dResultsToSend.Length > 0)
+        || (elem2dResultsToSend != null && elem2dResultsToSend.Length > 0) || (miscResultsToSend != null && miscResultsToSend.Length > 0)))
       {
+        sendResults = true;
         Initialiser.AppResources.Settings.ResultCases = cases.ToList();
+        allResults = new List<string>();
+        if (nodeResultsToSend != null)
+        {
+          Initialiser.AppResources.Settings.NodalResults = nodeResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          allResults.AddRange(nodeResultsToSend);
+        }
+        if (elem1dResultsToSend != null)
+        {
+          Initialiser.AppResources.Settings.Element1DResults = elem1dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          allResults.AddRange(elem1dResultsToSend);
+        }
+        if (elem2dResultsToSend != null)
+        {
+          Initialiser.AppResources.Settings.Element2DResults = elem2dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          allResults.AddRange(elem2dResultsToSend);
+        }
+        if (miscResultsToSend != null)
+        {
+          Initialiser.AppResources.Settings.MiscResults = miscResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          allResults.AddRange(miscResultsToSend);
+        }
+
         if (resultsOnly)
         {
           Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.TabularResultsOnly;
@@ -87,9 +115,9 @@ namespace SpeckleStructuralGSA.Test
 
       ((GSAProxy)Initialiser.AppResources.Proxy).SetUnits("m");
 
-      if (resultsToSend.Length > 0 && cases.Length > 0)
+      if (sendResults)
       {
-        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2, resultsToSend.ToList(), cases.ToList());
+        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2, allResults, cases.ToList());
       }
 
       //Clear out all sender objects that might be there from the last test preparation

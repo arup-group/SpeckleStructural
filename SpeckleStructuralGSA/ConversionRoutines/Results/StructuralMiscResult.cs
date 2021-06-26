@@ -4,6 +4,7 @@ using System.Linq;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
+using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA
 {
@@ -17,6 +18,8 @@ namespace SpeckleStructuralGSA
     public static SpeckleObject ToSpeckle(this GSAMiscResult dummyObject)
     {
       var keyword = typeof(GSAAssembly).GetGSAKeyword();
+      var loadTaskKw = GsaRecord.GetKeyword<GsaLoadCase>();
+      var comboKw = GsaRecord.GetKeyword<GsaCombination>();
       var typeName = dummyObject.GetType().Name;
       var axisStr = Initialiser.AppResources.Settings.ResultInLocalAxis ? "local" : "global";
 
@@ -26,57 +29,50 @@ namespace SpeckleStructuralGSA
         return new SpeckleNull();
       }
 
-      var results = new List<GSAMiscResult>();
+      var gsaMiscResults = new List<GSAMiscResult>();
 
-      //Unlike embedding, separate results doesn't necessarily mean that there is a Speckle object created for each assembly.  There is always though
-      //some GWA loaded into the cache
-      foreach (var kvp in Initialiser.AppResources.Settings.MiscResults)
+      //-----
+
+      for (int i = 0; i < indices.Count(); i++)
       {
-        foreach (var loadCase in Initialiser.AppResources.Settings.ResultCases.Where(rc => Initialiser.AppResources.Proxy.CaseExist(rc)))
+        var entity = indices[i];
+        var applicationId = applicationIds[i];
+
+        try
         {
-          for (var i = 0; i < indices.Count(); i++)
+          var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
+
+          var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
+          if (results != null)
           {
-            try
+            var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
+            foreach (var loadCase in orderedLoadCases)
             {
-              var resultExport = Initialiser.AppResources.Proxy.GetGSAResult(indices[i], kvp.Value.ResHeader, kvp.Value.Flags, kvp.Value.Keys, loadCase, axisStr);
-
-              if (resultExport == null || resultExport.Count() == 0)
+              var miscResult = new StructuralMiscResult()
               {
-                continue;
+                IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                Value = results[loadCase],
+                TargetRef = applicationId
+              };
+              var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+              if (!string.IsNullOrEmpty(loadCaseRef))
+              {
+                miscResult.LoadCaseRef = loadCase;
               }
 
-              var targetRef = (string.IsNullOrEmpty(applicationIds[i])) ? Helper.GetApplicationId(keyword, indices[i]) : applicationIds[i];
-
-              var existingRes = results.FirstOrDefault(x => x.Value.TargetRef == targetRef && x.Value.LoadCaseRef == loadCase);
-
-              if (existingRes == null)
-              {
-                var newRes = new StructuralMiscResult
-                {
-                  Description = kvp.Key,
-                  IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                  Value = resultExport,
-                  LoadCaseRef = loadCase,
-                  TargetRef = string.IsNullOrEmpty(applicationIds[i]) ? Helper.GetApplicationId(keyword, indices[i]) : applicationIds[i]
-                };
-                newRes.GenerateHash();
-                results.Add(new GSAMiscResult() { Value = newRes, GSAId = indices[i] });
-              }
-              else
-              {
-                existingRes.Value.Value[kvp.Key] = resultExport;
-              }
-            }
-            catch (Exception ex)
-            {
-              var contextDesc = string.Join(" ", typeName, kvp.Key, loadCase);
-              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
+              Initialiser.GsaKit.GSASenderObjects.Add(new GSAMiscResult { Value = miscResult, GSAId = entity });
             }
           }
+
+        }
+        catch (Exception ex)
+        {
+          var contextDesc = string.Join(" ", typeName, entity);
+          Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
         }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(results);
+      //Initialiser.GsaKit.GSASenderObjects.AddRange(gsaMiscResults);
 
       return new SpeckleObject();
     }

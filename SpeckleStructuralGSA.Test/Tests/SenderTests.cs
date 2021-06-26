@@ -18,10 +18,10 @@ namespace SpeckleStructuralGSA.Test
     public SenderTests() : base(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\TestData\") { }
 
     //public static string[] resultTypes = new[] { "Nodal Reaction", "1D Element Strain Energy Density", "1D Element Force", "Nodal Displacements", "1D Element Stress" };
-    public static string[] resultTypes = new[] { "Nodal Displacements", "Nodal Velocity", "Nodal Acceleration", "Nodal Reaction", "Constraint Forces",
-      "1D Element Displacement", "1D Element Force", 
-      "2D Element Displacement", "2D Element Projected Moment", "2D Element Projected Force",
-      "2D Element Projected Stress - Bottom", "2D Element Projected Stress - Middle", "2D Element Projected Stress - Top" };
+    public static string[] nodeResultTypes = new[] { "Nodal Displacements", "Nodal Velocity", "Nodal Acceleration", "Nodal Reaction", "Constraint Forces" };
+    public static string[] elem1dResultTypes = new[] { "1D Element Displacement", "1D Element Force" };
+    public static string[] elem2dResultTypes = new[] { "2D Element Displacement", "2D Element Projected Moment", "2D Element Projected Force", "2D Element Projected Stress - Bottom", "2D Element Projected Stress - Middle", "2D Element Projected Stress - Top" };
+    public static string[] miscResultTypes = new[] { "Assembly Forces and Moments" };
     public static string[] loadCases = new[] { "A2", "C1" };
     //public const string gsaFileNameWithResults = "20180906 - Existing structure GSA_V7_modified.gwb";
     public const string gsaFileNameWithResults = "Structural Demo 200630 Results.gwb";
@@ -80,7 +80,7 @@ namespace SpeckleStructuralGSA.Test
       }
       //);
 
-      var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, loadCases, resultTypes);
+      var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, loadCases, nodeResultTypes, elem1dResultTypes, elem2dResultTypes, miscResultTypes);
       Assert.IsNotNull(actualObjects);
 
       //This replaces what the real sender does in terms of stream buckets
@@ -216,7 +216,7 @@ namespace SpeckleStructuralGSA.Test
 
       var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults,
         (loadCasesOverride == null) ? loadCases : loadCasesOverride.ListSplit(" "),
-        (overrideResultType == null) ? resultTypes : new[] { overrideResultType });
+        (overrideResultType == null) ? nodeResultTypes : new[] { overrideResultType });
 
       Assert.IsNotNull(actualObjects);
       actualObjects = actualObjects.OrderBy(a => a.ApplicationId).ToList();
