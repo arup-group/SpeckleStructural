@@ -14,16 +14,18 @@ namespace SpeckleStructuralGSA.Test
 
     private Dictionary<Type, IGSASpeckleContainer> dummyObjectDict = new Dictionary<Type, IGSASpeckleContainer>();
 
-    public ReceiverProcessor(string directory, IGSAAppResources appResources, GSATargetLayer layer = GSATargetLayer.Design) : base (directory)
+    public ReceiverProcessor(string directory, GSATargetLayer layer = GSATargetLayer.Design) : base (directory)
     {
-      this.appResources = appResources;
+      //this.appResources = appResources;
       //GSAInterfacer = gsaInterfacer;
       //GSACache = gsaCache;
-      ((MockSettings)this.appResources.Settings).TargetLayer = layer;
+      //((MockSettings)this.appResources.Settings).TargetLayer = layer;
     }
 
     public void JsonSpeckleStreamsToGwaRecords(IEnumerable<string> savedJsonFileNames, out List<GwaRecord> gwaRecords, GSATargetLayer layer)
     {
+      Initialiser.AppResources.Settings.TargetLayer = layer;
+
       gwaRecords = new List<GwaRecord>();
 
       receivedObjects = JsonSpeckleStreamsToSpeckleObjects(savedJsonFileNames);
@@ -32,7 +34,8 @@ namespace SpeckleStructuralGSA.Test
 
       ConvertSpeckleObjectsToGsaInterfacerCache(layer);
 
-      var gwaCommands = ((IGSACacheForTesting) this.appResources.Cache).GetGwaSetCommands();
+      //var gwaCommands = ((IGSACacheForTesting) this.appResources.Cache).GetGwaSetCommands();
+      var gwaCommands = ((IGSACacheForTesting)Initialiser.AppResources.Cache).GetGwaSetCommands();
       foreach (var gwaC in gwaCommands)
       {
         GSAProxy.ParseGeneralGwa(gwaC, out var keyword, out int? index, out var streamId, out var applicationId, out var gwaWithoutSet, out GwaSetCommandType? gwaSetType);
@@ -65,6 +68,8 @@ namespace SpeckleStructuralGSA.Test
 
     private void ConvertSpeckleObjectsToGsaInterfacerCache(GSATargetLayer layer)
     {
+      Initialiser.AppResources.Settings.TargetLayer = layer;
+
       // Write objects
       var currentBatch = new List<Type>();
       var traversedTypes = new List<Type>();
@@ -107,7 +112,7 @@ namespace SpeckleStructuralGSA.Test
                 out var gwaWithoutSet, out var gwaSetCommandType);
 
               //Only cache the object against, the top-level GWA command, not the sub-commands
-              ((IGSACache)appResources.Cache).Upsert(keyword, foundIndex.Value, gwaWithoutSet, applicationId: foundApplicationId, 
+              ((IGSACache)Initialiser.AppResources.Cache).Upsert(keyword, foundIndex.Value, gwaWithoutSet, applicationId: foundApplicationId, 
                 so: (foundApplicationId == obj.ApplicationId) ? obj : null, gwaSetCommandType: gwaSetCommandType.Value);
             }
           }
@@ -116,10 +121,10 @@ namespace SpeckleStructuralGSA.Test
         }
       } while (currentBatch.Count > 0);
 
-      var toBeAddedGwa = ((IGSACache)appResources.Cache).GetNewGwaSetCommands();
+      var toBeAddedGwa = ((IGSACache)Initialiser.AppResources.Cache).GetNewGwaSetCommands();
       for (int i = 0; i < toBeAddedGwa.Count(); i++)
       {
-        appResources.Proxy.SetGwa(toBeAddedGwa[i]);
+        Initialiser.AppResources.Proxy.SetGwa(toBeAddedGwa[i]);
       }
     }
 
@@ -186,4 +191,5 @@ namespace SpeckleStructuralGSA.Test
     #endregion
   }
 }
+
 

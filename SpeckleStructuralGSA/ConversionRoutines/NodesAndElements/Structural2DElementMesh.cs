@@ -31,7 +31,8 @@ namespace SpeckleStructuralGSA
         Offset = new List<double>()
       };
 
-      if (Initialiser.AppResources.Settings.Element2DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+      if (Initialiser.AppResources.Settings.Element2DResults.Count > 0 
+        && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
       {
         obj.Result = new Dictionary<string, object>();
       }

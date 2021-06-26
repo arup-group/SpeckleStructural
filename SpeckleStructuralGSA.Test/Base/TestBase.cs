@@ -61,21 +61,42 @@ namespace SpeckleStructuralGSA.Test
 
     protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, string[] resultsToSend = null)
     {
-      //((IGSACache) appResources.Cache).Clear();
+      if (cases != null && cases.Length > 0 && resultsToSend != null && resultsToSend.Length > 0)
+      {
+        Initialiser.AppResources.Settings.ResultCases = cases.ToList();
+        if (resultsOnly)
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.TabularResultsOnly;
+        }
+        else if (embedResults)
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelWithEmbeddedResults;
+        }
+        else
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.TabularResultsOnly;
+        }
+      }
+      else
+      {
+        Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelOnly;
+      }
+      Initialiser.AppResources.Settings.TargetLayer = layer;
+
       ((IGSACache)Initialiser.AppResources.Cache).Clear();
 
       ((GSAProxy)Initialiser.AppResources.Proxy).SetUnits("m");
 
       if (resultsToSend.Length > 0 && cases.Length > 0)
       {
-        Initialiser.AppResources.Proxy.PrepareResults(3, resultsToSend.ToList(), cases.ToList());
+        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2, resultsToSend.ToList(), cases.ToList());
       }
 
       //Clear out all sender objects that might be there from the last test preparation
       Initialiser.GsaKit.GSASenderObjects.Clear();
 
       //Compile all GWA commands with application IDs
-      var senderProcessor = new SenderProcessor(TestDataDirectory, Initialiser.AppResources, layer, embedResults, cases, resultsToSend);
+      var senderProcessor = new SenderProcessor(TestDataDirectory);
 
       var keywords = Initialiser.GsaKit.Keywords;
       var data = Initialiser.AppResources.Proxy.GetGwaData(keywords, false);
@@ -92,7 +113,7 @@ namespace SpeckleStructuralGSA.Test
           );
       }
 
-      senderProcessor.GsaInstanceToSpeckleObjects(layer, out var speckleObjects, resultsOnly);
+      senderProcessor.GsaInstanceToSpeckleObjects(out var speckleObjects);
 
       return speckleObjects;
     }

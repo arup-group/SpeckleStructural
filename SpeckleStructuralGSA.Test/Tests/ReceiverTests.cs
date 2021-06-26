@@ -65,7 +65,7 @@ namespace SpeckleStructuralGSA.Test
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
 
-      var receiverProcessor = new ReceiverProcessor(TestDataDirectory, Initialiser.AppResources);
+      var receiverProcessor = new ReceiverProcessor(TestDataDirectory);
 
       //Run conversion to GWA keywords
       receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer);
@@ -111,7 +111,7 @@ namespace SpeckleStructuralGSA.Test
       var mockGsaCom = SetupMockGsaCom();
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
-      var receiverProcessor = new ReceiverProcessor(TestDataDirectory, Initialiser.AppResources);
+      var receiverProcessor = new ReceiverProcessor(TestDataDirectory);
 
       //Run conversion to GWA keywords
       receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer);
@@ -158,7 +158,7 @@ namespace SpeckleStructuralGSA.Test
       var mockGsaCom = SetupMockGsaCom();
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
-      var receiverProcessor = new ReceiverProcessor(dir, Initialiser.AppResources);
+      var receiverProcessor = new ReceiverProcessor(dir);
 
       //Run conversion to GWA keywords
       receiverProcessor.JsonSpeckleStreamsToGwaRecords(savedJsonFileNames, out var actualGwaRecords, layer);

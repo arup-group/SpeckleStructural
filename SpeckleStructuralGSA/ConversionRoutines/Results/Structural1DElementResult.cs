@@ -21,7 +21,8 @@ namespace SpeckleStructuralGSA
     public static SpeckleObject ToSpeckle(this GSA1DElementResult dummyObject)
     {
       if (Initialiser.AppResources.Settings.Element1DResults.Count() == 0
-        || Initialiser.AppResources.Settings.EmbedResults && Initialiser.GsaKit.GSASenderObjects.Count<GSA1DElement>() == 0)
+        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults 
+        && Initialiser.GsaKit.GSASenderObjects.Count<GSA1DElement>() == 0)
       {
         return new SpeckleNull();
       }
@@ -34,7 +35,7 @@ namespace SpeckleStructuralGSA
       var num1dPos = Initialiser.AppResources.Settings.Result1DNumPosition;
       var typeName = dummyObject.GetType().Name;
 
-      if (Initialiser.AppResources.Settings.EmbedResults)
+      if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
       {
         Embed1DResults(typeName, axisStr, num1dPos, kw, loadTaskKw, comboKw);
       }

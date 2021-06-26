@@ -9,6 +9,7 @@ namespace SpeckleStructuralGSA
 {
   public class GsaKit : IGSAKit
   {
+    //This is meant to contain ALL the type dependency data, independent of result settings
     private readonly List<TypeDependencyData> typeDepData = new List<TypeDependencyData>();
     //Result type dependencies kept separate for now as typeDepData is based on the new schema and the results is currently based solely on the old schema
     private readonly List<TypeDependencyData> resultsTypeDepData = new List<TypeDependencyData>();
@@ -72,13 +73,23 @@ namespace SpeckleStructuralGSA
     {      
       get
       {
+        Dictionary<Type, List<Type>> typeDeps;
         var currentLayer = Initialiser.AppResources.Settings.TargetLayer;
-        if (!typeDepData.Any(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer))
+
+        var matchingTypeDepData = typeDepData.Where(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer);
+
+        if (matchingTypeDepData == null || matchingTypeDepData.Count() == 0)
         {
-          var typeDeps = TypeDependencies(StreamDirection.Send);
+          typeDeps = TypeDependencies(StreamDirection.Send);
           typeDepData.Add(new TypeDependencyData(StreamDirection.Send, currentLayer, typeDeps));
         }
-        
+        else
+        {
+          typeDeps = matchingTypeDepData.First().Dependencies;
+        }
+
+        //So at this point typeDeps contains ALL the possible type dependencies based on layer and direction only
+
         /*
         if (Initialiser.AppResources.Settings.SendResults && currentLayer == GSATargetLayer.Analysis && resultsTypeDepData.Count() == 0)
         {
@@ -86,10 +97,41 @@ namespace SpeckleStructuralGSA
           resultsTypeDepData.Add(new TypeDependencyData(StreamDirection.Send, currentLayer, resultTypeDeps));
         }
         */
-        
 
-        var retDict = typeDepData.FirstOrDefault(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer).Dependencies
-          .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        var layerAndDirData = typeDepData.FirstOrDefault(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer);
+        
+        if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly)
+        {
+          //return layerAndDirData.Dependencies.Where(kvp => kvp.Key.Name.Contains("Result")).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+          var depsToUse = new List<Type>();
+          depsToUse.AddRange(layerAndDirData.Dependencies.Keys.Where(t => t.Name.Contains("Result")));
+          int typesAdded = 0;
+          do
+          {
+            typesAdded = 0;
+            var typesWithChildren = depsToUse.Where(t => typeDeps[t] != null && typeDeps[t].Count() > 0).ToList();
+            foreach (var dtu in typesWithChildren)
+            {
+              foreach (var dtuChild in typeDeps[dtu])
+              {
+                if (!depsToUse.Contains(dtuChild))
+                {
+                  depsToUse.Add(dtuChild);
+                  typesAdded++;
+                }
+              }
+            }
+          }
+          while (typesAdded > 0);
+
+          var retDict = depsToUse.ToDictionary(t => t, t => typeDeps[t]);
+          return retDict;
+        }
+        else if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelOnly)
+        {
+          return layerAndDirData.Dependencies.Where(kvp => !kvp.Key.Name.Contains("Result")).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+        return layerAndDirData.Dependencies.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
         /*
         if (Initialiser.AppResources.Settings.SendResults && currentLayer == GSATargetLayer.Analysis)
@@ -99,8 +141,8 @@ namespace SpeckleStructuralGSA
             retDict.Add(kvp.Key, kvp.Value);
           }
         }
-        */
         return retDict;
+        */
       }
     }
 
@@ -234,6 +276,8 @@ namespace SpeckleStructuralGSA
 
         var attVal = oldT.GetAttribute<GSAObject>(((direction == StreamDirection.Receive) ? "Write" : "Read") + "Prerequisite");
         var prereqs = (attVal != null) ? ((Type[])attVal).ToList() : new List<Type>();
+        var embedResults = Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults;
+        var isAnalylsisLayer = (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis);
 
         foreach (var tPrereq in prereqs)
         {
@@ -241,8 +285,7 @@ namespace SpeckleStructuralGSA
           var kwPrereq = ((string)tPrereq.GetAttribute<GSAObject>("GSAKeyword")).Split('.').First();
 
           if (layerKwDependencies.Keys.Any(k => k.GetStringValue().Equals(kwPrereq, StringComparison.InvariantCultureIgnoreCase))
-            || (tPrereq.Name.Contains("Result") && Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis
-              && Initialiser.AppResources.Settings.SendResults))
+            || (tPrereq.Name.Contains("Result") && isAnalylsisLayer && embedResults))
           {
             typeDependencies[oldT].Add(tPrereq);
           }

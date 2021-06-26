@@ -4,6 +4,7 @@ using SpeckleCore;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
 using System.Threading.Tasks;
+using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.SchemaConversion
 {
@@ -133,11 +134,11 @@ namespace SpeckleStructuralGSA.SchemaConversion
                   Initialiser.GsaKit.GSASenderObjects.Add(new GSANodeResult { Value = nodeResult, GSAId = i });
                 }
               }
-
             }
-            Initialiser.GsaKit.GSASenderObjects.Add(new GSANode() { Value = structuralNode, GSAId = i });
-            numToBeSent++;
           }
+
+          Initialiser.GsaKit.GSASenderObjects.Add(new GSANode() { Value = structuralNode, GSAId = i });
+          numToBeSent++;
 
           //Add spring object if appropriate
           if (gsaNode.SpringPropertyIndex.HasValue && gsaNode.SpringPropertyIndex.Value > 0)
@@ -200,10 +201,13 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
     private static bool GetNodeResultSettings(out bool embedResults, out List<string> resultTypes, out List<string> resultCases)
     {
-      var sendNodeResults = (Initialiser.AppResources.Settings.SendResults && Initialiser.AppResources.Settings.NodalResults.Keys.Count() > 0
+      var sendResults = (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults
+        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithTabularResults
+        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly);
+      var sendNodeResults = (sendResults && Initialiser.AppResources.Settings.NodalResults.Keys.Count() > 0
         && Initialiser.AppResources.Settings.ResultCases != null && Initialiser.AppResources.Settings.ResultCases.Count() > 0);
 
-      embedResults = sendNodeResults ? Initialiser.AppResources.Settings.EmbedResults : false;
+      embedResults = sendNodeResults ? Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults : false;
       resultTypes = sendNodeResults ? resultTypes = Initialiser.AppResources.Settings.NodalResults.Keys.ToList() : null;
       resultCases = sendNodeResults ? Initialiser.AppResources.Settings.ResultCases.ToList() : null;
       return sendNodeResults;

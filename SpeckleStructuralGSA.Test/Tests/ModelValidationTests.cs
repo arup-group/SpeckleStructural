@@ -54,7 +54,7 @@ namespace SpeckleStructuralGSA.Test
         dir = dir + @"\"; // TestDataDirectory setup unconvetionally with trailing seperator - follow suit
       }
 
-      var receiverProcessor = new ReceiverProcessor(dir, Initialiser.AppResources);
+      var receiverProcessor = new ReceiverProcessor(dir);
 
       // Run conversion to GWA keywords
       // Note that it can be one model split over several json files

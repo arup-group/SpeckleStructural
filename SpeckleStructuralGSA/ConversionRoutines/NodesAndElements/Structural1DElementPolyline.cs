@@ -45,8 +45,11 @@ namespace SpeckleStructuralGSA
       }
 
       Dictionary<string, object> results = null;
-      if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+      if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
+        && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
+      {
         results = new Dictionary<string, object>();
+      }
 
       // Match up coordinates
       var coordinates = new List<Tuple<string, string>>();
@@ -122,7 +125,8 @@ namespace SpeckleStructuralGSA
           endReleases.AddRange(element.EndRelease);
           offsets.AddRange(element.Offset);
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
+            && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             resultVertices.AddRange(element.ResultVertices);
           }
@@ -140,7 +144,8 @@ namespace SpeckleStructuralGSA
           offsets.Add((element.Offset as List<StructuralVectorThree>).Last());
           offsets.Add((element.Offset as List<StructuralVectorThree>).First());
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
+            && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             for (var i = (element.ResultVertices.Count - 3); i >= 0; i -= 3)
             {

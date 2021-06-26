@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleGSAProxy;
 using SpeckleStructuralClasses;
-using SpeckleStructuralGSA.Schema;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -19,9 +17,14 @@ namespace SpeckleStructuralGSA.Test
   {
     public SenderTests() : base(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\TestData\") { }
 
-    public static string[] resultTypes = new[] { "Nodal Reaction", "1D Element Strain Energy Density", "1D Element Force", "Nodal Displacements", "1D Element Stress" };
+    //public static string[] resultTypes = new[] { "Nodal Reaction", "1D Element Strain Energy Density", "1D Element Force", "Nodal Displacements", "1D Element Stress" };
+    public static string[] resultTypes = new[] { "Nodal Displacements", "Nodal Velocity", "Nodal Acceleration", "Nodal Reaction", "Constraint Forces",
+      "1D Element Displacement", "1D Element Force", 
+      "2D Element Displacement", "2D Element Projected Moment", "2D Element Projected Force",
+      "2D Element Projected Stress - Bottom", "2D Element Projected Stress - Middle", "2D Element Projected Stress - Top" };
     public static string[] loadCases = new[] { "A2", "C1" };
-    public const string gsaFileNameWithResults = "20180906 - Existing structure GSA_V7_modified.gwb";
+    //public const string gsaFileNameWithResults = "20180906 - Existing structure GSA_V7_modified.gwb";
+    public const string gsaFileNameWithResults = "Structural Demo 200630 Results.gwb";
     public const string gsaFileNameWithoutResults = "Structural Demo 200630.gwb";
 
     [OneTimeSetUp]
@@ -55,8 +58,8 @@ namespace SpeckleStructuralGSA.Test
 
       var expected = new Dictionary<Type, List<Tuple<string, SpeckleObject, string>>>();
       var expectedLock = new object();
-      Parallel.ForEach(expectedObjects, expectedObject =>
-      //foreach(var expectedObject in expectedObjects)
+      //Parallel.ForEach(expectedObjects, expectedObject =>
+      foreach(var expectedObject in expectedObjects)
       {
         var expectedJson = JsonConvert.SerializeObject(expectedObject, jsonSettings);
 
@@ -75,7 +78,7 @@ namespace SpeckleStructuralGSA.Test
           expected[type].Add(new Tuple<string, SpeckleObject, string>(expectedObjectAppId, expectedObject, expectedJson));
         }
       }
-      );
+      //);
 
       var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, loadCases, resultTypes);
       Assert.IsNotNull(actualObjects);
@@ -190,10 +193,10 @@ namespace SpeckleStructuralGSA.Test
     {
       var resultTypes = new List<Type> { typeof(GSAMiscResult), typeof(GSANodeResult), typeof(GSA1DElementResult), typeof(GSA2DElementResult) };
       ((MockSettings)Initialiser.AppResources.Settings).TargetLayer = GSATargetLayer.Analysis;
-      ((MockSettings)Initialiser.AppResources.Settings).SendResults = false;
+      ((MockSettings)Initialiser.AppResources.Settings).StreamSendConfig = StreamContentConfig.ModelOnly;
       resultTypes.ForEach(rt => Assert.IsFalse(Initialiser.GsaKit.TxTypeDependencies.ContainsKey(rt)));
 
-      ((MockSettings)Initialiser.AppResources.Settings).SendResults = true;
+      ((MockSettings)Initialiser.AppResources.Settings).StreamSendConfig = StreamContentConfig.ModelWithTabularResults;
       foreach (var rt in resultTypes)
       {
         Assert.IsTrue(Initialiser.GsaKit.TxTypeDependencies.ContainsKey(rt));
