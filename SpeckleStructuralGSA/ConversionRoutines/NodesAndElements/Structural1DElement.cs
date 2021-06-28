@@ -741,7 +741,10 @@ namespace SpeckleStructuralGSA
       );
 #endif
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(elements.Values.ToList());
+      if (elements.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(elements.Values.ToList());
+      }
 
       return (elements.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }
@@ -785,7 +788,10 @@ namespace SpeckleStructuralGSA
       );
 #endif
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(members.Values.ToList());
+      if (members.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(members.Values.ToList());
+      }
 
       return (members.Keys.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

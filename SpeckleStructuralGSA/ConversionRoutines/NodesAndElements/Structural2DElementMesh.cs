@@ -200,7 +200,10 @@ namespace SpeckleStructuralGSA
         }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(meshes);
+      if (meshes.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(meshes);
+      }
 
       return new SpeckleNull(); // Return null because ToSpeckle method for GSA2DElement will handle this change
     }

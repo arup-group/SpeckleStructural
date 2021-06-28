@@ -137,7 +137,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(genNodalRestraints.Values.ToList());
+      if (genNodalRestraints.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(genNodalRestraints.Values.ToList());
+      }
 
       return (genNodalRestraints.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

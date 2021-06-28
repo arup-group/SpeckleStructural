@@ -207,7 +207,10 @@ namespace SpeckleStructuralGSA
         loads.Add(load);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0 ) ? new SpeckleObject() : new SpeckleNull();
     }

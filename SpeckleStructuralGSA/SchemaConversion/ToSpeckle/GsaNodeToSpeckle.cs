@@ -67,15 +67,16 @@ namespace SpeckleStructuralGSA.SchemaConversion
           return new SpeckleNull();
         });
 
-        if (!(objNode is SpeckleNull))
+        if (objNode !=null && !(objNode is SpeckleNull))
         {
           var structuralNode = (StructuralNode)objNode;
+          GSANodeResult gsaNodeResult = null;
 
           //Embed results if appropriate as the last thing to do to the new Speckle object before being added to the collection of objects to be sent
           if (sendResults)
           {
             var getResults = Initialiser.AppResources.Proxy.GetResults(nodeKw, i, out var data);
-            var results = Helper.GetSpeckleResultHierarchy(data);
+            var results = Helper.GetSpeckleResultHierarchy(data, false);
             if (results != null)
             {
               var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
@@ -130,14 +131,22 @@ namespace SpeckleStructuralGSA.SchemaConversion
                     //nodeResult.LoadCaseRef = loadCaseRef;
                     nodeResult.LoadCaseRef = loadCase;
                   }
-
-                  Initialiser.GsaKit.GSASenderObjects.Add(new GSANodeResult { Value = nodeResult, GSAId = i });
+                  gsaNodeResult = new GSANodeResult { Value = nodeResult, GSAId = i };
+                  Initialiser.GsaKit.GSASenderObjects.Add(gsaNodeResult);
                 }
               }
             }
           }
-
-          Initialiser.GsaKit.GSASenderObjects.Add(new GSANode() { Value = structuralNode, GSAId = i });
+          var senderObjectGsaNode = new GSANode()
+          {
+            Value = structuralNode,
+            GSAId = i
+          };
+          if (gsaNodeResult != null)
+          {
+            senderObjectGsaNode.ForceSend = true;
+          }
+          Initialiser.GsaKit.GSASenderObjects.Add(senderObjectGsaNode);
           numToBeSent++;
 
           //Add spring object if appropriate

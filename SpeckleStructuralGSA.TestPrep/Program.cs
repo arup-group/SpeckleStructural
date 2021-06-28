@@ -25,6 +25,13 @@ namespace SpeckleStructuralGSA.TestPrep
       //If this isn't called, then the GetObjectSubtypeBetter method in SpeckleCore will cause a {"Value cannot be null.\r\nParameter name: source"} message
       SpeckleInitializer.Initialize();
 
+      var resultTypes = new List<string>();
+      resultTypes.AddRange(resultTypes);
+      resultTypes.AddRange(SenderTests.nodeResultTypes);
+      resultTypes.AddRange(SenderTests.elem1dResultTypes);
+      resultTypes.AddRange(SenderTests.elem2dResultTypes);
+      resultTypes.AddRange(SenderTests.miscResultTypes);
+
       var TestDataDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\..\SpeckleStructuralGSA.Test\TestData\";
       ReceiverTestPrep receiverTestPrep;
       if (blankRefs)
@@ -98,7 +105,7 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txResultsOnly)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsResultsOnly.json", GSATargetLayer.Analysis, true, false, SenderTests.loadCases, SenderTests.resultTypes))
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsResultsOnly.json", GSATargetLayer.Analysis, true, false, SenderTests.loadCases, resultTypes.ToArray()))
           {
             throw new Exception("Transmission: results-only test preparation failed");
           }
@@ -106,7 +113,7 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txEmbedded)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsEmbedded.json", GSATargetLayer.Analysis, false, true, SenderTests.loadCases, SenderTests.resultTypes))
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsEmbedded.json", GSATargetLayer.Analysis, false, true, SenderTests.loadCases, resultTypes.ToArray()))
           {
             throw new Exception("Transmission: embedded test preparation failed");
           }
@@ -114,7 +121,7 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txNotEmbedded)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsNotEmbedded.json", GSATargetLayer.Analysis, false, false, SenderTests.loadCases, SenderTests.resultTypes))
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsNotEmbedded.json", GSATargetLayer.Analysis, false, false, SenderTests.loadCases, resultTypes.ToArray()))
           {
             throw new Exception("Transmission: not-embedded test preparation failed");
           }

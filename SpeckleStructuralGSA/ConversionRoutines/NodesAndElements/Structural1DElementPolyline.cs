@@ -334,34 +334,37 @@ namespace SpeckleStructuralGSA
       var uniqueMembers = new List<int>(Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().Select(x => x.Member).Where(m => m > 0).Distinct());
       uniqueMembers.Sort();  //Just for readability and testing
 
+      var all1dElementsByGsaId = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().GroupBy(x => x.Member).ToDictionary(x => x.Key, x => x.ToList());
+      var multiElementMemberIds = all1dElementsByGsaId.Keys.Where(k => all1dElementsByGsaId[k].Count() > 1).ToList();
+
       //This loop has been left as serial for now, considering the fact that the sender objects are retrieved and removed-from with each iteration
-      foreach (var member in uniqueMembers)
+      foreach (var member in multiElementMemberIds)
       {
         try
         {
-          var all1dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>();
-          var matching1dElementList = all1dElements.Where(x => x.Member == member).OrderBy(m => m.GSAId).ToList();
-          if (matching1dElementList.Count() > 1)
+          //var matching1dElementList = all1dElements.Where(x => x.Member == member).OrderBy(m => m.GSAId).ToList();
+          var matching1dElementList = all1dElementsByGsaId[member];
+          var poly = new GSA1DElementPolyline() { GSAId = Convert.ToInt32(member) };
+          try
           {
-            var poly = new GSA1DElementPolyline() { GSAId = Convert.ToInt32(member) };
-            try
-            {
-              poly.ParseGWACommand(matching1dElementList);
-              polylines.Add(poly);
-            }
-            catch (Exception ex)
-            {
-              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
-                "Keyword=" + keyword, "Index=" + member);
-            }
-
-            Initialiser.GsaKit.GSASenderObjects.RemoveAll(matching1dElementList);
+            poly.ParseGWACommand(matching1dElementList);
+            polylines.Add(poly);
           }
+          catch (Exception ex)
+          {
+            Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
+              "Keyword=" + keyword, "Index=" + member);
+          }
+
+          Initialiser.GsaKit.GSASenderObjects.RemoveAll(matching1dElementList);
         }
         catch { }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(polylines);
+      if (polylines.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(polylines);
+      }
 
       return new SpeckleNull(); // Return null because ToSpeckle method for GSA1DElement will handle this change
     }

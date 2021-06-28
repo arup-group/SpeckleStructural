@@ -102,7 +102,7 @@ namespace SpeckleStructuralGSA.Test
         }
         else
         {
-          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.TabularResultsOnly;
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelWithTabularResults;
         }
       }
       else
