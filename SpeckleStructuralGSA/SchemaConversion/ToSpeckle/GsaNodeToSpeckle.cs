@@ -28,8 +28,11 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       int numToBeSent = 0;
 
+#if DEBUG
       foreach (var i in newNodeLines.Keys)
-      //Parallel.ForEach(newNodeLines.Keys, i =>
+#else
+        Parallel.ForEach(newNodeLines.Keys, i =>
+#endif
       {
         GsaNode gsaNode = null;
         var objNode = Helper.ToSpeckleTryCatch(nodeKw, i, () =>
@@ -77,7 +80,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
           {
             var getResults = Initialiser.AppResources.Proxy.GetResults(nodeKw, i, out var data);
             var results = Helper.GetSpeckleResultHierarchy(data, false);
-            if (results != null)
+            if (results != null && data.Keys.Count() > 0)
             {
               var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
               if (embedResults)
@@ -180,7 +183,9 @@ namespace SpeckleStructuralGSA.SchemaConversion
           } //if spring object needs to be added
         } //if node object was successfully created
       }
-      //);
+#if !DEBUG
+      );
+#endif
 
       return (numToBeSent > 0) ? new SpeckleObject() : new SpeckleNull();
     }
@@ -210,9 +215,11 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
     private static bool GetNodeResultSettings(out bool embedResults, out List<string> resultTypes, out List<string> resultCases)
     {
-      var sendResults = (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults
+      var sendResults = ((Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis) 
+        && (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults
         || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithTabularResults
-        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly);
+        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly));
+
       var sendNodeResults = (sendResults && Initialiser.AppResources.Settings.NodalResults.Keys.Count() > 0
         && Initialiser.AppResources.Settings.ResultCases != null && Initialiser.AppResources.Settings.ResultCases.Count() > 0);
 

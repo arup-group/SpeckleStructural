@@ -17,9 +17,10 @@ namespace SpeckleStructuralGSA.TestPrep
     }
 
     public bool SetUpTransmissionTestData(string outputJsonFileName, GSATargetLayer layer,
-      bool resultsOnly, bool embedResults, string[] cases = null, string[] resultsToSend = null)
+      bool resultsOnly, bool embedResults, string[] cases = null,
+      string[] nodeResultsToSend = null, string[] elem1dResultsToSend = null, string[] elem2dResultsToSend = null, string[] miscResultsToSend = null)
     {
-      var speckleObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, cases, resultsToSend);
+      var speckleObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, cases, nodeResultsToSend, elem1dResultsToSend, elem2dResultsToSend, miscResultsToSend);
       if (speckleObjects == null)
       {
         return false;

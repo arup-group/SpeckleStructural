@@ -43,7 +43,7 @@ namespace SpeckleStructuralGSA
           var match2D = e2Ds.Where(e => memberList.Contains(Convert.ToInt32(e.Member)));
           elementRefs.AddRange(match1D.Select(e => e.Value.ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => e.Value.ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
           this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
           this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }
@@ -54,7 +54,7 @@ namespace SpeckleStructuralGSA
           var match2D = e2Ds.Where(e => elementList.Contains(e.GSAId));
           elementRefs.AddRange(match1D.Select(e => (e.Value).ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => (e.Value).ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
           this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
           this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }
@@ -68,7 +68,7 @@ namespace SpeckleStructuralGSA
           var match2D = m2Ds.Where(e => memberList.Contains(e.GSAId));
           elementRefs.AddRange(match1D.Select(e => ((Structural1DElement)e.Value).ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => ((Structural2DElement)e.Value).ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
           this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
           this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }

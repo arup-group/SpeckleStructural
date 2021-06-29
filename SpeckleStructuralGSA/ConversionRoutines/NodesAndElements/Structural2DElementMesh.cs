@@ -31,12 +31,6 @@ namespace SpeckleStructuralGSA
         Offset = new List<double>()
       };
 
-      if (Initialiser.AppResources.Settings.Element2DResults.Count > 0 
-        && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
-      {
-        obj.Result = new Dictionary<string, object>();
-      }
-
       var axes = obj.Axis ?? new List<StructuralAxis>();
       var offsets = obj.Offset ?? new List<double>();
       var elementAppIds = obj.ElementApplicationId ?? new List<string>();
@@ -47,7 +41,6 @@ namespace SpeckleStructuralGSA
         obj.Vertices.AddRange(e.Value.Vertices);
         obj.Faces.Add((e.Value.Faces as List<int>).First());
         obj.Faces.AddRange((e.Value.Faces as List<int>).Skip(1).Select(x => x + verticesOffset));
-
         
         axes.Add(e.Value.Axis);
         offsets.Add(e.Value.Offset ?? 0);
@@ -113,8 +106,8 @@ namespace SpeckleStructuralGSA
           }
         }
 
-        this.SubGWACommand.Add(e.GWACommand);
-        this.SubGWACommand.AddRange(e.SubGWACommand);
+        //this.SubGWACommand.Add(e.GWACommand);
+        //this.SubGWACommand.AddRange(e.SubGWACommand);
       }
 
       obj.Axis = axes;
@@ -177,16 +170,17 @@ namespace SpeckleStructuralGSA
       var typeName = dummyObject.GetType().Name;
       var keyword = dummyObject.GetGSAKeyword();
 
-      // Perform mesh merging
-      var uniqueMembers = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>().Select(x => x.Member).Where(m => m > 0).Distinct().ToList();
+      var all2dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>();
 
+      var uniqueMembers = all2dElements.Select(x => x.Member).Where(m => m > 0).Distinct().OrderBy(m => m).ToList();
+
+      // Perform mesh merging
       //This loop has been left as serial for now, considering the fact that the sender objects are retrieved and removed-from with each iteration
       foreach (var member in uniqueMembers)
       {
         try
         {
-          var all2dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>();
-          var matching2dElementList = all2dElements.Where(x => x.Member == member).Cast<GSA2DElement>().ToList();
+          var matching2dElementList = all2dElements.Where(x => x.Member == member).Cast<GSA2DElement>().OrderBy(e => e.GSAId).ToList();
           var mesh = new GSA2DElementMesh() { GSAId = Convert.ToInt32(member) };
           mesh.ParseGWACommand(matching2dElementList);
           meshes.Add(mesh);

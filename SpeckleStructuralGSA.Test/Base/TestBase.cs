@@ -64,7 +64,7 @@ namespace SpeckleStructuralGSA.Test
     {
       bool sendResults = false;
       List<string> allResults = null;
-      if (cases != null && cases.Length > 0 && 
+      if (layer == GSATargetLayer.Analysis && cases != null && cases.Length > 0 && 
         ((nodeResultsToSend != null && nodeResultsToSend.Length > 0) || (elem1dResultsToSend != null && elem1dResultsToSend.Length > 0)
         || (elem2dResultsToSend != null && elem2dResultsToSend.Length > 0) || (miscResultsToSend != null && miscResultsToSend.Length > 0)))
       {

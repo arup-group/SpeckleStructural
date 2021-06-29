@@ -17,7 +17,6 @@ namespace SpeckleStructuralGSA.Test
   {
     public SenderTests() : base(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\TestData\") { }
 
-    //public static string[] resultTypes = new[] { "Nodal Reaction", "1D Element Strain Energy Density", "1D Element Force", "Nodal Displacements", "1D Element Stress" };
     public static string[] nodeResultTypes = new[] { "Nodal Displacements", "Nodal Velocity", "Nodal Acceleration", "Nodal Reaction", "Constraint Forces" };
     public static string[] elem1dResultTypes = new[] { "1D Element Displacement", "1D Element Force" };
     public static string[] elem2dResultTypes = new[] { "2D Element Displacement", "2D Element Projected Moment", "2D Element Projected Force", "2D Element Projected Stress - Bottom", "2D Element Projected Stress - Middle", "2D Element Projected Stress - Top" };

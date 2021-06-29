@@ -561,17 +561,12 @@ namespace SpeckleStructuralGSA
     {
       var typeName = dummyObject.GetType().Name;
       var newElementLines = ToSpeckleBase<GSA2DElement>();
-      var newMeshLines = ToSpeckleBase<GSA2DElementMesh>();
       var newLinesTuples = new List<Tuple<int, string>>();
       var keyword = dummyObject.GetGSAKeyword();
 
       foreach (var k in newElementLines.Keys)
       {
         newLinesTuples.Add(new Tuple<int, string>(k, newElementLines[k]));
-      }
-      foreach (var k in newMeshLines.Keys)
-      {
-        newLinesTuples.Add(new Tuple<int, string>(k, newMeshLines[k]));
       }
 
       var elementsLock = new object();

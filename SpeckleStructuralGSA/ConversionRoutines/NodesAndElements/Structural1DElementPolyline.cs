@@ -334,7 +334,7 @@ namespace SpeckleStructuralGSA
       var uniqueMembers = new List<int>(Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().Select(x => x.Member).Where(m => m > 0).Distinct());
       uniqueMembers.Sort();  //Just for readability and testing
 
-      var all1dElementsByGsaId = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().GroupBy(x => x.Member).ToDictionary(x => x.Key, x => x.ToList());
+      var all1dElementsByGsaId = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().GroupBy(x => x.Member).Where(g => g.Key > 0).ToDictionary(x => x.Key, x => x.ToList());
       var multiElementMemberIds = all1dElementsByGsaId.Keys.Where(k => all1dElementsByGsaId[k].Count() > 1).ToList();
 
       //This loop has been left as serial for now, considering the fact that the sender objects are retrieved and removed-from with each iteration

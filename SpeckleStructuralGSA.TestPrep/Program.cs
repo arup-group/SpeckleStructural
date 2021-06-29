@@ -9,6 +9,7 @@ namespace SpeckleStructuralGSA.TestPrep
 {
   public class Program
   {
+    /*
     private static bool blankRefs = true;
     private static bool rxDesign = true;
     private static bool txDesignBeforeAnalysis = true;
@@ -16,6 +17,7 @@ namespace SpeckleStructuralGSA.TestPrep
     private static bool txResultsOnly = true;
     private static bool txEmbedded = true;
     private static bool txNotEmbedded = true;
+    */
 
     static void Main(string[] args)
     {
@@ -25,12 +27,22 @@ namespace SpeckleStructuralGSA.TestPrep
       //If this isn't called, then the GetObjectSubtypeBetter method in SpeckleCore will cause a {"Value cannot be null.\r\nParameter name: source"} message
       SpeckleInitializer.Initialize();
 
+      var blankRefs = args.Any(a => a.Equals("blankRefs", StringComparison.InvariantCultureIgnoreCase));
+      var rxDesign = args.Any(a => a.Equals("rxDesign", StringComparison.InvariantCultureIgnoreCase));
+      var txDesignBeforeAnalysis = args.Any(a => a.Equals("txDesignBeforeAnalysis", StringComparison.InvariantCultureIgnoreCase)); ;
+      var txDesign = args.Any(a => a.Equals("txDesign", StringComparison.InvariantCultureIgnoreCase)); ;
+      var txResultsOnly = args.Any(a => a.Equals("txResultsOnly", StringComparison.InvariantCultureIgnoreCase)); ;
+      var txEmbedded = args.Any(a => a.Equals("txEmbedded", StringComparison.InvariantCultureIgnoreCase)); ;
+      var txNotEmbedded = args.Any(a => a.Equals("txNotEmbedded", StringComparison.InvariantCultureIgnoreCase));
+
+      /*
       var resultTypes = new List<string>();
       resultTypes.AddRange(resultTypes);
       resultTypes.AddRange(SenderTests.nodeResultTypes);
       resultTypes.AddRange(SenderTests.elem1dResultTypes);
       resultTypes.AddRange(SenderTests.elem2dResultTypes);
       resultTypes.AddRange(SenderTests.miscResultTypes);
+      */
 
       var TestDataDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\..\SpeckleStructuralGSA.Test\TestData\";
       ReceiverTestPrep receiverTestPrep;
@@ -71,6 +83,7 @@ namespace SpeckleStructuralGSA.TestPrep
       {
         //First the sender test for design layer data without any results being in the file
         senderTestPrep.SetupContext(SenderTests.gsaFileNameWithoutResults);
+        Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelOnly;
         try
         {
           if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsDesignLayerBeforeAnalysis.json", GSATargetLayer.Design, false, true))
@@ -90,13 +103,11 @@ namespace SpeckleStructuralGSA.TestPrep
         PrintAnyErrorMessages(Initialiser.AppResources.Messenger);
       }
 
-      //Next the sender tests using a file with results already generated
-      senderTestPrep.SetupContext(SenderTests.gsaFileNameWithResults);
-
       try
       {
         if (txDesign)
         {
+          senderTestPrep.SetupContext(SenderTests.gsaFileNameWithResults);
           if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsDesignLayer.json", GSATargetLayer.Design, false, true))
           {
             throw new Exception("Transmission: design layer test preparation failed");
@@ -105,7 +116,9 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txResultsOnly)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsResultsOnly.json", GSATargetLayer.Analysis, true, false, SenderTests.loadCases, resultTypes.ToArray()))
+          senderTestPrep.SetupContext(SenderTests.gsaFileNameWithResults);
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsResultsOnly.json", GSATargetLayer.Analysis, true, false, SenderTests.loadCases,
+            SenderTests.nodeResultTypes, SenderTests.elem1dResultTypes, SenderTests.elem2dResultTypes, SenderTests.miscResultTypes))
           {
             throw new Exception("Transmission: results-only test preparation failed");
           }
@@ -113,7 +126,9 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txEmbedded)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsEmbedded.json", GSATargetLayer.Analysis, false, true, SenderTests.loadCases, resultTypes.ToArray()))
+          senderTestPrep.SetupContext(SenderTests.gsaFileNameWithResults);
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsEmbedded.json", GSATargetLayer.Analysis, false, true, SenderTests.loadCases,
+            SenderTests.nodeResultTypes, SenderTests.elem1dResultTypes, SenderTests.elem2dResultTypes, SenderTests.miscResultTypes))
           {
             throw new Exception("Transmission: embedded test preparation failed");
           }
@@ -121,7 +136,9 @@ namespace SpeckleStructuralGSA.TestPrep
         }
         if (txNotEmbedded)
         {
-          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsNotEmbedded.json", GSATargetLayer.Analysis, false, false, SenderTests.loadCases, resultTypes.ToArray()))
+          senderTestPrep.SetupContext(SenderTests.gsaFileNameWithResults);
+          if (!senderTestPrep.SetUpTransmissionTestData("TxSpeckleObjectsNotEmbedded.json", GSATargetLayer.Analysis, false, false, SenderTests.loadCases,
+            SenderTests.nodeResultTypes, SenderTests.elem1dResultTypes, SenderTests.elem2dResultTypes, SenderTests.miscResultTypes))
           {
             throw new Exception("Transmission: not-embedded test preparation failed");
           }
