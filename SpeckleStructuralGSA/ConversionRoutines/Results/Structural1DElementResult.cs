@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
@@ -21,8 +22,8 @@ namespace SpeckleStructuralGSA
     public static SpeckleObject ToSpeckle(this GSA1DElementResult dummyObject)
     {
       if (Initialiser.AppResources.Settings.Element1DResults.Count() == 0
-        || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults 
-        && Initialiser.GsaKit.GSASenderObjects.Count<GSA1DElement>() == 0)
+        || (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults 
+          && Initialiser.GsaKit.GSASenderObjects.Count<GSA1DElement>() == 0))
       {
         return new SpeckleNull();
       }
@@ -35,13 +36,17 @@ namespace SpeckleStructuralGSA
       var num1dPos = Initialiser.AppResources.Settings.Result1DNumPosition;
       var typeName = dummyObject.GetType().Name;
 
+      var numAdditionalPoints = Initialiser.AppResources.Settings.Result1DNumPosition;
+      var resultTypes = Initialiser.AppResources.Settings.Element1DResults.Keys.ToList();
+      var cases = Initialiser.AppResources.Settings.ResultCases;
+
       if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
       {
-        Embed1DResults(typeName, axisStr, num1dPos, kw, loadTaskKw, comboKw);
+        Embed1DResults(typeName, axisStr, num1dPos, kw, loadTaskKw, comboKw, resultTypes, cases, numAdditionalPoints);
       }
       else
       {
-        if (!Create1DElementResultObjects(typeName, axisStr, num1dPos, loadTaskKw, comboKw))
+        if (!Create1DElementResultObjects(typeName, axisStr, num1dPos, loadTaskKw, comboKw, resultTypes, cases, numAdditionalPoints))
         {
           return new SpeckleNull();
         }
@@ -50,12 +55,15 @@ namespace SpeckleStructuralGSA
       return new SpeckleObject();
     }
 
-    private static bool Create1DElementResultObjects(string typeName, string axisStr, int num1dPos, string loadTaskKw, string comboKw)
+    private static bool Create1DElementResultObjects(string typeName, string axisStr, int num1dPos, string loadTaskKw, string comboKw,
+      List<string> resultTypes, List<string> cases, int numAdditionalPoints)
     {
       var gsaResults = new List<GSA1DElementResult>();
+      var gsaResultsLock = new object();
       var memberKw = typeof(GSA1DMember).GetGSAKeyword();
       var keyword = typeof(GSA1DElement).GetGSAKeyword();
       var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
+      
 
       //Unlike embedding, separate results doesn't necessarily mean that there is a Speckle object created for each 1d element.  There is always though
       //some GWA loaded into the cache
@@ -64,7 +72,13 @@ namespace SpeckleStructuralGSA
         return false;
       }
 
+      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, indices);
+
+#if DEBUG
       for (int i = 0; i < indices.Count(); i++)
+#else
+      Parallel.For(0, indices.Count(), i =>
+#endif
       {
         var entity = indices[i];
         var applicationId = applicationIds[i];
@@ -72,32 +86,33 @@ namespace SpeckleStructuralGSA
         try
         {
           var pPieces = gwa[i].ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
-          if (pPieces[4].ParseElementNumNodes() != 2 || entity == 0)
+          if (pPieces[4].ParseElementNumNodes() == 2 && entity != 0)
           {
-            continue;
-          }
+            var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
 
-          var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
-
-          var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
-          if (results != null)
-          {
-            var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
-            foreach (var loadCase in orderedLoadCases)
+            var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
+            if (results != null)
             {
-              var elem1dResult = new Structural1DElementResult()
+              var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
+              foreach (var loadCase in orderedLoadCases)
               {
-                IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                Value = results[loadCase],
-                TargetRef = applicationId
-              };
-              var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
-              if (!string.IsNullOrEmpty(loadCaseRef))
-              {
-                elem1dResult.LoadCaseRef = loadCase;
-              }
+                var elem1dResult = new Structural1DElementResult()
+                {
+                  IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                  Value = results[loadCase],
+                  TargetRef = applicationId
+                };
+                var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+                if (!string.IsNullOrEmpty(loadCaseRef))
+                {
+                  elem1dResult.LoadCaseRef = loadCase;
+                }
 
-              Initialiser.GsaKit.GSASenderObjects.Add(new GSA1DElementResult { Value = elem1dResult, GSAId = entity });
+                lock(gsaResultsLock)
+                {
+                  gsaResults.Add(new GSA1DElementResult { Value = elem1dResult, GSAId = entity });
+                }
+              }
             }
           }
 
@@ -108,18 +123,32 @@ namespace SpeckleStructuralGSA
           Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
         }
       }
-      
+#if !DEBUG
+      );
+#endif
+      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
+      if (gsaResults.Count > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(gsaResults);
+      }
       return true;
     }
 
-    private static void Embed1DResults(string typeName, string axisStr, int num1dPos, string keyword, string loadTaskKw, string comboKw)
+    private static void Embed1DResults(string typeName, string axisStr, int num1dPos, string keyword, string loadTaskKw, string comboKw,
+      List<string> resultTypes, List<string> cases, int numAdditionalPoints)
     {
       var elements = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>();
 
       var entities = elements.Cast<GSA1DElement>().ToList();
       var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
+      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, entities.Select(e => e.GSAId).ToList());
+
+#if DEBUG
       foreach (var e in entities)
+#else
+      Parallel.ForEach(entities, e =>
+#endif
       {
         var i = e.GSAId;
         var obj = e.Value;
@@ -153,6 +182,11 @@ namespace SpeckleStructuralGSA
           }
         }
       }
+#if !DEBUG
+      );
+#endif
+
+      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
 
       // Linear interpolate the line values
       foreach (var entity in entities)

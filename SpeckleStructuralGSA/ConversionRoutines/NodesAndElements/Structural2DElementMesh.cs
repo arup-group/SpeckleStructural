@@ -166,6 +166,12 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA2DElementMesh dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element2DResults.Count() == 0)
+      {
+        return new SpeckleNull();
+      }
+
       var meshes = new List<GSA2DElementMesh>();
       var typeName = dummyObject.GetType().Name;
       var keyword = dummyObject.GetGSAKeyword();

@@ -163,6 +163,12 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA2DProperty dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element2DResults.Count() == 0)
+      {
+        return new SpeckleNull();
+      }
+
       var newLines = ToSpeckleBase<GSA2DProperty>();
       var typeName = dummyObject.GetType().Name;
       var propsLock = new object();

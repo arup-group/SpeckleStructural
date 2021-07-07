@@ -68,7 +68,7 @@ namespace SpeckleStructuralGSA
     }
 
     public Dictionary<Type, List<Type>> TxTypeDependencies
-    {      
+    {
       get
       {
         Dictionary<Type, List<Type>> typeDeps;
@@ -89,7 +89,7 @@ namespace SpeckleStructuralGSA
         //So at this point typeDeps contains ALL the possible type dependencies based on layer and direction only
 
         var layerAndDirData = typeDepData.FirstOrDefault(td => td.Direction == StreamDirection.Send && td.Layer == currentLayer);
-        
+
         //the type def data saved is *every* tupe for that layer and direction.  Now reduce it according to whether the current settings are:
         //- model only (no results at all)
         //- model + results (whether that be embedded or not)
@@ -124,7 +124,7 @@ namespace SpeckleStructuralGSA
         else if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelOnly)
         {
           var retDict = new Dictionary<Type, List<Type>>();
-          var depsToUse = layerAndDirData.Dependencies.Keys.Where(t =>!t.Name.Contains("Result"));
+          var depsToUse = layerAndDirData.Dependencies.Keys.Where(t => !t.Name.Contains("Result"));
           foreach (var dtu in depsToUse)
           {
             var relevantChildren = layerAndDirData.Dependencies[dtu].Where(t => depsToUse.Contains(t)).ToList();
@@ -147,7 +147,13 @@ namespace SpeckleStructuralGSA
       }
     }
 
-    public List<string> Keywords => layerKeywords[Initialiser.AppResources.Settings.TargetLayer].Select(kw => kw.GetStringValue()).ToList();
+    public List<string> Keywords
+    {
+      get
+      {
+        return layerKeywords[Initialiser.AppResources.Settings.TargetLayer].Select(kw => kw.GetStringValue()).Distinct().ToList();
+      }
+    }
 
     //This dictionary should be independent of layer
     private readonly Dictionary<GSATargetLayer, Dictionary<Type, GwaKeyword>> layerKeywordTypes;

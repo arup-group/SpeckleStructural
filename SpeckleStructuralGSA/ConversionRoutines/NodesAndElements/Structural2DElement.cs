@@ -559,6 +559,12 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA2DElement dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element2DResults.Count() == 0)
+      {
+        return new SpeckleNull();
+      }
+
       var typeName = dummyObject.GetType().Name;
       var newElementLines = ToSpeckleBase<GSA2DElement>();
       var newLinesTuples = new List<Tuple<int, string>>();

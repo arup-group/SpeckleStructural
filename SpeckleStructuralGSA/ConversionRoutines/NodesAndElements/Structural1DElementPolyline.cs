@@ -327,6 +327,12 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA1DElementPolyline dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element1DResults.Count() == 0)
+      {
+        return new SpeckleNull();
+      }
+
       var keyword = dummyObject.GetGSAKeyword();
       var polylines = new List<GSA1DElementPolyline>();
       var typeName = dummyObject.GetType().Name;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
@@ -23,17 +24,25 @@ namespace SpeckleStructuralGSA
       var typeName = dummyObject.GetType().Name;
       var axisStr = Initialiser.AppResources.Settings.ResultInLocalAxis ? "local" : "global";
 
-      if (Initialiser.AppResources.Settings.MiscResults.Count() == 0 
+      var resultTypes = Initialiser.AppResources.Settings.MiscResults.Keys.Where(r => r.ToLower().Contains("assembly")).ToList();
+      var cases = Initialiser.AppResources.Settings.ResultCases;
+
+      if (resultTypes.Count() == 0 
         || !Initialiser.AppResources.Cache.GetKeywordRecordsSummary(keyword, out var gwa, out var indices, out var applicationIds))
       {
         return new SpeckleNull();
       }
 
       var gsaMiscResults = new List<GSAMiscResult>();
+      var gsaMiscResultsLock = new object();
 
-      //-----
+      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, indices);
 
+#if DEBUG
       for (int i = 0; i < indices.Count(); i++)
+#else
+      Parallel.For(0, indices.Count, i =>
+#endif
       {
         var entity = indices[i];
         var applicationId = applicationIds[i];
@@ -60,7 +69,10 @@ namespace SpeckleStructuralGSA
                 miscResult.LoadCaseRef = loadCase;
               }
 
-              Initialiser.GsaKit.GSASenderObjects.Add(new GSAMiscResult { Value = miscResult, GSAId = entity });
+              lock (gsaMiscResultsLock)
+              {
+                gsaMiscResults.Add(new GSAMiscResult { Value = miscResult, GSAId = entity });
+              }
             }
           }
 
@@ -70,6 +82,15 @@ namespace SpeckleStructuralGSA
           var contextDesc = string.Join(" ", typeName, entity);
           Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, contextDesc, i.ToString());
         }
+      }
+#if !DEBUG
+      );
+#endif
+      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
+
+      if (gsaMiscResults.Count > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(gsaMiscResults);
       }
 
       //Initialiser.GsaKit.GSASenderObjects.AddRange(gsaMiscResults);
