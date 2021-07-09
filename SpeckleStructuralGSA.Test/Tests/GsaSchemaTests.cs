@@ -192,6 +192,26 @@ namespace SpeckleStructuralGSA.Test
     }
 
     [Test]
+    public void GsaProp2dSimple()
+    {
+      var supportedProp2dGwa = "PROP_2D.7\t1\tSlab property\tNO_RGB\tSHELL\tGLOBAL\t0\tCONCRETE\t1\t0\t0.3\tCENTROID\t0\t0\t100%\t100%\t100%\t100%";
+      var unsupportedProp2dGwa = "PROP_2D.7\t1\tSlab property\tNO_RGB\tCURVED\tGLOBAL\t0\tCONCRETE\t1\t0\t0.3(m) D 0 CAT RLD Ribdeck AL (0.9)\tCENTROID\t0\t0\t100%\t100%\t100%\t100%";
+
+      var p1 = new GsaProp2d();
+      Assert.IsTrue(p1.FromGwa(supportedProp2dGwa));
+      var p2 = new GsaProp2d();
+      Assert.IsTrue(p2.FromGwa(unsupportedProp2dGwa));
+
+      Assert.AreEqual(0.3, p1.Thickness);
+      Assert.AreEqual(Property2dRefSurface.Centroid, p1.RefPt);
+
+      Assert.IsTrue(p1.Gwa(out var gwa));
+      Assert.IsTrue(supportedProp2dGwa.Equals(gwa.First()));
+
+      Assert.IsTrue(ModelValidation(supportedProp2dGwa, GsaRecord.GetKeyword<GsaProp2d>(), 1, out var _));
+    }
+
+    [Test]
     public void GsaNodeSimple()
     {
       var nodeGwas = new List<string>()

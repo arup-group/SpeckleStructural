@@ -35,7 +35,7 @@ namespace SpeckleStructuralGSA
 
         obj.NodeRef = targetNode.Value.ApplicationId;
 
-        this.SubGWACommand.Add(targetNode.GWACommand);
+        //this.SubGWACommand.Add(targetNode.GWACommand);
 
         targetNode.ForceSend = true;
       }
@@ -68,8 +68,8 @@ namespace SpeckleStructuralGSA
       else
       {
         obj.Axis = Helper.Parse0DAxis(Convert.ToInt32(axis), out string rec, targetNode.Value.Value.ToArray());
-        if (rec != null)
-          this.SubGWACommand.Add(rec);
+        //if (rec != null)
+          //this.SubGWACommand.Add(rec);
       }
 
       var dir = pieces[counter++];
@@ -193,7 +193,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      if (infls.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      }
 
       return (infls.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

@@ -12,7 +12,7 @@ namespace SpeckleStructuralGSA
   {
   }
 
-
+  /*
   public static partial class Conversions
   {
     public static SpeckleObject ToSpeckle(this GSANodeResult dummyObject)
@@ -165,4 +165,5 @@ namespace SpeckleStructuralGSA
       }
     }
   }
+  */
 }

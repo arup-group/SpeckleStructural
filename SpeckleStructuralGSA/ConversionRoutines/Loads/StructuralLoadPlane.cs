@@ -45,7 +45,10 @@ namespace SpeckleStructuralGSA
         }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(planes);
+      if (planes.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(planes);
+      }
 
       return (planes.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

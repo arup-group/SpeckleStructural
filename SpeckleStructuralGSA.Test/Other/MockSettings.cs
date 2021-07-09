@@ -4,6 +4,7 @@ using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.Test
 {
+  //TO DO: remove this class as it doesn't seem to materially offer functionality used only in tseting
   public class MockSettings : IGSASettings
   {
     public bool SendOnlyMeaningfulNodes = true;
@@ -14,9 +15,7 @@ namespace SpeckleStructuralGSA.Test
     public string Units { get; set; } = "m";
     public GSATargetLayer TargetLayer { get; set; } = GSATargetLayer.Design;
     public double CoincidentNodeAllowance { get; set; } = 0.1;
-    public bool SendOnlyResults { get; set; } = false;
-
-    public bool SendResults { get; set; } = false;
+    public StreamContentConfig StreamSendConfig { get; set; }
 
     public Dictionary<string, IGSAResultParams> NodalResults { get; set; } = new Dictionary<string, IGSAResultParams>();
     public Dictionary<string, IGSAResultParams> Element1DResults { get; set; } = new Dictionary<string, IGSAResultParams>();
@@ -26,7 +25,6 @@ namespace SpeckleStructuralGSA.Test
     public List<string> ResultCases { get; set; } = new List<string>();
     public bool ResultInLocalAxis { get; set; } = false;
     public int Result1DNumPosition { get; set; } = 3;
-    public bool EmbedResults { get; set; } = true;
 
     public string ObjectUrl(string id)
     {

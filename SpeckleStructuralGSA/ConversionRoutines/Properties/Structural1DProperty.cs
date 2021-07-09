@@ -37,8 +37,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
       else if (materialType == "CONCRETE")
@@ -47,8 +47,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
 
@@ -735,6 +735,12 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA1DProperty dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element1DResults.Count() == 0)
+      {
+        return new SpeckleNull();
+      }
+
       var newLines = ToSpeckleBase<GSA1DProperty>();
       var typeName = dummyObject.GetType().Name;
       var propsLock = new object();
@@ -763,7 +769,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(props.Values.ToList());
+      if (props.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(props.Values.ToList());
+      }
 
       return (props.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

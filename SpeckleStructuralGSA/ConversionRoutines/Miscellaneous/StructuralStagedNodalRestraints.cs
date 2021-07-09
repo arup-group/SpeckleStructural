@@ -40,7 +40,7 @@ namespace SpeckleStructuralGSA
         var targetNodes = nodes.Where(n => targetNodeRefs.Contains(n.GSAId)).ToList();
 
         obj.NodeRefs = targetNodes.Select(n => (string)n.Value.ApplicationId).Distinct().OrderBy(i => i).ToList();
-        this.SubGWACommand.AddRange(targetNodes.Select(n => n.GWACommand));
+        //this.SubGWACommand.AddRange(targetNodes.Select(n => n.GWACommand));
 
         foreach (var n in targetNodes)
         {
@@ -137,7 +137,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(genNodalRestraints.Values.ToList());
+      if (genNodalRestraints.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(genNodalRestraints.Values.ToList());
+      }
 
       return (genNodalRestraints.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA
       int.TryParse(pieces[counter++], out int taskRef);
       var taskRec = Initialiser.AppResources.Cache.GetGwa("TASK", taskRef).First();
       obj.TaskType = Helper.GetLoadTaskType(taskRec);
-      this.SubGWACommand.Add(taskRec);
+      //this.SubGWACommand.Add(taskRec);
 
       // Parse description
       var description = pieces[counter++];
@@ -274,7 +274,10 @@ namespace SpeckleStructuralGSA
         loadTasks.Add(task);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loadTasks);
+      if (loadTasks.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loadTasks);
+      }
 
       return (loadTasks.Count() > 0 ) ? new SpeckleObject() : new SpeckleNull();
     }
