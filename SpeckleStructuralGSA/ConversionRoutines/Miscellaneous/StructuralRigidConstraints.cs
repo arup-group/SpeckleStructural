@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA
       var masterNode = nodes.Where(n => n.GSAId == masterNodeRef);
       if (masterNode.Count() > 0)
       {
-        this.SubGWACommand.Add(masterNode.First().GWACommand);
+        //this.SubGWACommand.Add(masterNode.First().GWACommand);
         obj.MasterNodeRef = masterNode.First().Value.ApplicationId;
       }
 
@@ -89,7 +89,7 @@ namespace SpeckleStructuralGSA
             .Where(n => targetNodeRefs.Contains(n.GSAId)).ToList();
 
         obj.NodeRefs = targetNodes.Select(n => (string)n.Value.ApplicationId).OrderBy(i => i).ToList();
-        this.SubGWACommand.AddRange(targetNodes.Select(n => n.GWACommand));
+        //this.SubGWACommand.AddRange(targetNodes.Select(n => n.GWACommand));
 
         foreach (var n in targetNodes)
         {

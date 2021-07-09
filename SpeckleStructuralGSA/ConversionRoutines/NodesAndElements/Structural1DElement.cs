@@ -64,7 +64,7 @@ namespace SpeckleStructuralGSA
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(key)).FirstOrDefault();
         node.ForceSend = true;
         obj.Value.AddRange(node.Value.Value);
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       var orientationNodeRef = pieces[counter++];
@@ -78,7 +78,7 @@ namespace SpeckleStructuralGSA
           node.ForceSend = true;
 
           obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-          this.SubGWACommand.Add(node.GWACommand);
+          //this.SubGWACommand.Add(node.GWACommand);
         }
         else
         {
@@ -386,7 +386,7 @@ namespace SpeckleStructuralGSA
           continue;
         }
         obj.Value.AddRange(node.Value.Value);
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       // orientation
@@ -397,7 +397,7 @@ namespace SpeckleStructuralGSA
       {
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(orientationNodeRef)).FirstOrDefault();
         obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
       else
       {

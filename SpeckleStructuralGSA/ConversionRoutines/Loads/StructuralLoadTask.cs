@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA
       int.TryParse(pieces[counter++], out int taskRef);
       var taskRec = Initialiser.AppResources.Cache.GetGwa("TASK", taskRef).First();
       obj.TaskType = Helper.GetLoadTaskType(taskRec);
-      this.SubGWACommand.Add(taskRec);
+      //this.SubGWACommand.Add(taskRec);
 
       // Parse description
       var description = pieces[counter++];

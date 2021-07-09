@@ -220,8 +220,8 @@ namespace SpeckleStructuralGSA
         coordinates.RemoveAt(matchIndex);
         elementsListCopy.RemoveAt(matchIndex);
 
-        this.SubGWACommand.Add(gsaElement.GWACommand);
-        this.SubGWACommand.AddRange(gsaElement.SubGWACommand);
+        //this.SubGWACommand.Add(gsaElement.GWACommand);
+        //this.SubGWACommand.AddRange(gsaElement.SubGWACommand);
       }
 
       obj.ElementApplicationId = elementAppIds;

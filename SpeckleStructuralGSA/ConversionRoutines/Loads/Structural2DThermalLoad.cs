@@ -39,7 +39,7 @@ namespace SpeckleStructuralGSA
             continue;
 
           obj.ElementRefs.Add(((SpeckleObject)elem.Value).ApplicationId);
-          this.SubGWACommand.Add(elem.GWACommand);
+          //this.SubGWACommand.Add(elem.GWACommand);
         }
       }
       else
@@ -50,7 +50,7 @@ namespace SpeckleStructuralGSA
           var memb2Ds = m2Ds.Where(m => m.Group == id);
 
           obj.ElementRefs.AddRange(memb2Ds.Select(m => (m.Value).ApplicationId));
-          this.SubGWACommand.AddRange(memb2Ds.Select(m => m.GWACommand));
+          //this.SubGWACommand.AddRange(memb2Ds.Select(m => m.GWACommand));
         }
       }
 

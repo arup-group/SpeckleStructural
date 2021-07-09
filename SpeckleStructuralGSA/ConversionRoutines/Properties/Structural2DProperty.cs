@@ -39,8 +39,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
       else if (materialType == "CONCRETE")
@@ -49,8 +49,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
 

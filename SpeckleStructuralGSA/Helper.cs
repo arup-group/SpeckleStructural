@@ -1015,7 +1015,11 @@ namespace SpeckleStructuralGSA
     public static string GetApplicationId(string keyword, int id)
     {
       //Ensure keyword version is left out
-      keyword = keyword.Split('.').First();
+      if (char.IsDigit(keyword.Last()))
+      {
+        var splitIndex = keyword.IndexOf('.');
+        keyword = keyword.Substring(0, splitIndex);
+      }
       //Fill with SID
       var applicationId = Initialiser.AppResources.Cache.GetApplicationId(keyword, id);
       return (string.IsNullOrEmpty(applicationId)) ? FormatApplicationId(keyword, id) : applicationId;

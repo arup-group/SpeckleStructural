@@ -35,7 +35,7 @@ namespace SpeckleStructuralGSA
 
         obj.ElementRef = targetElement.Value.ApplicationId;
 
-        this.SubGWACommand.Add(targetElement.GWACommand);
+        //this.SubGWACommand.Add(targetElement.GWACommand);
       }
       else
         return;

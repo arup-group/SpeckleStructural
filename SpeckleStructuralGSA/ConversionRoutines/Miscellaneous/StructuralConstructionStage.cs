@@ -59,7 +59,7 @@ namespace SpeckleStructuralGSA
           if (elementApplicationId != null)
           {
             obj.ElementRefs.Add(elementApplicationId);
-            this.SubGWACommand.Add(elementGwaCommand);
+            //this.SubGWACommand.Add(elementGwaCommand);
           }
         }
       }
@@ -73,8 +73,8 @@ namespace SpeckleStructuralGSA
 
           obj.ElementRefs.AddRange(memb1Ds.Select(m => m.Value.ApplicationId));
           obj.ElementRefs.AddRange(memb2Ds.Select(m => m.Value.ApplicationId));
-          this.SubGWACommand.AddRange(memb1Ds.Select(m => m.GWACommand));
-          this.SubGWACommand.AddRange(memb2Ds.Select(m => m.GWACommand));
+          //this.SubGWACommand.AddRange(memb1Ds.Select(m => m.GWACommand));
+          //this.SubGWACommand.AddRange(memb2Ds.Select(m => m.GWACommand));
         }
       }
 

@@ -117,7 +117,8 @@ namespace SpeckleStructuralGSA.Test
 
       if (sendResults)
       {
-        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2, allResults, cases.ToList());
+        //Initialiser.AppResources.Proxy.LoadResults(allResults, cases.ToList());
+        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2);
       }
 
       //Clear out all sender objects that might be there from the last test preparation

@@ -47,7 +47,7 @@ namespace SpeckleStructuralGSA
         if (speckleNodeObj != null)
         {
           coordinates.AddRange(speckleNodeObj.Value);
-          this.SubGWACommand.Add(node.GWACommand);
+          //this.SubGWACommand.Add(node.GWACommand);
         }
       }
 
