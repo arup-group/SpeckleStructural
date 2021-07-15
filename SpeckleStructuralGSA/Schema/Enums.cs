@@ -154,6 +154,13 @@
     Two = 2
   }
 
+  public enum GridLineType
+  {
+    NotSet = 0,
+    Arc,
+    Line
+  }
+
   public enum GridSurfaceElementsType
   {
     NotSet = 0,
@@ -252,6 +259,13 @@
   {
     NotSet = 0,
     Plane,
+    PolyRef,
+    Polygon
+  }
+
+  public enum LoadLineOption
+  {
+    NotSet = 0,
     PolyRef,
     Polygon
   }
@@ -439,6 +453,33 @@
     Gradient,
     [StringValue("GEN")]
     General
+  }
+
+  public enum Load2dFaceType
+  {
+    [StringValue("CONS")] Uniform,
+    [StringValue("GEN")] General,
+    [StringValue("POINT")] Point
+  }
+
+  public enum RigidConstraintType
+  {
+    NotSet = 0,
+    ALL,
+    XY_PLANE,
+    YZ_PLANE,
+    ZX_PLANE,
+    XY_PLATE,
+    YZ_PLATE,
+    ZX_PLATE,
+    PIN,
+    XY_PLANE_PIN,
+    YZ_PLANE_PIN,
+    ZX_PLANE_PIN,
+    XY_PLATE_PIN,
+    YZ_PLATE_PIN,
+    ZX_PLATE_PIN,
+    Custom
   }
 
   public enum Section1dStandardProfileType

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using SpeckleGSAInterfaces;
 
-namespace SpeckleStructuralGSA.Schema.Loading
+namespace SpeckleStructuralGSA.Schema
 {
+  [GsaType(GwaKeyword.LOAD_2D_THERMAL, GwaSetCommandType.SetAt, true, GwaKeyword.LOAD_TITLE, GwaKeyword.EL, GwaKeyword.MEMB)]
   public class GsaLoad2dThermal : GsaRecord
   {
     public string Name { get => name; set { name = value; } }

@@ -151,6 +151,145 @@ namespace SpeckleStructuralGSA.Test
     }
 
     [Test]
+    public void GsaLoadGridLineSimple()
+    {
+      var loadGridLineGwas = new List<string>()
+      {
+        "LOAD_GRID_LINE.2	loadZ	1	POLYREF	1	1	GLOBAL	NO	Z	10	15",
+        "LOAD_GRID_LINE.2	loadX	2	POLYREF	1	1	GLOBAL	NO	X	10	15"
+      };
+
+      var loadGridLines = new List<GsaLoadGridLine>();
+      foreach (var g in loadGridLineGwas)
+      {
+        var l = new GsaLoadGridLine();
+        Assert.IsTrue(l.FromGwa(g));
+        Assert.AreEqual(LoadLineOption.PolyRef, l.Line);
+        Assert.AreEqual(1, l.PolygonIndex);
+        Assert.AreEqual(1, l.LoadCaseIndex);
+        Assert.AreEqual(AxisRefType.Global, l.AxisRefType);
+        Assert.IsFalse(l.Projected);
+        Assert.AreEqual(10, l.Value1);
+        Assert.AreEqual(15, l.Value2);
+        loadGridLines.Add(l);
+      }
+
+      Assert.AreEqual(AxisDirection3.Z, loadGridLines[0].LoadDirection);
+      Assert.AreEqual(AxisDirection3.X, loadGridLines[1].LoadDirection);
+    }
+
+    [Test]
+    public void GsaLoadGridPointSimple()
+    {
+      var loadGridPointGwas = new List<string>()
+      {
+        "LOAD_GRID_POINT.2	loadZ	1	10	15	1	GLOBAL	Z	20",
+        "LOAD_GRID_POINT.2	loadX	1	10	15	1	GLOBAL	X	20"
+      };
+
+      var loadGridPoints = new List<GsaLoadGridPoint>();
+      foreach (var g in loadGridPointGwas)
+      {
+        var l = new GsaLoadGridPoint();
+        Assert.IsTrue(l.FromGwa(g));
+        Assert.AreEqual(1, l.LoadCaseIndex);
+        Assert.AreEqual(10, l.X);
+        Assert.AreEqual(15, l.Y);
+        Assert.AreEqual(AxisRefType.Global, l.AxisRefType);
+        Assert.AreEqual(20, l.Value);
+        loadGridPoints.Add(l);
+      }
+
+      Assert.AreEqual(AxisDirection3.Z, loadGridPoints[0].LoadDirection);
+      Assert.AreEqual(AxisDirection3.X, loadGridPoints[1].LoadDirection);
+    }
+
+    [Test]
+
+    public void GsaLoad2dFaceSimple()
+    {
+      var load2dFaceGwas = new List<string>()
+      {
+        "LOAD_2D_FACE.2		\"L1\" and PA1	30	GLOBAL	CONS	NO	Z	-2000",
+        "LOAD_2D_FACE.2		PA5	2	LOCAL	CONS	NO	Z	-2000",
+        "LOAD_2D_FACE.2		\"L1\" and PA1 not (\"2DLoad_PS2 Corridor\" \"2DLoad_PS2 BoH\")	27	LOCAL	CONS	NO	Z	-10000"
+      };
+
+      var load2dFaces = new List<GsaLoad2dFace>();
+      foreach (var g in load2dFaceGwas)
+      {
+        var l = new GsaLoad2dFace();
+        Assert.IsTrue(l.FromGwa(g));
+        load2dFaces.Add(l);
+      }
+      Assert.AreEqual(30, load2dFaces[0].LoadCaseIndex);
+      Assert.AreEqual(AxisRefType.Global, load2dFaces[0].AxisRefType);
+      Assert.AreEqual(Load2dFaceType.Uniform, load2dFaces[0].Type);
+      Assert.IsFalse(load2dFaces[0].Projected);
+      Assert.AreEqual(AxisDirection3.Z, load2dFaces[0].LoadDirection);
+      Assert.AreEqual(new List<double> { -2000 }, load2dFaces[0].Values);
+
+      Assert.AreEqual(2, load2dFaces[1].LoadCaseIndex);
+      Assert.AreEqual(AxisRefType.Local, load2dFaces[1].AxisRefType);
+      Assert.AreEqual(Load2dFaceType.Uniform, load2dFaces[1].Type);
+      Assert.IsFalse(load2dFaces[1].Projected);
+      Assert.AreEqual(AxisDirection3.Z, load2dFaces[1].LoadDirection);
+      Assert.AreEqual(new List<double> { -2000 }, load2dFaces[1].Values);
+
+      Assert.AreEqual(27, load2dFaces[2].LoadCaseIndex);
+      Assert.AreEqual(AxisRefType.Local, load2dFaces[2].AxisRefType);
+      Assert.AreEqual(Load2dFaceType.Uniform, load2dFaces[2].Type);
+      Assert.IsFalse(load2dFaces[2].Projected);
+      Assert.AreEqual(AxisDirection3.Z, load2dFaces[2].LoadDirection);
+      Assert.AreEqual(new List<double> { -10000 }, load2dFaces[2].Values);
+
+      //TO DO: test Entities
+    }
+
+    [Test]
+    public void GsaRigidSimple()
+    {
+      var rigidGwas = new List<string>()
+      {
+        "RIGID.3\t\t71\tALL\t73 75 77 79 81 83\t1 2\t0",
+        "RIGID.3\t\t71\tXY_PLANE\t73 75 77 79 81 83\t1\t0",
+        "RIGID.3\t\t71\tX:XYYZZ-Y:YZZ-YY:YY-ZZ:ZZ\t73 75 77 79 81 83\t2\t0",
+      };
+
+      var rigids = new List<GsaRigid>();
+      foreach (var g in rigidGwas)
+      {
+        var l = new GsaRigid();
+        Assert.IsTrue(l.FromGwa(g));
+        rigids.Add(l);
+      }
+
+      Assert.AreEqual(71, rigids[0].PrimaryNode);
+      Assert.AreEqual(RigidConstraintType.ALL, rigids[0].Type);
+      Assert.IsNull(rigids[0].Link);
+      Assert.AreEqual(new List<int>() { 73, 75, 77, 79, 81, 83 }, rigids[0].ConstrainedNodes);
+      Assert.AreEqual(new List<int>() { 1, 2 }, rigids[0].Stage);
+      Assert.AreEqual(0, rigids[0].ParentMember);
+
+      Assert.AreEqual(71, rigids[1].PrimaryNode);
+      Assert.AreEqual(RigidConstraintType.XY_PLANE, rigids[1].Type);
+      Assert.IsNull(rigids[1].Link);
+      Assert.AreEqual(new List<int>() { 73, 75, 77, 79, 81, 83 }, rigids[1].ConstrainedNodes);
+      Assert.AreEqual(new List<int>() { 1 }, rigids[1].Stage);
+      Assert.AreEqual(0, rigids[1].ParentMember);
+
+      Assert.AreEqual(71, rigids[2].PrimaryNode);
+      Assert.AreEqual(RigidConstraintType.Custom, rigids[2].Type);
+      Assert.AreEqual(new List<AxisDirection6> { AxisDirection6.X, AxisDirection6.YY, AxisDirection6.ZZ}, rigids[2].Link[AxisDirection6.X]);
+      Assert.AreEqual(new List<AxisDirection6> { AxisDirection6.Y, AxisDirection6.ZZ }, rigids[2].Link[AxisDirection6.Y]);
+      Assert.AreEqual(new List<AxisDirection6> { AxisDirection6.YY }, rigids[2].Link[AxisDirection6.YY]);
+      Assert.AreEqual(new List<AxisDirection6> { AxisDirection6.ZZ }, rigids[2].Link[AxisDirection6.ZZ]);
+      Assert.AreEqual(new List<int>() { 73, 75, 77, 79, 81, 83 }, rigids[2].ConstrainedNodes);
+      Assert.AreEqual(new List<int>() { 2 }, rigids[2].Stage);
+      Assert.AreEqual(0, rigids[1].ParentMember);
+    }
+
+    [Test]
     public void GsaPropSprSimple()
     {
       var propGwas = new List<string>()
@@ -249,6 +388,46 @@ namespace SpeckleStructuralGSA.Test
       {
         Assert.IsTrue(nodes[i].Gwa(out var gwa));
         Assert.IsTrue(nodeGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaGridLineSimple()
+    {
+      var gridLineGwas = new List<string>()
+      {
+        "GRID_LINE.1	1	Level	LINE	10	0	50	0	0",
+        "GRID_LINE.1	2	Angled	LINE	10	0	50	30	0",
+        "GRID_LINE.1	3	Arc	ARC	10	0	50	30	60"
+      };
+
+      var gridLines = new List<GsaGridLine>();
+      foreach (var g in gridLineGwas)
+      {
+        var l = new GsaGridLine();
+        Assert.IsTrue(l.FromGwa(g));
+        Assert.AreEqual(10, l.XCoordinate);
+        Assert.AreEqual(0, l.YCoordinate);
+        Assert.AreEqual(50, l.Length); // Length (LINE) or radius (ARC)
+        gridLines.Add(l);
+      }
+
+      Assert.AreEqual(GridLineType.Line, gridLines[0].Type);
+      Assert.AreEqual(0, gridLines[0].Theta1);
+      Assert.AreEqual(0, gridLines[0].Theta2);
+
+      Assert.AreEqual(GridLineType.Line, gridLines[1].Type);
+      Assert.AreEqual(30, gridLines[1].Theta1);
+      Assert.AreEqual(0, gridLines[1].Theta2);
+
+      Assert.AreEqual(GridLineType.Arc, gridLines[2].Type);
+      Assert.AreEqual(30, gridLines[2].Theta1);
+      Assert.AreEqual(60, gridLines[2].Theta2);
+
+      for (int i = 0; i < gridLines.Count(); i++)
+      {
+        Assert.IsTrue(gridLines[i].Gwa(out var gwa));
+        Assert.IsTrue(gridLineGwas[i].Equals(gwa.First()));
       }
     }
 
