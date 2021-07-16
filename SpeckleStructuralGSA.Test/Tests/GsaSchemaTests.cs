@@ -13,6 +13,7 @@ using SpeckleStructuralGSA.SchemaConversion;
 using SpeckleCoreGeometryClasses;
 using DeepEqual.Syntax;
 using SpeckleCore;
+using SpeckleStructuralGSA.Schema.Bridge;
 
 namespace SpeckleStructuralGSA.Test
 {
@@ -176,6 +177,12 @@ namespace SpeckleStructuralGSA.Test
 
       Assert.AreEqual(AxisDirection3.Z, loadGridLines[0].LoadDirection);
       Assert.AreEqual(AxisDirection3.X, loadGridLines[1].LoadDirection);
+
+      for (int i = 0; i < loadGridLines.Count(); i++)
+      {
+        Assert.IsTrue(loadGridLines[i].Gwa(out var gwa));
+        Assert.IsTrue(loadGridLineGwas[i].Equals(gwa.First()));
+      }
     }
 
     [Test]
@@ -202,10 +209,15 @@ namespace SpeckleStructuralGSA.Test
 
       Assert.AreEqual(AxisDirection3.Z, loadGridPoints[0].LoadDirection);
       Assert.AreEqual(AxisDirection3.X, loadGridPoints[1].LoadDirection);
+
+      for (int i = 0; i < loadGridPoints.Count(); i++)
+      {
+        Assert.IsTrue(loadGridPoints[i].Gwa(out var gwa));
+        Assert.IsTrue(loadGridPointGwas[i].Equals(gwa.First()));
+      }
     }
 
     [Test]
-
     public void GsaLoad2dFaceSimple()
     {
       var load2dFaceGwas = new List<string>()
@@ -243,7 +255,221 @@ namespace SpeckleStructuralGSA.Test
       Assert.AreEqual(AxisDirection3.Z, load2dFaces[2].LoadDirection);
       Assert.AreEqual(new List<double> { -10000 }, load2dFaces[2].Values);
 
-      //TO DO: test Entities
+      for (int i = 0; i < load2dFaces.Count(); i++)
+      {
+        Assert.IsTrue(load2dFaces[i].Gwa(out var gwa));
+        //Assert.IsTrue(load2dFaceGwas[i].Equals(gwa.First()));
+        //Entities don't match for simple test
+        //TO DO: create test where entities can be captured
+      }
+    }
+
+    [Test]
+    public void GsaGenRestSimple()
+    {
+      var genRestGwas = new List<string>()
+      {
+        "GEN_REST.2\t\t1\t1\t1\t0\t0\t0\t1 2 3\t1"
+      };
+
+      var genRests = new List<GsaGenRest>();
+      foreach (var g in genRestGwas)
+      {
+        var l = new GsaGenRest();
+        Assert.IsTrue(l.FromGwa(g));
+        genRests.Add(l);
+      }
+
+      Assert.AreEqual(RestraintCondition.Constrained, genRests[0].X);
+      Assert.AreEqual(RestraintCondition.Constrained, genRests[0].Y);
+      Assert.AreEqual(RestraintCondition.Constrained, genRests[0].Z);
+      Assert.AreEqual(RestraintCondition.Free, genRests[0].XX);
+      Assert.AreEqual(RestraintCondition.Free, genRests[0].YY);
+      Assert.AreEqual(RestraintCondition.Free, genRests[0].ZZ);
+      //Assert.AreEqual(new List<int>() { 1, 2, 3 }, genRests[0].Node);
+      Assert.AreEqual(new List<int>() { 1 }, genRests[0].Stage);
+
+      for (int i = 0; i < genRests.Count(); i++)
+      {
+        Assert.IsTrue(genRests[i].Gwa(out var gwa));
+        //Assert.IsTrue(genRestGwas[i].Equals(gwa.First()));
+      }
+    }
+    /*
+    [Test]
+    public void GsaMatAnalSimple()
+    {
+      var matAnalGwas = new List<string>()
+      {
+        "MAT_ANAL.1\t1\tMAT_ELAS_ISO\t40MPa\tNO_RGB\t6\t32800\t0.2\t2.5\t1e-05\t0\t0\t0\t0"
+      };
+      var matAnals = new List<GsaMatAnal>();
+      foreach (var g in matAnalGwas)
+      {
+        var l = new GsaMatAnal();
+        Assert.IsTrue(l.FromGwa(g));
+        matAnals.Add(l);
+      }
+      matAnals = matAnals;
+    }
+    */
+    [Test]
+    public void GsaInfBeamSimple()
+    {
+      var infBeamGwas = new List<string>()
+      {
+        "INF_BEAM.2\tAbutment A Headstock - Positive Bending\t1\t5316\t50%\t1\tFORCE\tYY"
+      };
+      var infBeams = new List<GsaInfBeam>();
+      foreach (var g in infBeamGwas)
+      {
+        var l = new GsaInfBeam();
+        Assert.IsTrue(l.FromGwa(g));
+        infBeams.Add(l);
+      }
+      Assert.AreEqual(1, infBeams[0].Action);
+      Assert.AreEqual(5316, infBeams[0].Element);
+      Assert.AreEqual(0.5, infBeams[0].Position);
+      Assert.AreEqual(1, infBeams[0].Factor);
+      Assert.AreEqual(InfType.FORCE, infBeams[0].Type);
+      Assert.AreEqual(AxisDirection6.YY, infBeams[0].Direction);
+
+      for (int i = 0; i < infBeams.Count(); i++)
+      {
+        Assert.IsTrue(infBeams[i].Gwa(out var gwa));
+        Assert.IsTrue(infBeamGwas[i].Equals(gwa.First()));
+      }
+    }
+    //
+
+    [Test]
+    public void GsaInfNodeSimple()
+    {
+      var infNodeGwas = new List<string>()
+      {
+        "INF_NODE.1\tname\t1\t1\t1\tDISP\tGLOBAL\tZ"
+      };
+      var infNodes = new List<GsaInfNode>();
+      foreach (var g in infNodeGwas)
+      {
+        var l = new GsaInfNode();
+        Assert.IsTrue(l.FromGwa(g));
+        infNodes.Add(l);
+      }
+      Assert.AreEqual(1, infNodes[0].Action);
+      Assert.AreEqual(1, infNodes[0].Node);
+      Assert.AreEqual(1, infNodes[0].Factor);
+      Assert.AreEqual(InfType.DISP, infNodes[0].Type);
+      Assert.AreEqual(AxisRefType.Global, infNodes[0].AxisRefType);
+      Assert.AreEqual(AxisDirection6.Z, infNodes[0].Direction);
+
+      for (int i = 0; i < infNodes.Count(); i++)
+      {
+        Assert.IsTrue(infNodes[i].Gwa(out var gwa));
+        Assert.IsTrue(infNodeGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaPathSimple()
+    {
+      var pathGwas = new List<string>()
+      {
+        "PATH.1\t1\tLeft Lane\tLANE\t1\t1\t-4\t-1\t0.5\t0",
+        "PATH.1\t2\tRight Lane\tLANE\t1\t1\t-7\t-4\t0.5\t0",
+        "PATH.1\t3\trailway\tTRACK\t2\t1\t-8\t1.434999943\t0.5\t0"
+      };
+      var paths = new List<GsaPath>();
+      foreach (var g in pathGwas)
+      {
+        var l = new GsaPath();
+        Assert.IsTrue(l.FromGwa(g));
+        paths.Add(l);
+      }
+      Assert.AreEqual(PathType.LANE, paths[0].Type);
+      Assert.AreEqual(1, paths[0].Group);
+      Assert.AreEqual(1, paths[0].Alignment);
+      Assert.AreEqual(-4, paths[0].Left);
+      Assert.AreEqual(-1, paths[0].Right);
+      Assert.AreEqual(0.5, paths[0].Factor);
+      Assert.AreEqual(0, paths[0].NumMarkedLanes);
+
+      Assert.AreEqual(PathType.LANE, paths[1].Type);
+      Assert.AreEqual(1, paths[1].Group);
+      Assert.AreEqual(1, paths[1].Alignment);
+      Assert.AreEqual(-7, paths[1].Left);
+      Assert.AreEqual(-4, paths[1].Right);
+      Assert.AreEqual(0.5, paths[1].Factor);
+      Assert.AreEqual(0, paths[1].NumMarkedLanes);
+
+      Assert.AreEqual(PathType.TRACK, paths[2].Type);
+      Assert.AreEqual(2, paths[2].Group);
+      Assert.AreEqual(1, paths[2].Alignment);
+      Assert.AreEqual(-8, paths[2].Left);
+      Assert.AreEqual(1.434999943, paths[2].Right);
+      Assert.AreEqual(0.5, paths[2].Factor);
+      Assert.AreEqual(0, paths[2].NumMarkedLanes);
+
+      for (int i = 0; i < paths.Count(); i++)
+      {
+        Assert.IsTrue(paths[i].Gwa(out var gwa));
+        Assert.IsTrue(pathGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaAlignSimple()
+    {
+      var alignGwas = new List<string>()
+      {
+        "ALIGN.1\t1\tedge\t1\t4\t0\t0.02\t25\t0.02\t50\t-0.01\t150\t-0.01"
+      };
+
+      var aligns = new List<GsaAlign>();
+      foreach (var g in alignGwas)
+      {
+        var l = new GsaAlign();
+        Assert.IsTrue(l.FromGwa(g));
+        aligns.Add(l);
+      }
+      Assert.AreEqual(1, aligns[0].GridSurfaceIndex);
+      Assert.AreEqual(4, aligns[0].NumAlignmentPoints);
+      Assert.AreEqual(new List<double>() { 0, 25, 50, 150 }, aligns[0].Chain);
+      Assert.AreEqual(new List<double>() { 0.02, 0.02, -0.01, -0.01 }, aligns[0].Curv);
+
+      for (int i = 0; i < aligns.Count(); i++)
+      {
+        Assert.IsTrue(aligns[i].Gwa(out var gwa));
+        Assert.IsTrue(alignGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaUserVehicleSimple()
+    {
+      var userVehicleGwas = new List<string>()
+      {
+        "USER_VEHICLE.1\t1\tVehicle 1\t1\t3\t1\t1\t1\t1\t2\t1\t1\t1\t3\t1\t1\t1"
+      };
+      var userVehicles = new List<GsaUserVehicle>();
+      foreach (var g in userVehicleGwas)
+      {
+        var l = new GsaUserVehicle();
+        Assert.IsTrue(l.FromGwa(g));
+        userVehicles.Add(l);
+      }
+      Assert.AreEqual(1, userVehicles[0].Width);
+      Assert.AreEqual(3, userVehicles[0].NumAxle);
+      Assert.AreEqual(new List<double>() { 1, 2, 3 }, userVehicles[0].AxlePosition);
+      Assert.AreEqual(new List<double>() { 1, 1, 1 }, userVehicles[0].AxleOffset);
+      Assert.AreEqual(new List<double>() { 1, 1, 1 }, userVehicles[0].AxleLeft);
+      Assert.AreEqual(new List<double>() { 1, 1, 1 }, userVehicles[0].AxleRight);
+
+      for (int i = 0; i < userVehicles.Count(); i++)
+      {
+        Assert.IsTrue(userVehicles[i].Gwa(out var gwa));
+        Assert.IsTrue(userVehicleGwas[i].Equals(gwa.First()));
+      }
     }
 
     [Test]
@@ -287,6 +513,12 @@ namespace SpeckleStructuralGSA.Test
       Assert.AreEqual(new List<int>() { 73, 75, 77, 79, 81, 83 }, rigids[2].ConstrainedNodes);
       Assert.AreEqual(new List<int>() { 2 }, rigids[2].Stage);
       Assert.AreEqual(0, rigids[1].ParentMember);
+
+      for (int i = 0; i < rigids.Count(); i++)
+      {
+        Assert.IsTrue(rigids[i].Gwa(out var gwa));
+        Assert.IsTrue(rigidGwas[i].Equals(gwa.First()));
+      }
     }
 
     [Test]

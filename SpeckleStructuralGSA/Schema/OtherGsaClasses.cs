@@ -13,15 +13,17 @@ namespace SpeckleStructuralGSA.Schema
     public override bool Gwa(out List<string> gwa, bool includeSet = false) { throw new NotImplementedException(); }
   }
 
-  [GsaType(GwaKeyword.ALIGN, GwaSetCommandType.Set, true, GwaKeyword.GRID_SURFACE)]
+  /*[GsaType(GwaKeyword.ALIGN, GwaSetCommandType.Set, true, GwaKeyword.GRID_SURFACE)]
   public class GsaAlign : BlankGsaRecord { }
+  */
 
   /*[GsaType(GwaKeyword.GRID_LINE, GwaSetCommandType.Set, true, GwaKeyword.GRID_SURFACE, GwaKeyword.LOAD_TITLE)]
   //public class GsaGridLine: BlankGsaRecord { }
   */
 
-  [GsaType(GwaKeyword.INF_NODE, GwaSetCommandType.SetAt, true, false, true, GwaKeyword.NODE, GwaKeyword.AXIS)]
+  /*[GsaType(GwaKeyword.INF_NODE, GwaSetCommandType.SetAt, true, false, true, GwaKeyword.NODE, GwaKeyword.AXIS)]
   public class GsaINfNode : BlankGsaRecord { }
+  */
 
   [GsaType(GwaKeyword.MAT_CONCRETE, GwaSetCommandType.Set, true)]
   public class GsaMatConcrete : BlankGsaRecord { }
@@ -29,8 +31,9 @@ namespace SpeckleStructuralGSA.Schema
   [GsaType(GwaKeyword.MAT_STEEL, GwaSetCommandType.Set, true)]
   public class GsaMatSteel: BlankGsaRecord { }
  
-  [GsaType(GwaKeyword.PATH, GwaSetCommandType.Set, true, GwaKeyword.ALIGN)]
+  /*[GsaType(GwaKeyword.PATH, GwaSetCommandType.Set, true, GwaKeyword.ALIGN)]
   public class GsaPath : BlankGsaRecord { }
+  */
 
   //This seems to be an alternative to SECTION (corresponding to 1D properties) - to be investigated further
   [GsaType(GwaKeyword.PROP_SEC, GwaSetCommandType.Set, true, GwaKeyword.MAT_STEEL, GwaKeyword.MAT_CONCRETE)]
@@ -40,8 +43,9 @@ namespace SpeckleStructuralGSA.Schema
   public class GsaPropSpr : BlankGsaRecord { }
   */
 
-  [GsaType(GwaKeyword.USER_VEHICLE, GwaSetCommandType.Set, true, GwaKeyword.LOAD_TITLE, GwaKeyword.TASK)]
+  /*[GsaType(GwaKeyword.USER_VEHICLE, GwaSetCommandType.Set, true, GwaKeyword.LOAD_TITLE, GwaKeyword.TASK)]
   public class GsaUserVehicle : BlankGsaRecord { }
+  */
 
   /*[GsaType(GwaKeyword.LOAD_GRID_POINT, GwaSetCommandType.SetAt, true, GwaKeyword.GRID_SURFACE, GwaKeyword.LOAD_TITLE, GwaKeyword.AXIS)]
   public class GsaLoadGridPoint : BlankGsaRecord { }
@@ -59,13 +63,15 @@ namespace SpeckleStructuralGSA.Schema
   public class GsaLoad2dThermal : BlankGsaRecord { }
   */
 
-  [GsaType(GwaKeyword.INF_BEAM, GwaSetCommandType.SetAt, true, false, true, GwaKeyword.AXIS, GwaKeyword.EL)]
+  /*[GsaType(GwaKeyword.INF_BEAM, GwaSetCommandType.SetAt, true, false, true, GwaKeyword.AXIS, GwaKeyword.EL)]
   public class GsaInfBeam : BlankGsaRecord { }
+  */
 
   /*[GsaType(GwaKeyword.RIGID, GwaSetCommandType.SetAt, true, GwaKeyword.ANAL_STAGE, GwaKeyword.NODE, GwaKeyword.MEMB)]
   public class GsaRigid : BlankGsaRecord { }
   */
 
-  [GsaType(GwaKeyword.GEN_REST, GwaSetCommandType.SetAt, true, GwaKeyword.ANAL_STAGE, GwaKeyword.NODE)]
+  /*[GsaType(GwaKeyword.GEN_REST, GwaSetCommandType.SetAt, true, GwaKeyword.ANAL_STAGE, GwaKeyword.NODE)]
   public class GsaGenRest : BlankGsaRecord { }
+  */
 }

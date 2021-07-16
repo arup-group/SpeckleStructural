@@ -250,6 +250,12 @@
     <Compile Include="SchemaConversion\ToSpeckle\Properties\GsaPropSprToSpeckle.cs" />
     <Compile Include="SchemaConversion\ToSpeckle\Properties\GsaSectionToSpeckle.cs" />
     <Compile Include="Schema\AnalysisStages\GsaAnalStage.cs" />
+    <Compile Include="Schema\Bridge\GsaAlign.cs" />
+    <Compile Include="Schema\Bridge\GsaPath.cs" />
+    <Compile Include="Schema\Bridge\GsaUserVehicle.cs" />
+    <Compile Include="Schema\Bridge\InfluenceEffects\GsaInfBeam.cs" />
+    <Compile Include="Schema\Bridge\InfluenceEffects\GsaInfNode.cs" />
+    <Compile Include="Schema\Constraints\GsaGenRest.cs" />
     <Compile Include="Schema\Constraints\GsaRigid.cs" />
     <Compile Include="Schema\Enums.cs" />
     <Compile Include="Schema\Geometry\GsaGridLine.cs" />
@@ -258,14 +264,16 @@
     <Compile Include="Schema\GsaAssembly.cs" />
     <Compile Include="Schema\GsaEl.cs" />
     <Compile Include="Schema\GsaMemb.cs" />
-    <Compile Include="Schema\Loading\2D element\GsaLoad2dFace.cs" />
+    <Compile Include="Schema\Loading\2dElement\GsaLoad2dFace.cs" />
     <Compile Include="Schema\Loading\Grid\GsaLoadGridLine.cs" />
     <Compile Include="Schema\Loading\Grid\GsaLoadGridPoint.cs" />
+    <Compile Include="Schema\Materials\Advanced\GsaMatAnal.cs" />
+    <Compile Include="Schema\Materials\GsaMatSteel.cs" />
     <Compile Include="Schema\Properties\GsaProp2d.cs" />
     <Compile Include="Schema\Properties\GsaPropMass.cs" />
-    <Compile Include="Schema\Loading\GsaAnal.cs" />
-    <Compile Include="Schema\Loading\GsaCombination.cs" />
-    <Compile Include="Schema\Loading\2D element\GsaLoad2dThermal.cs" />
+    <Compile Include="Schema\TasksAndCases\GsaAnal.cs" />
+    <Compile Include="Schema\TasksAndCases\GsaCombination.cs" />
+    <Compile Include="Schema\Loading\2dElement\GsaLoad2dThermal.cs" />
     <Compile Include="Schema\Loading\Beam\GsaLoadBeam.cs" />
     <Compile Include="Schema\Loading\GsaLoadGravity.cs" />
     <Compile Include="Schema\Loading\Grid\GsaLoadGridArea.cs" />
@@ -307,7 +315,7 @@
     <None Include="Schema\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Schema\Loading\3D element\" />
+    <Folder Include="Schema\Loading\3dElement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.11\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.11\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

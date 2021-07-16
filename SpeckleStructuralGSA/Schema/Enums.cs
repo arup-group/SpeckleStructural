@@ -122,6 +122,12 @@
     Custom
   }
 
+  public enum RestraintCondition
+  {
+    Free = 0,
+    Constrained = 1
+  }
+
   public enum CurveType
   {
     NotSet = 0,
@@ -192,6 +198,24 @@
     Global,
     Local,
     Reference
+  }
+
+  public enum InfType
+  {
+    NotSet = 0,
+    FORCE,
+    DISP
+  }
+
+  public enum PathType
+  {
+    NotSet = 0,
+    LANE,
+    FOOTWAY,
+    TRACK,
+    VEHICLE,
+    CWAY_1WAY,
+    CWAY_2WAY
   }
 
   public enum LoadBeamAxisRefType
@@ -617,6 +641,17 @@
     Modified,
     [StringValue("DEF")]
     Defined,
+  }
+
+  public enum MatAnalType
+  {
+    NotSet = 0,
+    MAT_DRUCKER_PRAGER,
+    MAT_ELAS_ISO,
+    MAT_ELAS_ORTHO,
+    MAT_ELAS_PLAS_ISO,
+    MAT_FABRIC,
+    MAT_MOHR_COULOMB
   }
 
   public enum Colour

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SpeckleGSAInterfaces;
 
-namespace SpeckleStructuralGSA.Schema.Loading
+namespace SpeckleStructuralGSA.Schema
 {
   //This needs review: seems to be a SET keyword but the index is of a load case, not a ANAL index
   [GsaType(GwaKeyword.ANAL, GwaSetCommandType.Set, true, GwaKeyword.LOAD_TITLE, GwaKeyword.TASK)]

@@ -48,7 +48,7 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //LOAD_GRID_LINE.2 | name | grid_surface | line | poly | case | axis | proj | dir | value_1 | value_2
-      AddItems(ref items, Name, GridSurfaceIndex, Line.ToString().ToUpper(), AddPoly(), LoadCaseIndex ?? 0, AddAxis(), AddProj(), LoadDirection, Value1, Value2);
+      AddItems(ref items, Name, GridSurfaceIndex, Line.ToString().ToUpper(), AddPoly(), LoadCaseIndex ?? 0, AddAxis(), AddProj(), LoadDirection.ToString(), Value1, Value2);
 
       gwa = Join(items, out var gwaLine) ? new List<string>() { gwaLine } : new List<string>();
       return (gwa.Count() > 0);
