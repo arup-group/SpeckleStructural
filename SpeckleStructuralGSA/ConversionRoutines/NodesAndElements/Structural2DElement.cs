@@ -575,7 +575,8 @@ namespace SpeckleStructuralGSA
     public static SpeckleObject ToSpeckle(this GSA2DElement dummyObject)
     {
       var settings = Initialiser.AppResources.Settings;
-      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element2DResults.Count() == 0)
+      var anyElement2dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement2dResults)
       {
         return new SpeckleNull();
       }
@@ -594,7 +595,7 @@ namespace SpeckleStructuralGSA
       var elements = new List<GSA2DElement>();
       var nodes = Initialiser.GsaKit.GSASenderObjects.Get<GSANode>();
       var props = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DProperty>();
-
+      var gsaProps = GetGsaPropDict();
       var newLines = newLinesTuples.Select(nl => nl.Item2);
       Parallel.ForEach(newLines, p =>
       {
@@ -607,7 +608,7 @@ namespace SpeckleStructuralGSA
           try
           {
             var element = new GSA2DElement() { GWACommand = p };
-            element.ParseGWACommand(nodes, props, GetGsaPropDict());
+            element.ParseGWACommand(nodes, props, gsaProps);
             lock (elementsLock)
             {
               elements.Add(element);

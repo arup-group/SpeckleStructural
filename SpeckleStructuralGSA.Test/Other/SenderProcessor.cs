@@ -72,6 +72,7 @@ namespace SpeckleStructuralGSA.Test
       return mockGsaCom;
     }
 
+    /*
     private bool processResultLabels(string[] resultLabels)
     {
       foreach (var resultLabel in resultLabels)
@@ -115,6 +116,7 @@ namespace SpeckleStructuralGSA.Test
       }
       return false;
     }
+    */
     #endregion
   }
 }

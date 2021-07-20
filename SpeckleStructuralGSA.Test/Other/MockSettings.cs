@@ -17,14 +17,17 @@ namespace SpeckleStructuralGSA.Test
     public double CoincidentNodeAllowance { get; set; } = 0.1;
     public StreamContentConfig StreamSendConfig { get; set; }
 
+    /*
     public Dictionary<string, IGSAResultParams> NodalResults { get; set; } = new Dictionary<string, IGSAResultParams>();
     public Dictionary<string, IGSAResultParams> Element1DResults { get; set; } = new Dictionary<string, IGSAResultParams>();
     public Dictionary<string, IGSAResultParams> Element2DResults { get; set; } = new Dictionary<string, IGSAResultParams>();
     public Dictionary<string, IGSAResultParams> MiscResults { get; set; } = new Dictionary<string, IGSAResultParams>();
+    */
 
     public List<string> ResultCases { get; set; } = new List<string>();
     public bool ResultInLocalAxis { get; set; } = false;
     public int Result1DNumPosition { get; set; } = 3;
+    public List<ResultType> ResultTypes { get; set; } = new List<ResultType>();
 
     public string ObjectUrl(string id)
     {

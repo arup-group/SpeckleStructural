@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,10 +26,11 @@ namespace SpeckleStructuralGSA
       var loadTaskKw = GsaRecord.GetKeyword<GsaLoadCase>();
       var comboKw = GsaRecord.GetKeyword<GsaCombination>();
 
-      var resultTypes = Initialiser.AppResources.Settings.Element2DResults.Keys.ToList();
+      //var resultTypes = Initialiser.AppResources.Settings.Element2DResults.Keys.ToList();
       var cases = Initialiser.AppResources.Settings.ResultCases;
 
-      if (Initialiser.AppResources.Settings.Element2DResults.Count() == 0
+      //if (Initialiser.AppResources.Settings.Element2DResults.Count() == 0
+      if (!Initialiser.AppResources.Settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"))
         || (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults
           && Initialiser.GsaKit.GSASenderObjects.Count<GSA2DElement>() == 0))
       {
@@ -41,11 +43,11 @@ namespace SpeckleStructuralGSA
 
       if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
       {
-        Embed2DResults(typeName, axisStr, kw, loadTaskKw, comboKw, resultTypes, cases);
+        Embed2DResults(typeName, axisStr, kw, loadTaskKw, comboKw, cases);
       }
       else
       {
-        if (!Create2DElementResultObjects(typeName, axisStr, kw, loadTaskKw, comboKw, resultTypes, cases))
+        if (!Create2DElementResultObjects(typeName, axisStr, kw, loadTaskKw, comboKw, cases))
         {
           return new SpeckleNull();
         }
@@ -54,7 +56,7 @@ namespace SpeckleStructuralGSA
       return new SpeckleObject();
     }
 
-    private static void Embed2DResults(string typeName, string axisStr, string keyword, string loadTaskKw, string comboKw, List<string> resultTypes, List<string> cases)
+    private static void Embed2DResults(string typeName, string axisStr, string keyword, string loadTaskKw, string comboKw, List<string> cases)
     {
       //Meshes aren't included as we only need quads and triangle *elements* here
       var elements = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>();
@@ -63,10 +65,10 @@ namespace SpeckleStructuralGSA
       var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
       //Assume the columns are the same for the data output for all entities
-      var rtColInfos = new Dictionary<string, ResultTypeColumnInfo>();
+      var rtColInfos = new ConcurrentDictionary<string, ResultTypeColumnInfo>();
       var orderedResultTypes = new Dictionary<string, List<string>>();
 
-      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, entities.Select(e => e.GSAId).ToList());
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, entities.Select(e => e.GSAId).ToList());
 
 #if DEBUG
       foreach (var e in entities)
@@ -96,10 +98,10 @@ namespace SpeckleStructuralGSA
 #if !DEBUG
       );
 #endif
-      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
+      Initialiser.AppResources.Proxy.ClearResults(ResultGroup.Element2d);
     }
 
-    private static bool Create2DElementResultObjects(string typeName, string axisStr, string keyword, string loadTaskKw, string comboKw, List<string> resultTypes, List<string> cases)
+    private static bool Create2DElementResultObjects(string typeName, string axisStr, string keyword, string loadTaskKw, string comboKw, List<string> cases)
     {
       var results = new List<GSA2DElementResult>();
       var resultsLock = new object();
@@ -128,9 +130,9 @@ namespace SpeckleStructuralGSA
         applicationIds.Add(kwApplicationIds[i]);
       }
 
-      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, indices);
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, indices);
 
-      var rtColInfos = new Dictionary<string, ResultTypeColumnInfo>();
+      var rtColInfos = new ConcurrentDictionary<string, ResultTypeColumnInfo>();
 
 #if DEBUG
       for (var i = 0; i < indices.Count(); i++)
@@ -168,7 +170,7 @@ namespace SpeckleStructuralGSA
 #if !DEBUG
         );
 #endif
-      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
+      Initialiser.AppResources.Proxy.ClearResults(ResultGroup.Element2d);
 
       if (results.Count() > 0)
       {
@@ -188,12 +190,32 @@ namespace SpeckleStructuralGSA
     }
 
     private static bool ResultObjectsByLoadCase(string keyword, int elementIndex, string applicationId, string loadTaskKw, string comboKw,
-      Dictionary<string, ResultTypeColumnInfo> rtColInfos, out Dictionary<string, Structural2DElementResult> resultObjectsByLoadCase)
+      ConcurrentDictionary<string, ResultTypeColumnInfo> rtColInfos, out Dictionary<string, Structural2DElementResult> resultObjectsByLoadCase)
     {
       resultObjectsByLoadCase = new Dictionary<string, Structural2DElementResult>();
 
+      if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Element2d, elementIndex, out var results) && results != null)
+      {
+        var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
+        foreach (var loadCase in orderedLoadCases)
+        {
+          var newResult = new Structural2DElementResult()
+          {
+            IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+            TargetRef = applicationId,
+            Value = (Dictionary<string, object>)results[loadCase]
+          };
+          var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
+          if (!string.IsNullOrEmpty(loadCaseRef))
+          {
+            newResult.LoadCaseRef = loadCase;
+          }
+          newResult.GenerateHash();
+          resultObjectsByLoadCase.Add(loadCase, newResult);
+        }
+      }
+      /*
       var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, elementIndex, out var data, 2);
-      if (getResults)
       {
         var faceData = new Dictionary<string, Tuple<List<string>, object[,]>>();
         var vertexData = new Dictionary<string, Tuple<List<string>, object[,]>>();
@@ -223,7 +245,7 @@ namespace SpeckleStructuralGSA
             rtColInfo.relevantColIndices = Enumerable.Range(0, data[rt].Item1.Count()).Except(new[] { rtColInfo.rIndex, rtColInfo.sIndex }).ToList();
             rtColInfo.fields = rtColInfo.relevantColIndices.Select(f => data[rt].Item1[f]).ToList();
             rtColInfo.numFields = rtColInfo.relevantColIndices.Count();
-            rtColInfos.Add(rt, rtColInfo);
+            rtColInfos.TryAdd(rt, rtColInfo);
           }
 
           var faceRowIndices = new HashSet<int>();
@@ -328,10 +350,10 @@ namespace SpeckleStructuralGSA
           }
         }
       }
-
+      */
       return true;
     }
 
-    
+
   }
 }

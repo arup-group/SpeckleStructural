@@ -24,10 +24,11 @@ namespace SpeckleStructuralGSA
       var typeName = dummyObject.GetType().Name;
       var axisStr = Initialiser.AppResources.Settings.ResultInLocalAxis ? "local" : "global";
 
-      var resultTypes = Initialiser.AppResources.Settings.MiscResults.Keys.Where(r => r.ToLower().Contains("assembly")).ToList();
+      //var resultTypes = Initialiser.AppResources.Settings.MiscResults.Keys.Where(r => r.ToLower().Contains("assembly")).ToList();
       var cases = Initialiser.AppResources.Settings.ResultCases;
 
-      if (resultTypes.Count() == 0 
+      //if (resultTypes.Count() == 0 
+      if (Initialiser.AppResources.Settings.ResultTypes == null || !Initialiser.AppResources.Settings.ResultTypes.Contains(ResultType.AssemblyForcesAndMoments)
         || !Initialiser.AppResources.Cache.GetKeywordRecordsSummary(keyword, out var gwa, out var indices, out var applicationIds))
       {
         return new SpeckleNull();
@@ -36,7 +37,7 @@ namespace SpeckleStructuralGSA
       var gsaMiscResults = new List<GSAMiscResult>();
       var gsaMiscResultsLock = new object();
 
-      Initialiser.AppResources.Proxy.LoadResults(resultTypes, cases, indices);
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Assembly, cases, indices);
 
 #if DEBUG
       for (int i = 0; i < indices.Count(); i++)
@@ -49,18 +50,22 @@ namespace SpeckleStructuralGSA
 
         try
         {
-          var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
-
-          var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
-          if (results != null)
+          //var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
+          
+          //var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
+          if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Assembly, entity, out var results) && results != null)
           {
             var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
             foreach (var loadCase in orderedLoadCases)
             {
+              if (!SchemaConversion.Helper.FilterResults(results[loadCase], out var sendableResults))
+              {
+                continue;
+              }
               var miscResult = new StructuralMiscResult()
               {
                 IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                Value = results[loadCase],
+                Value = sendableResults,
                 TargetRef = applicationId
               };
               var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
@@ -86,7 +91,7 @@ namespace SpeckleStructuralGSA
 #if !DEBUG
       );
 #endif
-      Initialiser.AppResources.Proxy.ClearResults(resultTypes);
+      Initialiser.AppResources.Proxy.ClearResults(ResultGroup.Assembly);
 
       if (gsaMiscResults.Count > 0)
       {

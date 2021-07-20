@@ -60,37 +60,38 @@ namespace SpeckleStructuralGSA.Test
     }
 
     protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, 
-      string[] nodeResultsToSend = null, string[] elem1dResultsToSend = null, string[] elem2dResultsToSend = null, string[] miscResultsToSend = null)
+      List<ResultType> resultTypes)
     {
       bool sendResults = false;
-      List<string> allResults = null;
-      if (layer == GSATargetLayer.Analysis && cases != null && cases.Length > 0 && 
-        ((nodeResultsToSend != null && nodeResultsToSend.Length > 0) || (elem1dResultsToSend != null && elem1dResultsToSend.Length > 0)
-        || (elem2dResultsToSend != null && elem2dResultsToSend.Length > 0) || (miscResultsToSend != null && miscResultsToSend.Length > 0)))
+      if (layer == GSATargetLayer.Analysis && cases != null && cases.Length > 0 && resultTypes != null && resultTypes.Count > 0)
       {
-        sendResults = true;
+        Initialiser.AppResources.Settings.ResultTypes = resultTypes;
         Initialiser.AppResources.Settings.ResultCases = cases.ToList();
-        allResults = new List<string>();
-        if (nodeResultsToSend != null)
+        sendResults = true;
+        /*
+          ((nodeResultsToSend != null && nodeResultsToSend.Length > 0) || (elem1dResultsToSend != null && elem1dResultsToSend.Length > 0)
+          || (elem2dResultsToSend != null && elem2dResultsToSend.Length > 0) || (miscResultsToSend != null && miscResultsToSend.Length > 0)))
         {
-          Initialiser.AppResources.Settings.NodalResults = nodeResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
-          allResults.AddRange(nodeResultsToSend);
-        }
-        if (elem1dResultsToSend != null)
-        {
-          Initialiser.AppResources.Settings.Element1DResults = elem1dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
-          allResults.AddRange(elem1dResultsToSend);
-        }
-        if (elem2dResultsToSend != null)
-        {
-          Initialiser.AppResources.Settings.Element2DResults = elem2dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
-          allResults.AddRange(elem2dResultsToSend);
-        }
-        if (miscResultsToSend != null)
-        {
-          Initialiser.AppResources.Settings.MiscResults = miscResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
-          allResults.AddRange(miscResultsToSend);
-        }
+          sendResults = true;
+          Initialiser.AppResources.Settings.ResultCases = cases.ToList();
+          allResults = new List<string>();
+          if (nodeResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.NodalResults = nodeResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (elem1dResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.Element1DResults = elem1dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (elem2dResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.Element2DResults = elem2dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (miscResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.MiscResults = miscResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+        */
 
         if (resultsOnly)
         {
@@ -118,7 +119,7 @@ namespace SpeckleStructuralGSA.Test
       if (sendResults)
       {
         //Initialiser.AppResources.Proxy.LoadResults(allResults, cases.ToList());
-        Initialiser.AppResources.Proxy.PrepareResults(Initialiser.AppResources.Settings.Result1DNumPosition + 2);
+        Initialiser.AppResources.Proxy.PrepareResults(resultTypes, Initialiser.AppResources.Settings.Result1DNumPosition + 2);
       }
 
       //Clear out all sender objects that might be there from the last test preparation

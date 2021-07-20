@@ -12,6 +12,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
   {
     public static List<AxisDirection6> AxisDirs = Enum.GetValues(typeof(AxisDirection6)).Cast<AxisDirection6>().Where(v => v != AxisDirection6.NotSet).ToList();
 
+    /*
     //For insertion into the Result.Value property
     // [ load case [ result type [ column [ values ] ] ] ]
     public static Dictionary<string, Dictionary<string, object>> GetSpeckleResultHierarchy(Dictionary<string, Tuple<List<string>, object[,]>> data,
@@ -118,7 +119,45 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       return retValue;
     }
+    */
 
+    // [ result_type [ column [ values ] ] ]
+    public static bool FilterResults(Dictionary<string, object> inValue, out Dictionary<string, object> outValue)
+    {
+      outValue = new Dictionary<string, object>();
+
+      foreach (var rt in inValue.Keys)
+      {
+        var d = (Dictionary<string, object>)inValue[rt];
+
+        var sendable = false;
+        foreach (var c in d.Keys)
+        {
+          var colValues = (List<object>)d[c];
+
+          foreach (var v in colValues)
+          {
+            if ((v is float && (float)v != 0) || (v is float? && ((float?)v).HasValue && (float?)v != 0))
+            {
+              sendable = true;
+              break;
+            }
+          }
+          if (sendable)
+          {
+            break;
+          }
+        }
+        if (sendable)
+        {
+          outValue.Add(rt, inValue[rt]);
+        }
+      }
+
+      return (outValue.Count > 0);
+    }
+
+    /*
     private static bool SendableValue(object v)
     {
       if (v == null)
@@ -139,6 +178,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
       }
       return true;
     }
+    */
 
     //This is necessary because SpeckleCore swallows exceptions thrown within ToNative methods
     public static string ToNativeTryCatch(SpeckleObject so, Func<object> toNativeMethod)

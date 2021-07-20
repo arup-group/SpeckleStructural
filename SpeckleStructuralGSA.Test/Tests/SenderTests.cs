@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,14 +18,16 @@ namespace SpeckleStructuralGSA.Test
   {
     public SenderTests() : base(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new[] { '\\' }) + @"\..\..\TestData\") { }
 
-    public static string[] nodeResultTypes = new[] { "Nodal Displacements", "Nodal Velocity", "Nodal Acceleration", "Nodal Reaction", "Constraint Forces" };
-    public static string[] elem1dResultTypes = new[] { "1D Element Displacement", "1D Element Force" };
-    public static string[] elem2dResultTypes = new[] { "2D Element Displacement", "2D Element Projected Moment", "2D Element Projected Force", "2D Element Projected Stress - Bottom", "2D Element Projected Stress - Middle", "2D Element Projected Stress - Top" };
-    public static string[] miscResultTypes = new[] { "Assembly Forces and Moments" };
+    public static List<ResultType> nodeResultTypes = new List<ResultType> { ResultType.NodalDisplacements, ResultType.NodalReaction };
+    public static List<ResultType> elem1dResultTypes = new List<ResultType> { ResultType.Element1dDisplacement, ResultType.Element1dForce };
+    public static List<ResultType> elem2dResultTypes = new List<ResultType> { ResultType.Element2dDisplacement, ResultType.Element2dProjectedMoment, ResultType.Element2dProjectedForce, 
+      ResultType.Element2dProjectedStressBottom, ResultType.Element2dProjectedStressMiddle, ResultType.Element2dProjectedStressTop };
+    public static List<ResultType> miscResultTypes = new List<ResultType> { ResultType.AssemblyForcesAndMoments };
     public static string[] loadCases = new[] { "A2", "C1" };
     //public const string gsaFileNameWithResults = "20180906 - Existing structure GSA_V7_modified.gwb";
     public const string gsaFileNameWithResults = "Structural Demo 200630 Results.gwb";
     public const string gsaFileNameWithoutResults = "Structural Demo 200630.gwb";
+    public static List<ResultType> allResultTypes => nodeResultTypes.Union(elem1dResultTypes).Union(elem2dResultTypes).Union(miscResultTypes).ToList();
 
     [OneTimeSetUp]
     public void SetupTests()
@@ -55,6 +58,18 @@ namespace SpeckleStructuralGSA.Test
 
       expectedObjects = expectedObjects.OrderBy(a => a.ApplicationId).ToList();
 
+      JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+      {
+        FloatParseHandling = FloatParseHandling.Decimal,
+        Culture = new CultureInfo(string.Empty)
+        {
+          NumberFormat = new NumberFormatInfo
+          {
+            CurrencyDecimalDigits = 2
+          }
+        }
+      };
+
       var expected = new Dictionary<Type, List<Tuple<string, SpeckleObject, string>>>();
       var expectedLock = new object();
       //Parallel.ForEach(expectedObjects, expectedObject =>
@@ -79,7 +94,8 @@ namespace SpeckleStructuralGSA.Test
       }
       //);
 
-      var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, loadCases, nodeResultTypes, elem1dResultTypes, elem2dResultTypes, miscResultTypes);
+      var allResultTypes = nodeResultTypes.Union(elem1dResultTypes).Union(elem2dResultTypes).Union(miscResultTypes).ToList();
+      var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, loadCases, allResultTypes);
       Assert.IsNotNull(actualObjects);
 
       //This replaces what the real sender does in terms of stream buckets
@@ -209,13 +225,13 @@ namespace SpeckleStructuralGSA.Test
     //[TestCase(GSATargetLayer.Analysis, false, true, @"C:\Users\Nic.Burgers\OneDrive - Arup\Issues\Nguyen Le\2D result\shear wall system-seismic v10.1.gwb", 
     //  "2D Element Projected Force", "A1 A2" )]
     public void TransmissionTestForDebug(GSATargetLayer layer, bool resultsOnly, bool embedResults, string gsaFileName, 
-      string overrideResultType = null, string loadCasesOverride = null)
+      ResultType? overrideResultType = null, string loadCasesOverride = null)
     {
       Initialiser.AppResources.Proxy.OpenFile(gsaFileName.Contains("\\") ? gsaFileName : Path.Combine(TestDataDirectory, gsaFileName));
 
       var actualObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults,
         (loadCasesOverride == null) ? loadCases : loadCasesOverride.ListSplit(" "),
-        (overrideResultType == null) ? nodeResultTypes : new[] { overrideResultType });
+        (overrideResultType.HasValue) ? new List<ResultType> { overrideResultType.Value } : nodeResultTypes);
 
       Assert.IsNotNull(actualObjects);
       actualObjects = actualObjects.OrderBy(a => a.ApplicationId).ToList();

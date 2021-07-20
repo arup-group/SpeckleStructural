@@ -44,9 +44,11 @@ namespace SpeckleStructuralGSA
         obj.Properties.Add("structural", new Dictionary<string, object>());
       }
 
+      var settings = Initialiser.AppResources.Settings;
+      var anyElement1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+
       Dictionary<string, object> results = null;
-      if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
-        && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
+      if (anyElement1dResults & settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
       {
         results = new Dictionary<string, object>();
       }
@@ -125,8 +127,7 @@ namespace SpeckleStructuralGSA
           endReleases.AddRange(element.EndRelease);
           offsets.AddRange(element.Offset);
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
-            && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
+          if (anyElement1dResults && settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             resultVertices.AddRange(element.ResultVertices);
           }
@@ -144,8 +145,7 @@ namespace SpeckleStructuralGSA
           offsets.Add((element.Offset as List<StructuralVectorThree>).Last());
           offsets.Add((element.Offset as List<StructuralVectorThree>).First());
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 
-            && Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
+          if (anyElement1dResults && settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             for (var i = (element.ResultVertices.Count - 3); i >= 0; i -= 3)
             {
@@ -328,7 +328,8 @@ namespace SpeckleStructuralGSA
     public static SpeckleObject ToSpeckle(this GSA1DElementPolyline dummyObject)
     {
       var settings = Initialiser.AppResources.Settings;
-      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && settings.Element1DResults.Count() == 0)
+      var anyElement1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement1dResults)
       {
         return new SpeckleNull();
       }
