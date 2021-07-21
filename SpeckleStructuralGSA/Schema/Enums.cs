@@ -41,6 +41,14 @@
     MAT_CONCRETE,
     [StringValue("MAT_STEEL")]
     MAT_STEEL,
+    [StringValue("MAT")]
+    MAT,
+    [StringValue("MAT_ANAL")]
+    MAT_ANAL,
+    [StringValue("MAT_CURVE")]
+    MAT_CURVE,
+    [StringValue("MAT_CURVE_PARAM")]
+    MAT_CURVE_PARAM,
     [StringValue("SECTION_COMP")]
     SECTION_COMP,
     [StringValue("SECTION_CONC")]
@@ -654,6 +662,53 @@
     MAT_MOHR_COULOMB
   }
 
+  public enum MatCurveParamType
+  {
+    UNDEF,            //undefined
+    MAT_VOID,         //void material - no strength
+    EXPLICIT,         //explicit material curve
+    EXPLICIT_ENV,     //explicit material curve envelope
+    LINEAR,           //linear material
+    ELAS_PLAS,        //elastic-perfectly plastic material
+    ELAS_HARD,        //elastic-hardening material
+    NO_COMPRESSION,   //no compression
+    PRESTRESS,        //prestress tendons
+    PROG_YIELD,       //progressive yield
+    BS5400_BAR,       //BS 5400 bar curve
+    PARK,             //Park model
+    ASTM_STRAND,      //ASTM A416 prestress strand
+    ELAS_PLAS_TEN,    //elastic-plastic tendon
+    RECT_PARABOLA,    //parabola rectangle
+    RECTANGLE,        //rectangular compression block
+    BILINEAR,         //bilinear stress block
+    POPOVICS,         //Popovics
+    FIB_SCHEMATIC,    //FIB schematic (BS8110 part2 curve)
+    RECT_AISC,        //AISC 360 filled compression tube
+    BS8110_PT2,       //part2 curve
+    NO_TENSION,       //no tension
+    INTERPOLATED,     //interplated between cracked and uncracked
+    TR59,             //Technical Report 59 (was ICE technical note 372)
+    PD6687,           //PD 6687 variant of Eurocode model
+    EC2_CONFINED,     //EC2 confined
+    MANDER,           //Mander
+    MANDER_CONFINED,  //Mander confined
+    MOD_RECTANGLE,    //modified rectangle
+    RIGID_PLAS        //rigid-plastic
+  }
+
+  public enum MatType
+  {
+    STEEL,
+    CONCRETE,
+    FRP,
+    ALUMINIUM,
+    TIMBER,
+    GLASS,
+    FABRIC,
+    REBAR,
+    GENERIC
+  }
+
   public enum Colour
   {
     NotSet = 0,
@@ -796,5 +851,69 @@
     LIGHT_CYAN,
     AZURE,
     WHITE
+  }
+
+  public enum Dimension
+  {
+    NotSet,
+    NULL,
+    FORCE,
+    LENGTH,
+    MASS,
+    DISP,
+    PROP_LEN,
+    TIME,
+    TEMPERATURE,
+    PRESSURE,
+    GRD_ACCEL,
+    ENERGY,
+    VEL,
+    ANGLE,
+    STRAIN,
+    WORK,
+    MOMENT,
+    STRESS,
+    FORCE_PER_LENGTH,
+    MOMENT_PER_LENGTH,
+    MOMENT_PER_ROTATION,
+    EI,
+    WARP_CONST,
+    AREA,
+    FIRST_MOMENT_AREA,
+    SECOND_MOMENT_AREA,
+    VOLUME,
+    PER_LENGTH,
+    PER_AREA,
+    PER_VOLUME,
+    CS_AREA,
+    CS_AREA_PER_LENGTH,
+    CURVATURE,
+    INERTIA,
+    DENSITY,
+    AREA_DENSITY,
+    WEIGHT_DENSITY,
+    MASS_PER_LENGTH,
+    PER_MASS,
+    ANGULAR_VELOCITY,
+    ANGULAR_ACCELERATION,
+    FLOW_RATE,
+    FREQUENCY,
+    ANGULAR_FREQUENCY,
+    PERIOD,
+    THERMAL_EXPANSION,
+    TEMPERATURE_GRADIENT,
+    IMPULSE,
+    IMPULSE_PER_AREA,
+    IMPULSE_PER_LENGTH,
+    MOMENTUM,
+    ANGULAR_MOMENTUM,
+    I_PER_LENGTH,
+    VOLUME_PER_AREA,
+    DAMPING,
+    ENERGY_DENSITY,
+    ENERGY_PER_LENGTH,
+    COMPLIANCE,
+    DEGREE,
+    PERCENT
   }
 }

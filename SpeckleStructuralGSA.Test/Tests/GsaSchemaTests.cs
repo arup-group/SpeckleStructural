@@ -295,13 +295,19 @@ namespace SpeckleStructuralGSA.Test
         //Assert.IsTrue(genRestGwas[i].Equals(gwa.First()));
       }
     }
+
     /*
     [Test]
     public void GsaMatAnalSimple()
     {
       var matAnalGwas = new List<string>()
       {
-        "MAT_ANAL.1\t1\tMAT_ELAS_ISO\t40MPa\tNO_RGB\t6\t32800\t0.2\t2.5\t1e-05\t0\t0\t0\t0"
+        "MAT_ANAL.1\t1\tMAT_ELAS_ISO\tMaterial 1\tNO_RGB\t6\t2.05e+11\t0.3\t7850\t1.2e-05\t0\t0\t0\t0",
+        "MAT_ANAL.1\t2\tMAT_ELAS_PLAS_ISO\tMaterial 2\tNO_RGB\t9\t2.05e+11\t0.3\t7850\t1.2e-05\t275000000\t300000000\t0\t0\t0\t0\t0",
+        "MAT_ANAL.1\t3\tMAT_ELAS_ORTHO\tMaterial 3\tNO_RGB\t14\t2.05e+11\t2.05e+11\t2.05e+11\t0.3\t0.3\t0.3\t7850\t1.2e-05\t1.2e-05\t1.2e-05\t7.8846e+10\t7.8846e+10\t7.8846e+10\t0\t0\t0",
+        "MAT_ANAL.1\t4\tMAT_MOHR_COULOMB\tMaterial 4\tNO_RGB\t9\t7.8846e+10\t0.3\t7850\t0\t0\t0\t0\t1.2e-05\t0\t0\t0",
+        "MAT_ANAL.1\t5\tMAT_DRUCKER_PRAGER\tMaterial 5\tNO_RGB\t10\t7.8846e+10\t0.3\t7850\t0\t0\t0\t0\t-1\t1.2e-05\t0\t0\t0",
+        "MAT_ANAL.1\t6\tMAT_FABRIC\tMaterial 6\tNO_RGB\t5\t800000\t400000\t0.45\t30000\t0\t1\t\t0"
       };
       var matAnals = new List<GsaMatAnal>();
       foreach (var g in matAnalGwas)
@@ -313,6 +319,228 @@ namespace SpeckleStructuralGSA.Test
       matAnals = matAnals;
     }
     */
+
+    [Test]
+    public void GsaMatCurveSimple()
+    {
+      var matCurveGwas = new List<string>()
+      {
+        "MAT_CURVE.1\t1\tMaterial Curve 1\tDISP\tFORCE\t\"(1,10) (2,20) (3,30)\""
+      };
+
+      var matCurves = new List<GsaMatCurve>();
+      foreach (var g in matCurveGwas)
+      {
+        var l = new GsaMatCurve();
+        Assert.IsTrue(l.FromGwa(g));
+        matCurves.Add(l);
+      }
+
+      Assert.AreEqual(Dimension.DISP, matCurves[0].Abscissa);
+      Assert.AreEqual(Dimension.FORCE, matCurves[0].Ordinate);
+      Assert.AreEqual(new double[3,2] { { 1, 10 }, { 2, 20 },{ 3, 30 } }, matCurves[0].Table);
+
+      for (int i = 0; i < matCurves.Count(); i++)
+      {
+        Assert.IsTrue(matCurves[i].Gwa(out var gwa));
+        Assert.IsTrue(matCurveGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaMatCurveParamSimple()
+    {
+      var matCurveParamGwas = new List<string>()
+      {
+        "MAT_CURVE_PARAM.3\t\tRECTANGLE+EXPLICIT\t0.00041083875\t0\t0.00041166125\t0\t0.003\t0\t1\t1"
+        //"MAT_CURVE_PARAM.3\t\tEXPLICIT\t0\t0\t0\t0\t0\t0\t1\t1",
+        //"MAT_CURVE_PARAM.3\t\tUNDEF\t0.0018\t0.0018\t0.0018\t0.0018\t0.05\t0.05\t1\t1",
+        //"MAT_CURVE_PARAM.3\t\tELAS_PLAS\t0.0016\t0.0016\t0.0016\t0.0016\t0.05\t0.05\t1\t1",
+        //"MAT_CURVE_PARAM.3\t\tRECTANGLE+NO_TENSION\t0.00068931\t0\t0.00069069\t0\t0.003\t1\t1\t1",
+        //"MAT_CURVE_PARAM.3\t\tLINEAR+INTERPOLATED\t0.003\t0\t0.003\t0\t0.003\t0.0001144620975\t1\t1"
+      };
+
+      var matCurveParams = new List<GsaMatCurveParam>();
+      foreach (var g in matCurveParamGwas)
+      {
+        var l = new GsaMatCurveParam();
+        Assert.IsTrue(l.FromGwa(g));
+        matCurveParams.Add(l);
+      }
+
+      Assert.AreEqual(new List<MatCurveParamType>() { MatCurveParamType.RECTANGLE, MatCurveParamType.EXPLICIT }, matCurveParams[0].Model);
+      Assert.AreEqual(0.00041083875, matCurveParams[0].StrainElasticCompression);
+      Assert.AreEqual(0, matCurveParams[0].StrainElasticTension);
+      Assert.AreEqual(0.00041166125, matCurveParams[0].StrainPlasticCompression);
+      Assert.AreEqual(0, matCurveParams[0].StrainPlasticTension);
+      Assert.AreEqual(0.003, matCurveParams[0].StrainFailureCompression);
+      Assert.AreEqual(0, matCurveParams[0].StrainFailureTension);
+      Assert.AreEqual(1, matCurveParams[0].GammaF);
+      Assert.AreEqual(1, matCurveParams[0].GammaE);
+
+      for (int i = 0; i < matCurveParams.Count(); i++)
+      {
+        Assert.IsTrue(matCurveParams[i].Gwa(out var gwa));
+        Assert.IsTrue(matCurveParamGwas[i].Equals(gwa.First()));
+      }
+    }
+
+    [Test]
+    public void GsaMatAnalSimple()
+    {
+      var matAnalGwas = new List<string>()
+      {
+        "MAT_ANAL.1\t1\tMAT_ELAS_ISO\tMaterial 1\tNO_RGB\t6\t2.05e+11\t0.3\t7850\t1.2e-05\t0\t0\t0\t0",
+        "MAT_ANAL.1\t2\tMAT_ELAS_ORTHO\tMaterial 2\tNO_RGB\t14\t2.05e+11\t2.05e+11\t2.05e+11\t0.3\t0.3\t0.3\t7850\t1.2e-05\t1.2e-05\t1.2e-05\t7.8846e+10\t7.8846e+10\t7.8846e+10\t0\t0\t0",
+        "MAT_ANAL.1\t3\tMAT_ELAS_PLAS_ISO\tMaterial 3\tNO_RGB\t9\t2.05e+11\t0.3\t7850\t1.2e-05\t275000000\t300000000\t0\t0\t0\t0\t0",
+        "MAT_ANAL.1\t4\tMAT_MOHR_COULOMB\tMaterial 4\tNO_RGB\t9\t7.8846e+10\t0.3\t7850\t0\t0\t0\t0\t1.2e-05\t0\t0\t0",
+        "MAT_ANAL.1\t5\tMAT_DRUCKER_PRAGER\tMaterial 5\tNO_RGB\t10\t7.8846e+10\t0.3\t7850\t0\t0\t0\t0\t-1\t1.2e-05\t0\t0\t0"
+        //"MAT_ANAL.1\t6\tMAT_FABRIC\tMaterial 6\tNO_RGB\t5\t800000\t400000\t0.45\t30000\t0\t1\t\t0"
+      };
+
+      var matAnals = new List<GsaMatAnal>();
+      foreach (var g in matAnalGwas)
+      {
+        var l = new GsaMatAnal();
+        Assert.IsTrue(l.FromGwa(g));
+        matAnals.Add(l);
+      }
+
+      #region MAT_ELAS_ISO
+      Assert.AreEqual(MatAnalType.MAT_ELAS_ISO, matAnals[0].Type);
+      Assert.AreEqual(2.05e+11, matAnals[0].E);
+      Assert.AreEqual(0.3, matAnals[0].Nu);
+      Assert.AreEqual(7850, matAnals[0].Rho);
+      Assert.AreEqual(1.2e-5, matAnals[0].Alpha);
+      Assert.AreEqual(0, matAnals[0].G);
+      Assert.AreEqual(0, matAnals[0].Damp);
+      #endregion
+      #region MAT_ELAS_ORTHO
+      Assert.AreEqual(MatAnalType.MAT_ELAS_ORTHO, matAnals[1].Type);
+      Assert.AreEqual(2.05e+11, matAnals[1].Ex);
+      Assert.AreEqual(2.05e+11, matAnals[1].Ey);
+      Assert.AreEqual(2.05e+11, matAnals[1].Ez);
+      Assert.AreEqual(0.3, matAnals[1].Nuxy);
+      Assert.AreEqual(0.3, matAnals[1].Nuyz);
+      Assert.AreEqual(0.3, matAnals[1].Nuzx);
+      Assert.AreEqual(7850, matAnals[1].Rho);
+      Assert.AreEqual(1.2e-5, matAnals[1].Alphax);
+      Assert.AreEqual(1.2e-5, matAnals[1].Alphay);
+      Assert.AreEqual(1.2e-5, matAnals[1].Alphaz);
+      Assert.AreEqual(7.8846e+10, matAnals[1].Gxy);
+      Assert.AreEqual(7.8846e+10, matAnals[1].Gyz);
+      Assert.AreEqual(7.8846e+10, matAnals[1].Gzx);
+      Assert.AreEqual(0, matAnals[1].Damp);
+      #endregion
+      #region MAT_ELAS_PLAS_ISO
+      Assert.AreEqual(MatAnalType.MAT_ELAS_PLAS_ISO, matAnals[2].Type);
+      Assert.AreEqual(2.05e+11, matAnals[2].E);
+      Assert.AreEqual(0.3, matAnals[2].Nu);
+      Assert.AreEqual(7850, matAnals[2].Rho);
+      Assert.AreEqual(1.2e-5, matAnals[2].Alpha);
+      Assert.AreEqual(275000000, matAnals[2].Yield);
+      Assert.AreEqual(300000000, matAnals[2].Ultimate);
+      Assert.AreEqual(0, matAnals[2].Eh);
+      Assert.AreEqual(0, matAnals[2].Beta);
+      Assert.AreEqual(0, matAnals[2].Damp);
+      #endregion
+      #region MAT_MOHR_COULOMB
+      Assert.AreEqual(MatAnalType.MAT_MOHR_COULOMB, matAnals[3].Type);
+      Assert.AreEqual(7.8846e+10, matAnals[3].G);
+      Assert.AreEqual(0.3, matAnals[3].Nu);
+      Assert.AreEqual(7850, matAnals[3].Rho);
+      Assert.AreEqual(0, matAnals[3].Cohesion);
+      Assert.AreEqual(0, matAnals[3].Phi);
+      Assert.AreEqual(0, matAnals[3].Psi);
+      Assert.AreEqual(0, matAnals[3].Eh);
+      Assert.AreEqual(1.2e-5, matAnals[3].Alpha);
+      Assert.AreEqual(0, matAnals[3].Damp);
+      #endregion
+      #region MAT_DRUCKER_PRAGER
+      Assert.AreEqual(MatAnalType.MAT_DRUCKER_PRAGER, matAnals[4].Type);
+      Assert.AreEqual(7.8846e+10, matAnals[4].G);
+      Assert.AreEqual(0.3, matAnals[4].Nu);
+      Assert.AreEqual(7850, matAnals[4].Rho);
+      Assert.AreEqual(0, matAnals[4].Cohesion);
+      Assert.AreEqual(0, matAnals[4].Phi);
+      Assert.AreEqual(0, matAnals[4].Psi);
+      Assert.AreEqual(0, matAnals[4].Eh);
+      Assert.AreEqual(-1, matAnals[4].Scribe);
+      Assert.AreEqual(1.2e-5, matAnals[4].Alpha);
+      Assert.AreEqual(0, matAnals[4].Damp);
+      #endregion
+      
+      for (int i = 0; i < matAnals.Count(); i++)
+      {
+        Assert.IsTrue(matAnals[i].Gwa(out var gwa));
+        //Assert.IsTrue(matAnalGwas[i].Equals(gwa.First())); //Scientific notation is not currently preserved
+      }
+    }
+
+    [Test]
+    public void GsaMatSimple()
+    {
+      var matGwas = new List<string>()
+      {
+        "MAT.10\t1\tSteel 1\t2.05e+11\t0\t0.3\t0\t7850\t1.2e-05\tMAT_ANAL.1\t-268435456\tMAT_ELAS_ISO\t6\t0\t0\t7850\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0.05\tMAT_CURVE_PARAM.3\t\tELAS_PLAS\t0\t0\t0\t0\t0.05\t0.05\t1\t1\tMAT_CURVE_PARAM.3\t\tELAS_PLAS\t0\t0\t0\t0\t0.05\t0.05\t1\t1\t0\tSteel"
+      };
+
+      var mats = new List<GsaMat>();
+      foreach (var g in matGwas)
+      {
+        var l = new GsaMat();
+        Assert.IsTrue(l.FromGwa(g));
+        mats.Add(l);
+      }
+
+      Assert.AreEqual(2.05e11, mats[0].E);
+      Assert.AreEqual(0, mats[0].F);
+      Assert.AreEqual(0.3, mats[0].Nu);
+      Assert.AreEqual(0, mats[0].G);
+      Assert.AreEqual(7850, mats[0].Rho);
+      Assert.AreEqual(1.2e-5, mats[0].Alpha);
+      Assert.AreEqual(-268435456, mats[0].Prop.Index);
+      Assert.AreEqual(MatAnalType.MAT_ELAS_ISO, mats[0].Prop.Type);
+      Assert.AreEqual(6, mats[0].Prop.NumParams);
+      Assert.AreEqual(0, mats[0].Prop.E);
+      Assert.AreEqual(0, mats[0].Prop.Nu);
+      Assert.AreEqual(7850, mats[0].Prop.Rho);
+      Assert.AreEqual(0, mats[0].Prop.Alpha);
+      Assert.AreEqual(0, mats[0].Prop.G);
+      Assert.AreEqual(0, mats[0].Prop.Damp);
+      Assert.AreEqual(0, mats[0].NumUC);
+      Assert.AreEqual(0, mats[0].NumSC);
+      Assert.AreEqual(0, mats[0].NumUT);
+      Assert.AreEqual(0, mats[0].NumST);
+      Assert.AreEqual(0.05, mats[0].Eps);
+      Assert.AreEqual(MatCurveParamType.ELAS_PLAS, mats[0].Uls.Model[0]);
+      Assert.AreEqual(0, mats[0].Uls.StrainElasticCompression);
+      Assert.AreEqual(0, mats[0].Uls.StrainElasticTension);
+      Assert.AreEqual(0, mats[0].Uls.StrainPlasticCompression);
+      Assert.AreEqual(0, mats[0].Uls.StrainPlasticTension);
+      Assert.AreEqual(0.05, mats[0].Uls.StrainFailureCompression);
+      Assert.AreEqual(0.05, mats[0].Uls.StrainFailureTension);
+      Assert.AreEqual(1, mats[0].Uls.GammaF);
+      Assert.AreEqual(1, mats[0].Uls.GammaE);
+      Assert.AreEqual(MatCurveParamType.ELAS_PLAS, mats[0].Sls.Model[0]);
+      Assert.AreEqual(0, mats[0].Sls.StrainElasticCompression);
+      Assert.AreEqual(0, mats[0].Sls.StrainElasticTension);
+      Assert.AreEqual(0, mats[0].Sls.StrainPlasticCompression);
+      Assert.AreEqual(0, mats[0].Sls.StrainPlasticTension);
+      Assert.AreEqual(0.05, mats[0].Sls.StrainFailureCompression);
+      Assert.AreEqual(0.05, mats[0].Sls.StrainFailureTension);
+      Assert.AreEqual(1, mats[0].Sls.GammaF);
+      Assert.AreEqual(1, mats[0].Sls.GammaE);
+      Assert.AreEqual(0, mats[0].Cost);
+      Assert.AreEqual(MatType.STEEL, mats[0].Type);
+
+      for (int i = 0; i < mats.Count(); i++)
+      {
+        Assert.IsTrue(mats[i].Gwa(out var gwa));
+        //Assert.IsTrue(matGwas[i].Equals(gwa.First())); //Scientific notation is not currently preserved. Also original gwa has "Steel" for the material type instead of "STEEL"
+      }
+    }
+
     [Test]
     public void GsaInfBeamSimple()
     {
@@ -340,7 +568,6 @@ namespace SpeckleStructuralGSA.Test
         Assert.IsTrue(infBeamGwas[i].Equals(gwa.First()));
       }
     }
-    //
 
     [Test]
     public void GsaInfNodeSimple()
