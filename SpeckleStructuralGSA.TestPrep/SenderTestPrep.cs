@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using SpeckleCore;
 using SpeckleGSAInterfaces;
@@ -17,9 +18,9 @@ namespace SpeckleStructuralGSA.TestPrep
     }
 
     public bool SetUpTransmissionTestData(string outputJsonFileName, GSATargetLayer layer,
-      bool resultsOnly, bool embedResults, string[] cases = null, string[] resultsToSend = null)
+      bool resultsOnly, bool embedResults, List<ResultType> resultTypes = null, string[] cases = null)
     {
-      var speckleObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, cases, resultsToSend);
+      var speckleObjects = ModelToSpeckleObjects(layer, resultsOnly, embedResults, cases, resultTypes);
       if (speckleObjects == null)
       {
         return false;

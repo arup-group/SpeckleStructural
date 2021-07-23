@@ -35,7 +35,7 @@ namespace SpeckleStructuralGSA
 
         obj.ElementRef = targetElement.Value.ApplicationId;
 
-        this.SubGWACommand.Add(targetElement.GWACommand);
+        //this.SubGWACommand.Add(targetElement.GWACommand);
       }
       else
         return;
@@ -190,7 +190,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      if (infls.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      }
 
       return (infls.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

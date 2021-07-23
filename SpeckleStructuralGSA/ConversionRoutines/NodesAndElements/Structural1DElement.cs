@@ -64,7 +64,7 @@ namespace SpeckleStructuralGSA
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(key)).FirstOrDefault();
         node.ForceSend = true;
         obj.Value.AddRange(node.Value.Value);
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       var orientationNodeRef = pieces[counter++];
@@ -78,7 +78,7 @@ namespace SpeckleStructuralGSA
           node.ForceSend = true;
 
           obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-          this.SubGWACommand.Add(node.GWACommand);
+          //this.SubGWACommand.Add(node.GWACommand);
         }
         else
         {
@@ -386,7 +386,7 @@ namespace SpeckleStructuralGSA
           continue;
         }
         obj.Value.AddRange(node.Value.Value);
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       // orientation
@@ -397,7 +397,7 @@ namespace SpeckleStructuralGSA
       {
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(orientationNodeRef)).FirstOrDefault();
         obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
       else
       {
@@ -703,6 +703,13 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA1DElement dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      var anyElement1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement1dResults)
+      {
+        return new SpeckleNull();
+      }
+      
       var newLines = ToSpeckleBase<GSA1DElement>();
       var typeName = dummyObject.GetType().Name;
       var elementsLock = new object();
@@ -741,7 +748,10 @@ namespace SpeckleStructuralGSA
       );
 #endif
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(elements.Values.ToList());
+      if (elements.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(elements.Values.ToList());
+      }
 
       return (elements.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }
@@ -785,7 +795,10 @@ namespace SpeckleStructuralGSA
       );
 #endif
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(members.Values.ToList());
+      if (members.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(members.Values.ToList());
+      }
 
       return (members.Keys.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

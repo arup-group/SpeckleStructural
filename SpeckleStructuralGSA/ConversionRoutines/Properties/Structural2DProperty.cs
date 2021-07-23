@@ -39,8 +39,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
       else if (materialType == "CONCRETE")
@@ -49,8 +49,8 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          if (matchingMaterial != null)
-            this.SubGWACommand.Add(matchingMaterial.GWACommand);
+          //if (matchingMaterial != null)
+            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
 
@@ -163,6 +163,13 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA2DProperty dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      var anyElement2dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement2dResults)
+      {
+        return new SpeckleNull();
+      }
+
       var newLines = ToSpeckleBase<GSA2DProperty>();
       var typeName = dummyObject.GetType().Name;
       var propsLock = new object();
@@ -191,7 +198,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(props.Values.ToList());
+      if (props.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(props.Values.ToList());
+      }
 
       return (props.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

@@ -43,9 +43,9 @@ namespace SpeckleStructuralGSA
           var match2D = e2Ds.Where(e => memberList.Contains(Convert.ToInt32(e.Member)));
           elementRefs.AddRange(match1D.Select(e => e.Value.ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => e.Value.ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
-          this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
-          this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
+          //this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
+          //this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }
         else if (targetEntity == "ELEMENT")
         {
@@ -54,9 +54,9 @@ namespace SpeckleStructuralGSA
           var match2D = e2Ds.Where(e => elementList.Contains(e.GSAId));
           elementRefs.AddRange(match1D.Select(e => (e.Value).ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => (e.Value).ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
-          this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
-          this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
+          //this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
+          //this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }
       }
       else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
@@ -68,9 +68,9 @@ namespace SpeckleStructuralGSA
           var match2D = m2Ds.Where(e => memberList.Contains(e.GSAId));
           elementRefs.AddRange(match1D.Select(e => ((Structural1DElement)e.Value).ApplicationId.ToString()));
           elementRefs.AddRange(match2D.Select(e => ((Structural2DElement)e.Value).ApplicationId.ToString()));
-          obj.ElementRefs = elementRefs;
-          this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
-          this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
+          obj.ElementRefs = elementRefs.OrderBy(e => e).ToList();
+          //this.SubGWACommand.AddRange(match1D.Select(e => e.GWACommand));
+          //this.SubGWACommand.AddRange(match2D.Select(e => e.GWACommand));
         }
         else if (targetEntity == "ELEMENT")
         {
@@ -87,11 +87,11 @@ namespace SpeckleStructuralGSA
         var key = pieces[counter++];
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(key)).FirstOrDefault();
         obj.Value.AddRange(node.Value.Value);
-        this.SubGWACommand.Add(node.GWACommand);
+        //this.SubGWACommand.Add(node.GWACommand);
       }
       var orientationNodeId = Convert.ToInt32(pieces[counter++]);
       var orientationNode = nodes.Where(n => n.GSAId == orientationNodeId).FirstOrDefault();
-      this.SubGWACommand.Add(orientationNode.GWACommand);
+      //this.SubGWACommand.Add(orientationNode.GWACommand);
       obj.OrientationPoint = new SpecklePoint(orientationNode.Value.Value[0], orientationNode.Value.Value[1], orientationNode.Value.Value[2]);
 
       counter++; // Internal topology
@@ -158,7 +158,10 @@ namespace SpeckleStructuralGSA
       }
       );
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(assemblies.Values.ToList());
+      if (assemblies.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(assemblies.Values.ToList());
+      }
 
       return (assemblies.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

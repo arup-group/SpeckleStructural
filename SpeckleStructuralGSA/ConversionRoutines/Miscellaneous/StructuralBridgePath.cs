@@ -143,7 +143,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(paths.Values.ToList());
+      if (paths.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(paths.Values.ToList());
+      }
 
       return (paths.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

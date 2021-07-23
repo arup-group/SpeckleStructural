@@ -37,7 +37,7 @@ namespace SpeckleStructuralGSA
           var elems = elements.Where(n => targetElements.Contains(n.GSAId)).ToList();
 
           obj.ElementRefs = elems.Select(n => ((SpeckleObject)n.Value).ApplicationId).OrderBy(i => i).ToList();
-          this.SubGWACommand.AddRange(elems.Select(n => n.GWACommand));
+          //this.SubGWACommand.AddRange(elems.Select(n => n.GWACommand));
         }
       }
       else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
@@ -49,7 +49,7 @@ namespace SpeckleStructuralGSA
           var membs = members.Where(m => targetGroups.Contains(m.Group)).ToList();
 
           obj.ElementRefs = membs.Select(m => ((SpeckleObject)m.Value).ApplicationId).ToList();
-          this.SubGWACommand.AddRange(membs.Select(n => n.GWACommand));
+          //this.SubGWACommand.AddRange(membs.Select(n => n.GWACommand));
         }
       }
 
@@ -167,7 +167,7 @@ namespace SpeckleStructuralGSA
           var load = new GSA1DLoad
           {
             GWACommand = initLoad.GWACommand,
-            SubGWACommand = new List<string>(initLoad.SubGWACommand)
+            //SubGWACommand = new List<string>(initLoad.SubGWACommand)
           };
           //var speckle1dLoad = load.Value;
 
@@ -269,7 +269,10 @@ namespace SpeckleStructuralGSA
         loads.AddRange(loadSubList);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

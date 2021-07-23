@@ -29,7 +29,7 @@ namespace SpeckleStructuralGSA
       int.TryParse(pieces[counter++], out int taskRef);
       var taskRec = Initialiser.AppResources.Cache.GetGwa("TASK", taskRef).First();
       obj.TaskType = Helper.GetLoadTaskType(taskRec);
-      this.SubGWACommand.Add(taskRec);
+      //this.SubGWACommand.Add(taskRec);
 
       // Parse description
       var description = pieces[counter++];
@@ -99,11 +99,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");
@@ -164,11 +159,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");
@@ -190,11 +180,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");
@@ -274,7 +259,10 @@ namespace SpeckleStructuralGSA
         loadTasks.Add(task);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loadTasks);
+      if (loadTasks.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loadTasks);
+      }
 
       return (loadTasks.Count() > 0 ) ? new SpeckleObject() : new SpeckleNull();
     }

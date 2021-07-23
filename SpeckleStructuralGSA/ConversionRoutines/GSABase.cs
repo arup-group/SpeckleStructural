@@ -8,7 +8,7 @@ namespace SpeckleStructuralGSA
   {
     public int GSAId { get; set; }
     public string GWACommand { get; set; }
-    public List<string> SubGWACommand { get; set; } = new List<string>();
+    //public List<string> SubGWACommand { get; set; } = new List<string>();
     public object SpeckleObject { get => this.Value; set { this.Value = (T) value; } }
 
     public T Value { get; set; }

@@ -5,7 +5,8 @@ using SpeckleGSAInterfaces;
 
 namespace SpeckleStructuralGSA.Schema
 {
-  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true, true, true, GwaKeyword.AXIS, GwaKeyword.PROP_MASS, GwaKeyword.PROP_SPR)]
+  //The load case keyword dependency is there for the creation of results
+  [GsaType(GwaKeyword.NODE, GwaSetCommandType.Set, true, true, true, GwaKeyword.AXIS, GwaKeyword.PROP_MASS, GwaKeyword.PROP_SPR, GwaKeyword.LOAD_TITLE)]
   public class GsaNode : GsaRecord
   {
     public string Name { get => name; set { name = value; } }

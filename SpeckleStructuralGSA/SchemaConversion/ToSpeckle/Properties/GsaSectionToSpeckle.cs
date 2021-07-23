@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SpeckleCore;
+using SpeckleGSAInterfaces;
 using SpeckleStructuralClasses;
 using SpeckleStructuralGSA.Schema;
 
@@ -10,6 +11,13 @@ namespace SpeckleStructuralGSA.SchemaConversion
   {
     public static SpeckleObject ToSpeckle(this GsaSection dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      var element1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !element1dResults)
+      {
+        return new SpeckleNull();
+      }
+
       var kw = GsaRecord.GetKeyword<GsaSection>();
       var newLines = Initialiser.AppResources.Cache.GetGwaToSerialise(kw);
 
