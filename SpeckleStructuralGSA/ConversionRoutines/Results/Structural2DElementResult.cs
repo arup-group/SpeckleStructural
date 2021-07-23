@@ -64,10 +64,6 @@ namespace SpeckleStructuralGSA
       var entities = elements.Cast<GSA2DElement>().ToList();
       var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
-      //Assume the columns are the same for the data output for all entities
-      var rtColInfos = new ConcurrentDictionary<string, ResultTypeColumnInfo>();
-      var orderedResultTypes = new Dictionary<string, List<string>>();
-
       Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, entities.Select(e => e.GSAId).ToList());
 
 #if DEBUG
@@ -79,7 +75,7 @@ namespace SpeckleStructuralGSA
         var i = e.GSAId;
         var obj = e.Value;
 
-        if (ResultObjectsByLoadCase(keyword, i, obj.ApplicationId, loadTaskKw, comboKw, rtColInfos, out var resultObjectsByLoadCase))
+        if (ResultObjectsByLoadCase(i, obj.ApplicationId, loadTaskKw, comboKw, out var resultObjectsByLoadCase))
         {
           foreach (var loadCase in resultObjectsByLoadCase.Keys)
           {
@@ -132,8 +128,6 @@ namespace SpeckleStructuralGSA
 
       Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, indices);
 
-      var rtColInfos = new ConcurrentDictionary<string, ResultTypeColumnInfo>();
-
 #if DEBUG
       for (var i = 0; i < indices.Count(); i++)
 #else
@@ -156,7 +150,7 @@ namespace SpeckleStructuralGSA
           }
         }
 
-        if (ResultObjectsByLoadCase(keyword, indices[i], targetRef, loadTaskKw, comboKw, rtColInfos, out var resultObjectsByLoadCase))
+        if (ResultObjectsByLoadCase(indices[i], targetRef, loadTaskKw, comboKw, out var resultObjectsByLoadCase))
         {
           lock (resultsLock)
           {
@@ -180,17 +174,8 @@ namespace SpeckleStructuralGSA
       return true;
     }
 
-    private struct ResultTypeColumnInfo
-    {
-      public List<int> relevantColIndices;
-      public List<string> fields;
-      public int numFields;
-      public int rIndex;
-      public int sIndex;
-    }
-
-    private static bool ResultObjectsByLoadCase(string keyword, int elementIndex, string applicationId, string loadTaskKw, string comboKw,
-      ConcurrentDictionary<string, ResultTypeColumnInfo> rtColInfos, out Dictionary<string, Structural2DElementResult> resultObjectsByLoadCase)
+    private static bool ResultObjectsByLoadCase(int elementIndex, string applicationId, string loadTaskKw, string comboKw,
+      out Dictionary<string, Structural2DElementResult> resultObjectsByLoadCase)
     {
       resultObjectsByLoadCase = new Dictionary<string, Structural2DElementResult>();
 
@@ -203,7 +188,7 @@ namespace SpeckleStructuralGSA
           {
             IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
             TargetRef = applicationId,
-            Value = (Dictionary<string, object>)results[loadCase]
+            Value = results[loadCase]
           };
           var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
           if (!string.IsNullOrEmpty(loadCaseRef))
@@ -214,143 +199,7 @@ namespace SpeckleStructuralGSA
           resultObjectsByLoadCase.Add(loadCase, newResult);
         }
       }
-      /*
-      var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, elementIndex, out var data, 2);
-      {
-        var faceData = new Dictionary<string, Tuple<List<string>, object[,]>>();
-        var vertexData = new Dictionary<string, Tuple<List<string>, object[,]>>();
-        foreach (var rt in data.Keys)
-        {
-          ResultTypeColumnInfo rtColInfo;
-          //Just determine the column indices on the first run and assume the same for all entities
-          if (rtColInfos.ContainsKey(rt))
-          {
-            rtColInfo = rtColInfos[rt];
-          }
-          else
-          {
-            rtColInfo = new ResultTypeColumnInfo();
-            for (var f = 0; f < data[rt].Item1.Count(); f++)
-            {
-              if (data[rt].Item1[f].Equals("position_r"))
-              {
-                rtColInfo.rIndex = f;
-              }
-              else if (data[rt].Item1[f].Equals("position_s"))
-              {
-                rtColInfo.sIndex = f;
-              }
-            }
-
-            rtColInfo.relevantColIndices = Enumerable.Range(0, data[rt].Item1.Count()).Except(new[] { rtColInfo.rIndex, rtColInfo.sIndex }).ToList();
-            rtColInfo.fields = rtColInfo.relevantColIndices.Select(f => data[rt].Item1[f]).ToList();
-            rtColInfo.numFields = rtColInfo.relevantColIndices.Count();
-            rtColInfos.TryAdd(rt, rtColInfo);
-          }
-
-          var faceRowIndices = new HashSet<int>();
-          var vertexRowIndices = new HashSet<int>();
-          var totalNumRows = data[rt].Item2.GetLength(0);
-          for (var r = 0; r < totalNumRows; r++)
-          {
-            var pos_r = data[rt].Item2[r, rtColInfo.rIndex];
-            if (pos_r != null && pos_r is double && (double)pos_r > 0.1 && (double)pos_r < 0.9) //The intent here is to compare with 0 and 1 but avoid floating point issues
-            {
-              faceRowIndices.Add(r);
-            }
-            else
-            {
-              vertexRowIndices.Add(r);
-            }
-          }
-
-          //Create two new bucket of data - one for face, one for vertex data - but assume the same columns for each
-          var faceTable = new object[faceRowIndices.Count(), rtColInfo.numFields];
-          var vertexTable = new object[vertexRowIndices.Count(), rtColInfo.numFields];
-          var faceRowIndex = 0;
-          var vertexRowIndex = 0;
-          for (var r = 0; r < totalNumRows; r++)
-          {
-            var colIndex = 0;
-            if (faceRowIndices.Contains(r))
-            {
-              foreach (var c in rtColInfo.relevantColIndices)
-              {
-                faceTable[faceRowIndex, colIndex++] = data[rt].Item2[r, c];
-              }
-              faceRowIndex++;
-            }
-            else
-            {
-              foreach (var c in rtColInfo.relevantColIndices)
-              {
-                vertexTable[vertexRowIndex, colIndex++] = data[rt].Item2[r, c];
-              }
-              vertexRowIndex++;
-            }
-          }
-          if (faceRowIndex > 0) //This check is a proxy for whether any face data at all has been found
-          {
-            faceData.Add(rt + "_face", new Tuple<List<string>, object[,]>(rtColInfo.fields, faceTable));
-          }
-          if (vertexRowIndex > 0) //This check is a proxy for whether any vertex data at all has been found
-          {
-            vertexData.Add(rt + "_vertex", new Tuple<List<string>, object[,]>(rtColInfo.fields, vertexTable));
-          }
-        }
-
-        var resultsFace = SchemaConversion.Helper.GetSpeckleResultHierarchy(faceData, false);
-        var resultsVertex = SchemaConversion.Helper.GetSpeckleResultHierarchy(vertexData, false);
-        if (resultsFace != null && resultsVertex != null)
-        {
-          //merge the results
-          var orderedLoadCases = resultsFace.Keys.Union(resultsVertex.Keys).OrderBy(k => k).ToList();
-          var results = new Dictionary<string, Dictionary<string, object>>();
-
-          foreach (var loadCase in orderedLoadCases)
-          {
-            //Interlace the face and vertex result types
-            var faceRtIndex = 0;
-            var vertexRtIndex = 0;
-            var maxNumRts = Math.Max(resultsFace.ContainsKey(loadCase) ? resultsFace[loadCase].Keys.Count : 0,
-              resultsVertex.ContainsKey(loadCase) ? resultsVertex[loadCase].Keys.Count : 0);
-
-            results.Add(loadCase, new Dictionary<string, object>());
-
-            for (var rtIndex = 0; rtIndex < maxNumRts; rtIndex++)
-            {
-              if (faceRtIndex < resultsFace[loadCase].Count)
-              {
-                var rt = resultsFace[loadCase].Keys.ElementAt(faceRtIndex++);
-                results[loadCase].Add(rt, resultsFace[loadCase][rt]);
-              }
-              if (vertexRtIndex < resultsVertex[loadCase].Count)
-              {
-                var rt = resultsVertex[loadCase].Keys.ElementAt(vertexRtIndex++);
-                results[loadCase].Add(rt, resultsVertex[loadCase][rt]);
-              }
-            }
-          }
-
-          foreach (var loadCase in orderedLoadCases)
-          {
-            var newResult = new Structural2DElementResult()
-            {
-              IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-              TargetRef = applicationId,
-              Value = results[loadCase]
-            };
-            var loadCaseRef = SchemaConversion.Helper.GsaCaseToRef(loadCase, loadTaskKw, comboKw);
-            if (!string.IsNullOrEmpty(loadCaseRef))
-            {
-              newResult.LoadCaseRef = loadCase;
-            }
-            newResult.GenerateHash();
-            resultObjectsByLoadCase.Add(loadCase, newResult);
-          }
-        }
-      }
-      */
+      
       return true;
     }
 

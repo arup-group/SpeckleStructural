@@ -50,9 +50,6 @@ namespace SpeckleStructuralGSA
 
         try
         {
-          //var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
-          
-          //var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
           if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Assembly, entity, out var results) && results != null)
           {
             var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
@@ -97,8 +94,6 @@ namespace SpeckleStructuralGSA
       {
         Initialiser.GsaKit.GSASenderObjects.AddRange(gsaMiscResults);
       }
-
-      //Initialiser.GsaKit.GSASenderObjects.AddRange(gsaMiscResults);
 
       return new SpeckleObject();
     }

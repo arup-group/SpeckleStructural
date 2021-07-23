@@ -24,7 +24,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       if (sendResults)
       {
-        //Initialiser.AppResources.Proxy.LoadResults(resultTypes, resultCases, newNodeLines.Keys.ToList());
         Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Node, resultCases, newNodeLines.Keys.ToList());
       }
 
@@ -84,11 +83,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
           //Embed results if appropriate as the last thing to do to the new Speckle object before being added to the collection of objects to be sent
           if (sendResults)
           {
-            //var getResults = Initialiser.AppResources.Proxy.GetResults(nodeKw, i, out var data);
-            //var results = Helper.GetSpeckleResultHierarchy(data, false);
-            Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Node, i, out var results);
-            //if (results != null && data.Keys.Count() > 0)
-            if (results != null)
+            if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Node, i, out var results) && results != null)
             {
               var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
               if (embedResults)
@@ -126,7 +121,7 @@ namespace SpeckleStructuralGSA.SchemaConversion
               {
                 foreach (var loadCase in orderedLoadCases)
                 {
-                  if (!Helper.FilterResults((Dictionary<string, object>)results[loadCase], out Dictionary<string, object> sendableResults))
+                  if (!Helper.FilterResults(results[loadCase], out Dictionary<string, object> sendableResults))
                   {
                     continue;
                   }
@@ -197,7 +192,6 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       if (sendResults)
       {
-        //Initialiser.AppResources.Proxy.ClearResults(resultTypes);
         Initialiser.AppResources.Proxy.ClearResults(ResultGroup.Node);
       }
 
@@ -229,13 +223,11 @@ namespace SpeckleStructuralGSA.SchemaConversion
         || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithTabularResults
         || Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly));
 
-      //var sendNodeResults = (sendResults && Initialiser.AppResources.Settings.NodalResults.Keys.Count() > 0
       resultTypes = Initialiser.AppResources.Settings.ResultTypes.Intersect(nodeResultTypes).ToList();
       var sendNodeResults = (sendResults && resultTypes.Count > 0
         && Initialiser.AppResources.Settings.ResultCases != null && Initialiser.AppResources.Settings.ResultCases.Count() > 0);
 
       embedResults = sendNodeResults ? Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults : false;
-      //resultTypes = sendNodeResults ? resultTypes = Initialiser.AppResources.Settings.NodalResults.Keys.ToList() : null;
       resultCases = sendNodeResults ? Initialiser.AppResources.Settings.ResultCases.ToList() : null;
       return sendNodeResults;
     }

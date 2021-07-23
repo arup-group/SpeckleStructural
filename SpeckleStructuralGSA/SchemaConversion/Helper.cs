@@ -137,7 +137,8 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
           foreach (var v in colValues)
           {
-            if ((v is float && (float)v != 0) || (v is float? && ((float?)v).HasValue && (float?)v != 0))
+            if (((v is float && (float)v != 0) || (v is float? && ((float?)v).HasValue && (float?)v != 0))
+              || ((v is double && (double)v != 0) || (v is double? && ((double?)v).HasValue && (double?)v != 0)))
             {
               sendable = true;
               break;

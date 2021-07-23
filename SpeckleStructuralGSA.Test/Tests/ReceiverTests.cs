@@ -68,7 +68,7 @@ namespace SpeckleStructuralGSA.Test
       var receiverProcessor = new ReceiverProcessor(TestDataDirectory);
 
       //Run conversion to GWA keywords
-      receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer);
+      Assert.IsTrue(receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer));
       Assert.IsNotNull(actualGwaRecords);
       Assert.IsNotEmpty(actualGwaRecords);
 
@@ -114,7 +114,7 @@ namespace SpeckleStructuralGSA.Test
       var receiverProcessor = new ReceiverProcessor(TestDataDirectory);
 
       //Run conversion to GWA keywords
-      receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer);
+      Assert.IsTrue(receiverProcessor.JsonSpeckleStreamsToGwaRecords(new[] { fileName }, out var actualGwaRecords, layer));
       Assert.IsNotNull(actualGwaRecords);
       Assert.IsNotEmpty(actualGwaRecords);
 
@@ -156,12 +156,12 @@ namespace SpeckleStructuralGSA.Test
       var expectedGwaRecords = Helper.DeserialiseJson<List<GwaRecord>>(expectedJson);
 
       var mockGsaCom = SetupMockGsaCom();
-      Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
+      Initialiser.AppResources.Proxy.NewFile(false, mockGsaCom.Object);
 
       var receiverProcessor = new ReceiverProcessor(dir);
 
       //Run conversion to GWA keywords
-      receiverProcessor.JsonSpeckleStreamsToGwaRecords(savedJsonFileNames, out var actualGwaRecords, layer);
+      Assert.IsTrue(receiverProcessor.JsonSpeckleStreamsToGwaRecords(savedJsonFileNames, out var actualGwaRecords, layer));
       Assert.IsNotNull(actualGwaRecords);
       Assert.IsNotEmpty(actualGwaRecords);
 

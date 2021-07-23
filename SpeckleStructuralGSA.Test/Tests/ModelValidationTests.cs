@@ -58,7 +58,7 @@ namespace SpeckleStructuralGSA.Test
 
       // Run conversion to GWA keywords
       // Note that it can be one model split over several json files
-      receiverProcessor.JsonSpeckleStreamsToGwaRecords(jsonFiles, out var gwaRecordsFromFile, layer);
+      Assert.IsTrue(receiverProcessor.JsonSpeckleStreamsToGwaRecords(jsonFiles, out var gwaRecordsFromFile, layer));
 
       //Run conversion to GWA keywords
       Assert.IsNotNull(gwaRecordsFromFile);
@@ -121,40 +121,5 @@ namespace SpeckleStructuralGSA.Test
 
       // GSA sometimes forgets the SID - should check that this has passed through correctly here
     }
-
-    /*
-    private Dictionary<Type, List<SpeckleObject>> CollateRxObjectsByType(List<SpeckleObject> rxObjs)
-    {
-      var rxTypePrereqs = GSA.RxTypeDependencies;
-      var rxSpeckleTypes = rxObjs.Select(k => k.GetType()).Distinct().ToList();
-
-      ///[ GSA type , [ SpeckleObjects ]]
-      var d = new Dictionary<Type, List<SpeckleObject>>();
-      foreach (var o in rxObjs)
-      {
-        var speckleType = o.GetType();
-
-        var matchingGsaTypes = rxTypePrereqs.Keys.Where(t => dummyObjectDict[t].SpeckleObject.GetType() == speckleType);
-        if (matchingGsaTypes.Count() == 0)
-        {
-          matchingGsaTypes = rxTypePrereqs.Keys.Where(t => speckleType.IsSubclassOf(dummyObjectDict[t].SpeckleObject.GetType()));
-        }
-
-        if (matchingGsaTypes.Count() == 0)
-        {
-          continue;
-        }
-
-        var gsaType = matchingGsaTypes.First();
-        if (!d.ContainsKey(gsaType))
-        {
-          d.Add(gsaType, new List<SpeckleObject>());
-        }
-        d[gsaType].Add(o);
-      }
-
-      return d;
-    }
-    */
   }
 }

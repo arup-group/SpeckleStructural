@@ -99,11 +99,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");
@@ -164,11 +159,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");
@@ -190,11 +180,6 @@ namespace SpeckleStructuralGSA
           ls.Add("none");
           ls.Add("none");
           ls.Add("DRCMEFNSQBHU*");
-          ls.Add("MIN");
-          ls.Add("AUTO");
-          ls.Add("0");
-          ls.Add("0");
-          ls.Add("0");
           ls.Add("NONE");
           ls.Add("FATAL");
           ls.Add("NONE");

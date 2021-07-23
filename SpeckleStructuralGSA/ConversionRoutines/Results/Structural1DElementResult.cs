@@ -23,7 +23,7 @@ namespace SpeckleStructuralGSA
     {
       var result1dTypes = new[] { ResultType.Element1dDisplacement, ResultType.Element1dForce };
       var resultTypes = Initialiser.AppResources.Settings.ResultTypes.Intersect(result1dTypes).ToList();
-      //if (Initialiser.AppResources.Settings.Element1DResults.Count() == 0
+
       if (resultTypes.Count == 0
         || (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults 
           && Initialiser.GsaKit.GSASenderObjects.Count<GSA1DElement>() == 0))
@@ -40,7 +40,7 @@ namespace SpeckleStructuralGSA
       var typeName = dummyObject.GetType().Name;
 
       var numAdditionalPoints = Initialiser.AppResources.Settings.Result1DNumPosition;
-      //var resultTypes = Initialiser.AppResources.Settings.Element1DResults.Keys.ToList();
+
       var cases = Initialiser.AppResources.Settings.ResultCases;
 
       if (Initialiser.AppResources.Settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
@@ -90,10 +90,7 @@ namespace SpeckleStructuralGSA
         {
           var pPieces = gwa[i].ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
           if (pPieces[4].ParseElementNumNodes() == 2 && entity != 0)
-          {
-            //var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, entity, out var data);
-            //var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
-            
+          { 
             if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Element1d, entity, out var results) && results != null)
             {
               var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
@@ -159,8 +156,6 @@ namespace SpeckleStructuralGSA
       {
         var i = e.GSAId;
         var obj = e.Value;
-        //var getResults = Initialiser.AppResources.Proxy.GetResults(keyword, i, out var data);
-        //var results = SchemaConversion.Helper.GetSpeckleResultHierarchy(data, false);
         if (Initialiser.AppResources.Proxy.GetResultHierarchy(ResultGroup.Element1d, i, out var results) && results != null)
         {
           var orderedLoadCases = results.Keys.OrderBy(k => k).ToList();
