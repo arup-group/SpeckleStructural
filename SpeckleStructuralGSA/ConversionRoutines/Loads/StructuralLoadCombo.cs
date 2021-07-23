@@ -207,7 +207,10 @@ namespace SpeckleStructuralGSA
         loadCombos.Add(k, combo);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loadCombos.Values.ToList());
+      if (loadCombos.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loadCombos.Values.ToList());
+      }
 
       return (loadCombos.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

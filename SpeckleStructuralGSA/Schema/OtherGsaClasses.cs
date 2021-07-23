@@ -31,9 +31,6 @@ namespace SpeckleStructuralGSA.Schema
   [GsaType(GwaKeyword.PATH, GwaSetCommandType.Set, true, GwaKeyword.ALIGN)]
   public class GsaPath : BlankGsaRecord { }
 
-  [GsaType(GwaKeyword.PROP_2D, GwaSetCommandType.Set, true, GwaKeyword.MAT_STEEL, GwaKeyword.MAT_CONCRETE, GwaKeyword.AXIS)]
-  public class GsaProp2d : BlankGsaRecord { }
-
   //This seems to be an alternative to SECTION (corresponding to 1D properties) - to be investigated further
   [GsaType(GwaKeyword.PROP_SEC, GwaSetCommandType.Set, true, GwaKeyword.MAT_STEEL, GwaKeyword.MAT_CONCRETE)]
   public class GsaPropSec : BlankGsaRecord { }

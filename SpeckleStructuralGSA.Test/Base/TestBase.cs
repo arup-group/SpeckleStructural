@@ -59,16 +59,74 @@ namespace SpeckleStructuralGSA.Test
       return mockGsaCom;
     }
 
-    protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, string[] resultsToSend = null)
+    protected List<SpeckleObject> ModelToSpeckleObjects(GSATargetLayer layer, bool resultsOnly, bool embedResults, string[] cases, 
+      List<ResultType> resultTypes)
     {
-      //((IGSACache) appResources.Cache).Clear();
+      bool sendResults = false;
+      if (layer == GSATargetLayer.Analysis && cases != null && cases.Length > 0 && resultTypes != null && resultTypes.Count > 0)
+      {
+        Initialiser.AppResources.Settings.ResultTypes = resultTypes;
+        Initialiser.AppResources.Settings.ResultCases = cases.ToList();
+        sendResults = true;
+        /*
+          ((nodeResultsToSend != null && nodeResultsToSend.Length > 0) || (elem1dResultsToSend != null && elem1dResultsToSend.Length > 0)
+          || (elem2dResultsToSend != null && elem2dResultsToSend.Length > 0) || (miscResultsToSend != null && miscResultsToSend.Length > 0)))
+        {
+          sendResults = true;
+          Initialiser.AppResources.Settings.ResultCases = cases.ToList();
+          allResults = new List<string>();
+          if (nodeResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.NodalResults = nodeResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (elem1dResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.Element1DResults = elem1dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (elem2dResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.Element2DResults = elem2dResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+          if (miscResultsToSend != null)
+          {
+            //Initialiser.AppResources.Settings.MiscResults = miscResultsToSend.ToDictionary(nrts => nrts, nrts => (IGSAResultParams)null);
+          }
+        */
+
+        if (resultsOnly)
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.TabularResultsOnly;
+        }
+        else if (embedResults)
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelWithEmbeddedResults;
+        }
+        else
+        {
+          Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelWithTabularResults;
+        }
+      }
+      else
+      {
+        Initialiser.AppResources.Settings.StreamSendConfig = StreamContentConfig.ModelOnly;
+      }
+      Initialiser.AppResources.Settings.TargetLayer = layer;
+
       ((IGSACache)Initialiser.AppResources.Cache).Clear();
+
+      ((GSAProxy)Initialiser.AppResources.Proxy).SetUnits("m");
+
+      if (sendResults)
+      {
+        //Initialiser.AppResources.Proxy.LoadResults(allResults, cases.ToList());
+        Initialiser.AppResources.Proxy.PrepareResults(resultTypes, Initialiser.AppResources.Settings.Result1DNumPosition + 2);
+      }
 
       //Clear out all sender objects that might be there from the last test preparation
       Initialiser.GsaKit.GSASenderObjects.Clear();
 
       //Compile all GWA commands with application IDs
-      var senderProcessor = new SenderProcessor(TestDataDirectory, Initialiser.AppResources, layer, embedResults, cases, resultsToSend);
+      var senderProcessor = new SenderProcessor(TestDataDirectory);
 
       var keywords = Initialiser.GsaKit.Keywords;
       var data = Initialiser.AppResources.Proxy.GetGwaData(keywords, false);
@@ -85,7 +143,7 @@ namespace SpeckleStructuralGSA.Test
           );
       }
 
-      senderProcessor.GsaInstanceToSpeckleObjects(layer, out var speckleObjects, resultsOnly);
+      senderProcessor.GsaInstanceToSpeckleObjects(out var speckleObjects);
 
       return speckleObjects;
     }
