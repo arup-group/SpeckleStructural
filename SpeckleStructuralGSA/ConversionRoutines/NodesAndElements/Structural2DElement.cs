@@ -597,7 +597,11 @@ namespace SpeckleStructuralGSA
       var props = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DProperty>();
       var gsaProps = GetGsaPropDict();
       var newLines = newLinesTuples.Select(nl => nl.Item2);
+#if DEBUG
+      foreach (var p in newLines)
+#else
       Parallel.ForEach(newLines, p =>
+#endif
       {
         var pPieces = p.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
         // Check if void or not an element
@@ -620,7 +624,10 @@ namespace SpeckleStructuralGSA
               "Keyword=" + keyword, "Index=" + gsaId);
           }
         }
-      });
+      }
+#if !DEBUG
+      );
+#endif
 
       if (elements.Count() > 0)
       {
