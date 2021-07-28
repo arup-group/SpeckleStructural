@@ -245,9 +245,6 @@ namespace SpeckleStructuralGSA
             obj.Result = null;
           }
         }
-
-        //this.SubGWACommand.Add(e.GWACommand);
-        //this.SubGWACommand.AddRange(e.SubGWACommand);
       }
 
       obj.Axis = axes;
@@ -308,15 +305,8 @@ namespace SpeckleStructuralGSA
     {
       var settings = Initialiser.AppResources.Settings;
 
-      //Avoiding merging into a mesh until the viewer display is reviewed
-      if (settings.TargetLayer == GSATargetLayer.Analysis 
-        && (settings.ResultCases == null || settings.ResultCases.Count == 0 || settings.ResultTypes == null || settings.ResultTypes.Count == 0))
-      {
-        return new SpeckleNull();
-      }
-
       var anyElement2dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"));
-      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement2dResults)
+      if (settings.TargetLayer == GSATargetLayer.Analysis && anyElement2dResults)
       {
         return new SpeckleNull();
       }
