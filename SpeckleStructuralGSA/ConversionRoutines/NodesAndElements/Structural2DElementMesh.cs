@@ -306,7 +306,10 @@ namespace SpeckleStructuralGSA
       var settings = Initialiser.AppResources.Settings;
 
       var anyElement2dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"));
-      if (settings.TargetLayer == GSATargetLayer.Analysis && anyElement2dResults)
+      //Don't amalgamate into a mesh if embedded results are chosen and there actually are results to embed
+      if (settings.TargetLayer == GSATargetLayer.Analysis 
+        && (settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults) 
+        && anyElement2dResults)
       {
         return new SpeckleNull();
       }
