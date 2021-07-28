@@ -597,30 +597,48 @@ namespace SpeckleStructuralGSA
       var props = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DProperty>();
       var gsaProps = GetGsaPropDict();
       var newLines = newLinesTuples.Select(nl => nl.Item2);
+#if DEBUG
+      foreach (var p in newLines)
+#else
       Parallel.ForEach(newLines, p =>
+#endif
       {
         var pPieces = p.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
-        // Check if void or not an element
-        if (!(pPieces[4] == "2D_VOID_CUTTER" || pPieces[4].Is1DMember() || pPieces[4].Is2DMember())
-          && (pPieces[4].ParseElementNumNodes() == 3 | pPieces[4].ParseElementNumNodes() == 4))
+        var gsaId = pPieces[1];
+        var typeStr = pPieces[4];
+
+        if (Enum.TryParse(typeStr, true, out ElementNumNodes elementType) && Is2DElement(elementType))
         {
-          var gsaId = pPieces[1];
-          try
+          var numNodes = (int)elementType;
+          // There is no such thing as a void element
+          if ((numNodes == 3 || numNodes == 4))
           {
-            var element = new GSA2DElement() { GWACommand = p };
-            element.ParseGWACommand(nodes, props, gsaProps);
-            lock (elementsLock)
+            try
             {
-              elements.Add(element);
+              var element = new GSA2DElement() { GWACommand = p };
+              element.ParseGWACommand(nodes, props, gsaProps);
+              lock (elementsLock)
+              {
+                elements.Add(element);
+              }
+            }
+            catch (Exception ex)
+            {
+              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
+                "Keyword=" + keyword, "Index=" + gsaId);
             }
           }
-          catch (Exception ex)
+          else
           {
-            Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
-              "Keyword=" + keyword, "Index=" + gsaId);
+            Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Information, "Unsupported 2D element type: " + typeStr, gsaId);
+            Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Information, "No support for type of 2D element",
+                "Keyword=" + keyword, "Index=" + gsaId, "NumNodes=" + numNodes, "Type=" + typeStr);
           }
         }
-      });
+      }
+#if !DEBUG
+      );
+#endif
 
       if (elements.Count() > 0)
       {
@@ -628,6 +646,14 @@ namespace SpeckleStructuralGSA
       }
 
       return (elements.Count() == 0) ? new SpeckleNull() :  new SpeckleObject();
+    }
+
+    private static bool Is2DElement(ElementNumNodes elementType)
+    {
+      return (elementType == ElementNumNodes.QUAD4 
+        || elementType == ElementNumNodes.QUAD8 
+        || elementType == ElementNumNodes.TRI3 
+        || elementType == ElementNumNodes.TRI6);
     }
 
     private static Dictionary<int, GsaProp2d> GetGsaPropDict()
