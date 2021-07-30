@@ -64,7 +64,11 @@ namespace SpeckleStructuralGSA
       var entities = elements.Cast<GSA2DElement>().ToList();
       var globalAxis = !Initialiser.AppResources.Settings.ResultInLocalAxis;
 
-      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, entities.Select(e => e.GSAId).ToList());
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, out int numErrorRows, cases, entities.Select(e => e.GSAId).ToList());
+      if (numErrorRows > 0)
+      {
+        Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of 2D element results");
+      }
 
 #if DEBUG
       foreach (var e in entities)
@@ -126,7 +130,11 @@ namespace SpeckleStructuralGSA
         applicationIds.Add(kwApplicationIds[i]);
       }
 
-      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, cases, indices);
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Element2d, out int numErrorRows, cases, indices);
+      if (numErrorRows > 0)
+      {
+        Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of 2D element results");
+      }
 
 #if DEBUG
       for (var i = 0; i < indices.Count(); i++)

@@ -37,7 +37,11 @@ namespace SpeckleStructuralGSA
       var gsaMiscResults = new List<GSAMiscResult>();
       var gsaMiscResultsLock = new object();
 
-      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Assembly, cases, indices);
+      Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Assembly, out int numErrorRows, cases, indices);
+      if (numErrorRows > 0)
+      {
+        Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of assembly results");
+      }
 
 #if DEBUG
       for (int i = 0; i < indices.Count(); i++)
