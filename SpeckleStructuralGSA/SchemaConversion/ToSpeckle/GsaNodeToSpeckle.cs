@@ -24,9 +24,13 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       if (sendResults)
       {
-        Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Node, resultCases, newNodeLines.Keys.ToList());
+        Initialiser.AppResources.Proxy.LoadResults(ResultGroup.Node, out int numErrorRows, resultCases, newNodeLines.Keys.ToList());
+        if (numErrorRows > 0)
+        {
+          Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of node results");
+        }
       }
-
+      
       //This method produces two types of SpeckleStructural objects
       var structuralNodes = new List<StructuralNode>();
       var structural0dSprings = new List<Structural0DSpring>();
