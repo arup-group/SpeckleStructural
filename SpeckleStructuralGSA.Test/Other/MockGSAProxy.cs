@@ -163,6 +163,10 @@ namespace SpeckleStructuralGSA.Test
 
     public new string GetUnits() => "m";
 
+    public new void Sync()
+    {
+    }
+
     public new void NewFile(bool showWindow = true, object gsaInstance = null)
     {
       base.NewFile(showWindow, gsaInstance: mockGSAObject.Object);

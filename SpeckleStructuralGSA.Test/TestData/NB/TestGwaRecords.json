@@ -385,11 +385,11 @@
   },
   {
     "ApplicationId": "LT1",
-    "GwaCommand": "SET\tTASK.2:{speckle_app_id:LT1}\t1\t\t0\tGSS\tSTATIC\t1\t0\t128\tSELF\tnone\tnone\tDRCMEFNSQBHU*\tMIN\tAUTO\t0\t0\t0\tNONE\tFATAL\tNONE\tNONE\tRAFT_LO\tRESID_NO\t0\t1\t0"
+    "GwaCommand": "SET\tTASK.2:{speckle_app_id:LT1}\t1\t\t0\tGSS\tSTATIC\t1\t0\t128\tSELF\tnone\tnone\tDRCMEFNSQBHU*\tNONE\tFATAL\tNONE\tNONE\tRAFT_LO\tRESID_NO\t0\t1\t0"
   },
   {
     "ApplicationId": "LT2",
-    "GwaCommand": "SET\tTASK.2:{speckle_app_id:LT2}\t2\t\t0\tGSS\tSTATIC\t1\t0\t128\tSELF\tnone\tnone\tDRCMEFNSQBHU*\tMIN\tAUTO\t0\t0\t0\tNONE\tFATAL\tNONE\tNONE\tRAFT_LO\tRESID_NO\t0\t1\t0"
+    "GwaCommand": "SET\tTASK.2:{speckle_app_id:LT2}\t2\t\t0\tGSS\tSTATIC\t1\t0\t128\tSELF\tnone\tnone\tDRCMEFNSQBHU*\tNONE\tFATAL\tNONE\tNONE\tRAFT_LO\tRESID_NO\t0\t1\t0"
   },
   {
     "ApplicationId": "gh/6849beac3a786ce17213ba0815de4859",
