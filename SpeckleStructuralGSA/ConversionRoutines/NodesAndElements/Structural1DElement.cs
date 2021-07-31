@@ -64,7 +64,6 @@ namespace SpeckleStructuralGSA
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(key)).FirstOrDefault();
         node.ForceSend = true;
         obj.Value.AddRange(node.Value.Value);
-        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       var orientationNodeRef = pieces[counter++];
@@ -78,7 +77,6 @@ namespace SpeckleStructuralGSA
           node.ForceSend = true;
 
           obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-          //this.SubGWACommand.Add(node.GWACommand);
         }
         else
         {
@@ -361,13 +359,21 @@ namespace SpeckleStructuralGSA
       // type(1D)
       var type = pieces[counter++];
       if (type == "BEAM")
+      {
         obj.ElementType = Structural1DElementType.Beam;
+      }
       else if (type == "COLUMN")
+      {
         obj.ElementType = Structural1DElementType.Column;
+      }
       else if (type == "CANTILEVER")
+      {
         obj.ElementType = Structural1DElementType.Cantilever; // doesnt appear to be an option in GSA10.1
+      }
       else
+      {
         obj.ElementType = Structural1DElementType.Generic;
+      }
 
       counter++; // exposure - fire property e.g. TOP_BOT - not currently supported
       var propId = Convert.ToInt32(pieces[counter++]);
@@ -386,7 +392,6 @@ namespace SpeckleStructuralGSA
           continue;
         }
         obj.Value.AddRange(node.Value.Value);
-        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       // orientation
@@ -397,7 +402,6 @@ namespace SpeckleStructuralGSA
       {
         var node = nodes.Where(n => n.GSAId == Convert.ToInt32(orientationNodeRef)).FirstOrDefault();
         obj.ZAxis = Helper.Parse1DAxis(obj.Value.ToArray(), rotationAngle, node.Value.Value.ToArray()).Normal as StructuralVectorThree;
-        //this.SubGWACommand.Add(node.GWACommand);
       }
       else
       {

@@ -15,8 +15,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSANode> nodes)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new Structural2DVoid();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -47,7 +48,6 @@ namespace SpeckleStructuralGSA
         if (speckleNodeObj != null)
         {
           coordinates.AddRange(speckleNodeObj.Value);
-          //this.SubGWACommand.Add(node.GWACommand);
         }
       }
 
@@ -57,9 +57,7 @@ namespace SpeckleStructuralGSA
         return;
       }
 
-      var temp = new Structural2DVoid(
-          coordinates.Essential(),
-          color.HexToArgbColor());
+      var temp = new Structural2DVoid(coordinates.Essential(), color.HexToArgbColor());
 
       obj.Vertices = temp.Vertices;
       obj.Faces = temp.Faces;
@@ -77,13 +75,15 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var v = this.Value as Structural2DVoid;
 
       if (v.Vertices == null || v.Vertices.Count() == 0)
+      {
         return "";
-
+      }
       var keyword = typeof(GSA2DVoid).GetGSAKeyword();
 
       var index = Initialiser.AppResources.Cache.ResolveIndex(keyword, v.ApplicationId);

@@ -62,7 +62,6 @@ namespace SpeckleStructuralGSA
           var node = nodes.FirstOrDefault(n => n.GSAId == nodeIndex);
           obj.Vertices.AddRange(node.Value.Value);
           obj.Faces.Add(i);
-          //this.SubGWACommand.Add(node.GWACommand);
         }
       }
 
@@ -78,11 +77,6 @@ namespace SpeckleStructuralGSA
       catch
       {
         Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Generating axis from coordinates for 2D element", obj.ApplicationId);
-      }
-
-      if (prop != null)
-      {
-        //this.SubGWACommand.Add(prop.GWACommand);
       }
 
       if (pieces[counter++] != "NO_RLS")
@@ -103,8 +97,6 @@ namespace SpeckleStructuralGSA
       {
         offset = insertionPointOffset - gsaProps[propertyGSAId].RefZ;
       }
-      //Initialiser.AppResources.Proxy.GetGSATotal2DElementOffset(propertyGSAId, Convert.ToDouble(pieces[counter++]), out var offset, out var offsetRec);
-      //this.SubGWACommand.Add(offsetRec);
 
       obj.Offset = offset;
 
@@ -271,7 +263,6 @@ namespace SpeckleStructuralGSA
         }
 
         coordinates.AddRange(node.Value.Value);
-        //this.SubGWACommand.Add(node.GWACommand);
       }
 
       var temp = new Structural2DElementMesh(
@@ -311,10 +302,6 @@ namespace SpeckleStructuralGSA
       if (axis != null)
       {
         obj.Axis = Enumerable.Repeat(axis, numFaces).ToList();
-        if (prop != null)
-        {
-          //this.SubGWACommand.Add(prop.GWACommand);
-        }
       }
 
       //Since this is a GSA-specific property, only set if not default
@@ -341,8 +328,6 @@ namespace SpeckleStructuralGSA
       {
         offset = insertionPointOffset - gsaProps[propertyGSAId].RefZ;
       }
-      //Initialiser.AppResources.Proxy.GetGSATotal2DElementOffset(propertyGSAId, Convert.ToDouble(pieces[counter++]), out var offset, out var offsetRec);
-      //this.SubGWACommand.Add(offsetRec);
 
       obj.Offset = Enumerable.Repeat(offset, numFaces).ToList();
 
@@ -360,14 +345,16 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand(int group = 0)
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var obj = (SpeckleObject)this.Value;
       var baseMesh = (SpeckleMesh)this.Value;
 
       if (baseMesh.Vertices == null || baseMesh.Vertices.Count() == 0)
+      {
         return "";
-
+      }
       var colour = (baseMesh.Colors == null || baseMesh.Colors.Count < 1) ? "NO_RGB" : baseMesh.Colors[0].ArgbToHexColor().ToString();
 
       StructuralAxis axis;

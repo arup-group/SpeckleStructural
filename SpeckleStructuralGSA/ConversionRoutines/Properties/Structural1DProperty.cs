@@ -18,8 +18,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(string GSAUnits, List<GSAMaterialSteel> steels, List<GSAMaterialConcrete> concretes)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new Structural1DProperty();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -37,8 +38,6 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          //if (matchingMaterial != null)
-            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
       else if (materialType == "CONCRETE")
@@ -47,8 +46,6 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          //if (matchingMaterial != null)
-            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
 
@@ -71,14 +68,15 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand(string GSAUnits)
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var prop = this.Value as Structural1DProperty;
 
       if (prop.ApplicationId == null)
-      //if (prop.Profile == null && string.IsNullOrEmpty(prop.CatalogueName))
+      {
         return "";
-
+      }
       var keyword = typeof(GSA1DProperty).GetGSAKeyword();
 
       var index = Initialiser.AppResources.Cache.ResolveIndex(typeof(GSA1DProperty).GetGSAKeyword(), prop.ApplicationId);
@@ -136,14 +134,19 @@ namespace SpeckleStructuralGSA
       {
         case "STD":
           return SetStandardDesc(prop, desc, gsaUnit);
+
         case "GEO":
           return SetGeometryDesc(prop, desc, gsaUnit);
+
         case "CAT":
           var transformed = TransformCategorySection(desc);
           if (transformed == null)
+          {
             return prop;
+          }
           prop.CatalogueName = pieces[2];
           return SetStandardDesc(prop, transformed, gsaUnit);
+
         default:
           return prop;
       }
@@ -154,8 +157,10 @@ namespace SpeckleStructuralGSA
       var pieces = desc.ListSplit("%");
 
       var unit = Regex.Match(pieces[1], @"(?<=\()(.+)(?=\))").Value;
-      if (unit == "") unit = "mm";
-
+      if (unit == "")
+      {
+        unit = "mm";
+      }
       var type = pieces[1].Split(new char[] { '(' })[0];
 
       if (type == "R")
@@ -387,8 +392,10 @@ namespace SpeckleStructuralGSA
       var pieces = desc.ListSplit("%");
 
       var unit = Regex.Match(pieces[1], @"(?<=()(.*?)(?=))").Value;
-      if (unit == "") unit = "mm";
-
+      if (unit == "")
+      {
+        unit = "mm";
+      }
       var type = pieces[1].Split(new char[] { '(' })[0];
 
       if (type == "P")
@@ -429,20 +436,27 @@ namespace SpeckleStructuralGSA
       {
         var desc = GetGSACategorySection(prop.CatalogueName);
         if (!string.IsNullOrEmpty(desc))
+        {
           return desc;
+        }
       }
-        
-      if (prop.Profile == null)
-        return "";
 
+      if (prop.Profile == null)
+      {
+        return "";
+      }
       if (prop.Profile is SpeckleCircle)
       {
         var profile = prop.Profile as SpeckleCircle;
 
         if (prop.Hollow.HasValue && prop.Hollow.Value)
+        {
           return "STD%CHS(" + gsaUnit + ")%" + (profile.Radius * 2).ToString() + "%" + prop.Thickness.ToString();
+        }
         else
+        {
           return "STD%C(" + gsaUnit + ")%" + (profile.Radius * 2).ToString();
+        }
       }
 
       if (prop.Profile is SpecklePolyline)
@@ -452,16 +466,24 @@ namespace SpeckleStructuralGSA
         if (prop.Shape == Structural1DPropertyShape.Circular)
         {
           if (prop.Hollow.HasValue && prop.Hollow.Value)
+          {
             return "STD%CHS(" + gsaUnit + ")%" + (X.Max() - X.Min()).ToString() + "%" + prop.Thickness.ToString();
+          }
           else
+          {
             return "STD%C(" + gsaUnit + ")%" + (X.Max() - X.Min()).ToString();
+          }
         }
         else if (prop.Shape == Structural1DPropertyShape.Rectangular)
         {
           if (prop.Hollow.HasValue && prop.Hollow.Value)
+          {
             return "STD%RHS(" + gsaUnit + ")%" + (Y.Max() - Y.Min()).ToString() + "%" + (X.Max() - X.Min()).ToString() + "%" + prop.Thickness.ToString() + "%" + prop.Thickness.ToString();
+          }
           else
+          {
             return "STD%R(" + gsaUnit + ")%" + (Y.Max() - Y.Min()).ToString() + "%" + (X.Max() - X.Min()).ToString();
+          }
         }
         else if (prop.Shape == Structural1DPropertyShape.I)
         {
@@ -608,32 +630,39 @@ namespace SpeckleStructuralGSA
 
           switch ((GSACAtSectionType)s.SECT_SHAPE)
           {
-            case GSACAtSectionType.I:
+            case GSACAtSectionType.I: 
               return "STD%I(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK + "%" + s.SECT_FLG_THICK;
-            case GSACAtSectionType.CastellatedI:
-              return null;
+
+            case GSACAtSectionType.CastellatedI: return null;
+
             case GSACAtSectionType.Channel:
               return "STD%CH(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK + "%" + s.SECT_FLG_THICK;
+
             case GSACAtSectionType.T:
               return "STD%T(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK + "%" + s.SECT_FLG_THICK;
+
             case GSACAtSectionType.Angles:
               return "STD%A(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK + "%" + s.SECT_FLG_THICK;
+
             case GSACAtSectionType.DoubleAngles:
               return null;
             case GSACAtSectionType.CircularHollow:
               return "STD%CHS(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WEB_THICK;
+
             case GSACAtSectionType.Circular:
               return "STD%C(m)%" + s.SECT_DEPTH_DIAM;
+
             case GSACAtSectionType.RectangularHollow:
               return "STD%RHS(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK + "%" + s.SECT_FLG_THICK;
+
             case GSACAtSectionType.Rectangular:
               return "STD%R(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH;
+
             case GSACAtSectionType.Oval:
               return "STD%OVAL(m)%" + s.SECT_DEPTH_DIAM + "%" + s.SECT_WIDTH + "%" + s.SECT_WEB_THICK;
-            case GSACAtSectionType.TwoChannelsLaces:
-              return null;
-            default:
-              return null;
+
+            case GSACAtSectionType.TwoChannelsLaces: return null;
+            default: return null;
           }
         }
       }
