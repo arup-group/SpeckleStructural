@@ -17,8 +17,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSAMaterialSteel> steels, List<GSAMaterialConcrete> concretes)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new Structural2DProperty();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -39,8 +40,6 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          //if (matchingMaterial != null)
-            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
       else if (materialType == "CONCRETE")
@@ -49,8 +48,6 @@ namespace SpeckleStructuralGSA
         {
           var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
           obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
-          //if (matchingMaterial != null)
-            //this.SubGWACommand.Add(matchingMaterial.GWACommand);
         }
       }
 
@@ -83,8 +80,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var prop = this.Value as Structural2DProperty;
       if (string.IsNullOrEmpty(prop.ApplicationId))
       {
@@ -135,9 +133,11 @@ namespace SpeckleStructuralGSA
         case Structural2DPropertyReferenceSurface.Top:
           ls.Add("TOP_CENTRE");
           break;
+
         case Structural2DPropertyReferenceSurface.Bottom:
           ls.Add("BOT_CENTRE");
           break;
+
         default:
           ls.Add("CENTROID");
           break;

@@ -41,6 +41,7 @@ namespace SpeckleStructuralGSA
       if (numErrorRows > 0)
       {
         Initialiser.AppResources.Messenger.Message(MessageIntent.Display, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of assembly results");
+        Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, "Unable to process " + numErrorRows + " rows of assembly results");
       }
 
 #if DEBUG

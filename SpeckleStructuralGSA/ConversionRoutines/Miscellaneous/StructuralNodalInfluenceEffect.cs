@@ -15,8 +15,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSANode> nodes)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new StructuralNodalInfluenceEffect();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -35,13 +36,12 @@ namespace SpeckleStructuralGSA
 
         obj.NodeRef = targetNode.Value.ApplicationId;
 
-        //this.SubGWACommand.Add(targetNode.GWACommand);
-
         targetNode.ForceSend = true;
       }
       else
+      {
         return;
-
+      }
       obj.Factor = Convert.ToDouble(pieces[counter++]);
       var effectType = pieces[counter++];
       switch(effectType)
@@ -68,8 +68,6 @@ namespace SpeckleStructuralGSA
       else
       {
         obj.Axis = Helper.Parse0DAxis(Convert.ToInt32(axis), out string rec, targetNode.Value.Value.ToArray());
-        //if (rec != null)
-          //this.SubGWACommand.Add(rec);
       }
 
       var dir = pieces[counter++];
@@ -79,18 +77,23 @@ namespace SpeckleStructuralGSA
         case "x":
           obj.Directions.Value[0] = true;
           break;
+
         case "y":
           obj.Directions.Value[1] = true;
           break;
+
         case "z":
           obj.Directions.Value[2] = true;
           break;
+
         case "xx":
           obj.Directions.Value[3] = true;
           break;
+
         case "yy":
           obj.Directions.Value[4] = true;
           break;
+
         case "zz":
           obj.Directions.Value[5] = true;
           break;
@@ -102,8 +105,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var infl = this.Value as StructuralNodalInfluenceEffect;
       
       var keyword = typeof(GSANodalInfluenceEffect).GetGSAKeyword();
@@ -113,8 +117,9 @@ namespace SpeckleStructuralGSA
       var nodeRef = Initialiser.AppResources.Cache.LookupIndex(typeof(GSANode).GetGSAKeyword(), infl.NodeRef);
 
       if (!nodeRef.HasValue)
+      {
         return "";
-
+      }
       var gwaCommands = new List<string>();
 
       Helper.SetAxis(infl.Axis, out var axisIndex, out var axisGwa, infl.Name);

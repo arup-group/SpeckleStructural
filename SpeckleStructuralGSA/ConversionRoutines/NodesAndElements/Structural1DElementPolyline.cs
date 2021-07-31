@@ -16,8 +16,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSA1DElement> elements)
     {
       if (elements.Count() < 1)
+      {
         return;
-
+      }
       var elementsListCopy = new List<GSA1DElement>(elements);
 
       var obj = new Structural1DElementPolyline
@@ -203,7 +204,6 @@ namespace SpeckleStructuralGSA
               else
               {
                 // UNABLE TO MERGE RESULTS
-                //obj.Result = null;
                 results = null;
                 break;
               }
@@ -212,16 +212,12 @@ namespace SpeckleStructuralGSA
           catch
           {
             // UNABLE TO MERGE RESULTS
-            //obj.Result = null;
             results = null;
           }
         }
 
         coordinates.RemoveAt(matchIndex);
         elementsListCopy.RemoveAt(matchIndex);
-
-        //this.SubGWACommand.Add(gsaElement.GWACommand);
-        //this.SubGWACommand.AddRange(gsaElement.SubGWACommand);
       }
 
       obj.ElementApplicationId = elementAppIds;

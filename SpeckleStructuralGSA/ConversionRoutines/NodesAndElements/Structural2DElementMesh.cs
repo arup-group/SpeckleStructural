@@ -12,144 +12,6 @@ namespace SpeckleStructuralGSA
   [GSAObject("EL.4", new string[] { }, "model", true, false, new Type[] { typeof(GSA2DElement), typeof(GSA2DElementResult) }, new Type[] { typeof(GSANode), typeof(GSA2DProperty) })]
   public class GSA2DElementMesh : GSABase<Structural2DElementMesh>
   {
-    public void ParseGWACommand_alternative(List<GSA2DElement> elements)
-    {
-      var kw = GsaRecord.GetKeyword<GsaEl>();
-      var nodeKw = GsaRecord.GetKeyword<GsaNode>();
-
-      var axes = new List<StructuralAxis>();
-      var offsets = new List<double>();
-      var elementAppIds = new List<string>();
-      var gsaEls = new List<GsaEl>();
-      foreach (var e in elements)
-      {
-        axes.Add(e.Value.Axis);
-        offsets.Add(e.Value.Offset ?? 0);
-        elementAppIds.Add(e.Value.ApplicationId);
-        var gwas = Initialiser.AppResources.Cache.GetGwa(kw, e.GSAId);
-        if (gwas != null && gwas.Count > 0)
-        {
-          var gsaEl = new GsaEl();
-          gsaEl.FromGwa(gwas.First());
-          gsaEls.Add(gsaEl);
-        }
-      }
-
-      //This just saves many IndexOf calls
-      var distinctNodeIndices = gsaEls.SelectMany(e => e.NodeIndices).Distinct().ToList();
-      var nodeIndicesDict = new Dictionary<int, int>();
-      var nodeCoords = new Dictionary<int, List<double>>();
-      int index = 0;
-      var vertices = new List<double>();
-
-      foreach (var ni in distinctNodeIndices)
-      {
-        if (!nodeIndicesDict.ContainsKey(ni))
-        {
-          var nodeGwas = Initialiser.AppResources.Cache.GetGwa(nodeKw, ni);
-          if (nodeGwas != null && nodeGwas.Count > 0)
-          {
-            var gsaNode = new GsaNode();
-            gsaNode.FromGwa(nodeGwas.First());
-
-            nodeIndicesDict.Add(ni, index++);
-            vertices.AddRange(new [] { gsaNode.X, gsaNode.Y, gsaNode.Z });
-          }
-          else
-          {
-
-          }
-        }
-      }
-
-      var faces = new List<int>();
-      foreach (var gsaEl in gsaEls)
-      {
-        faces.Add((gsaEl.NodeIndices.Count == 3) ? 0 : 1);
-
-        faces.AddRange(gsaEl.NodeIndices.Select(ni => nodeIndicesDict[ni]));
-      }
-
-      var obj = new Structural2DElementMesh
-      {
-        ApplicationId = Helper.GetApplicationId(GsaRecord.GetKeyword<GsaMemb>(), GSAId),
-
-        Vertices = vertices,
-        Faces = faces,
-        ElementApplicationId = elementAppIds,
-
-        ElementType = elements.First().Value.ElementType,
-        PropertyRef = elements.First().Value.PropertyRef,
-        Axis = axes,
-        Offset = offsets
-      };
-
-      // Result merging
-      foreach (var e in elements)
-      {
-        if (e.Value.Result != null)
-        {
-          try
-          {
-            foreach (string loadCase in e.Value.Result.Keys)
-            {
-              if (obj.Result == null)
-              {
-                //Can't assign an empty dictionary to obj.Result (due to schema's implementation)
-                obj.Result = new Dictionary<string, object>
-                {
-                  { loadCase, new Structural2DElementResult()
-                      {
-                        Value = new Dictionary<string, object>(),
-                        IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                      }
-                  }
-                };
-              }
-              else if (!obj.Result.ContainsKey(loadCase))
-              {
-                obj.Result[loadCase] = new Structural2DElementResult()
-                {
-                  Value = new Dictionary<string, object>(),
-                  IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
-                };
-              }
-
-              if (e.Value.Result[loadCase] is Structural2DElementResult resultExport)
-              {
-                foreach (var key in resultExport.Value.Keys)
-                {
-                  if (!(obj.Result[loadCase] as Structural2DElementResult).Value.ContainsKey(key))
-                  {
-                    (obj.Result[loadCase] as Structural2DElementResult).Value[key] = new Dictionary<string, object>(resultExport.Value[key] as Dictionary<string, object>);
-                  }
-                  else
-                    foreach (var resultKey in ((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>).Keys)
-                    {
-                      (((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<object>)
-                        .AddRange((resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<object>);
-                    }
-                }
-              }
-              else
-              {
-                // UNABLE TO MERGE RESULTS
-                obj.Result = null;
-                break;
-              }
-            }
-          }
-          catch
-          {
-            // UNABLE TO MERGE RESULTS
-            obj.Result = null;
-          }
-        }
-      }
-
-      this.Value = obj;
-    }
-
     public void ParseGWACommand(List<GSA2DElement> elements)
     {
       if (elements.Count() < 1)
@@ -179,19 +41,19 @@ namespace SpeckleStructuralGSA
       {
         var verticesOffset = obj.Vertices.Count() / 3;
         obj.Vertices.AddRange(e.Value.Vertices);
-        obj.Faces.Add((e.Value.Faces as List<int>).First());
-        obj.Faces.AddRange((e.Value.Faces as List<int>).Skip(1).Select(x => x + verticesOffset));
+        obj.Faces.Add(e.Value.Faces.First());
+        obj.Faces.AddRange(e.Value.Faces.Skip(1).Select(x => x + verticesOffset));
         
         axes.Add(e.Value.Axis);
         offsets.Add(e.Value.Offset ?? 0);
         elementAppIds.Add(e.Value.ApplicationId);
 
         // Result merging
-        if (((Structural2DElement)e.Value).Result != null)
+        if (e.Value.Result != null)
         {
           try
           {
-            foreach (string loadCase in e.Value.Result.Keys)
+            foreach (var loadCase in e.Value.Result.Keys)
             {
               if (obj.Result == null)
               {
@@ -257,7 +119,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
+      }
 
       var obj = this.Value as Structural2DElementMesh;
       if (obj.ApplicationId == null || Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
