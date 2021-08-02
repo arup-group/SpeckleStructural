@@ -29,42 +29,45 @@ namespace SpeckleStructuralGSA
       obj.ApplicationId = Helper.GetApplicationId(this.GetGSAKeyword(), this.GSAId);
       obj.Name = pieces[counter++].Trim(new char[] { '"' });
       counter++; // Color
-      counter++; // Type
-      this.IsAxisLocal = pieces[counter++] == "LOCAL"; // Axis
-      counter++; // Analysis material
-      var materialType = pieces[counter++];
-      var materialGrade = pieces[counter++];
-      if (materialType == "STEEL")
+      var type = pieces[counter++]; // Type - another type found is LOAD
+      if (type.Equals("SHELL", StringComparison.InvariantCultureIgnoreCase))
       {
-        if (steels != null)
+        this.IsAxisLocal = pieces[counter++] == "LOCAL"; // Axis
+        counter++; // Analysis material
+        var materialType = pieces[counter++];
+        var materialGrade = pieces[counter++];
+        if (materialType == "STEEL")
         {
-          var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
-          obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
+          if (steels != null)
+          {
+            var matchingMaterial = steels.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
+            obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
+          }
         }
-      }
-      else if (materialType == "CONCRETE")
-      {
-        if (concretes != null)
+        else if (materialType == "CONCRETE")
         {
-          var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
-          obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
+          if (concretes != null)
+          {
+            var matchingMaterial = concretes.Where(m => m.GSAId.ToString() == materialGrade).FirstOrDefault();
+            obj.MaterialRef = matchingMaterial == null ? null : matchingMaterial.Value.ApplicationId;
+          }
         }
-      }
 
-      counter++; // design property
-      obj.Thickness = Convert.ToDouble(pieces[counter++]); // version 5 and 6 of this command are meant to include 'profile' but it does not yet seem functional and so only thickness is recorded
+        counter++; // design property
+        obj.Thickness = Convert.ToDouble(pieces[counter++]); // version 5 and 6 of this command are meant to include 'profile' but it does not yet seem functional and so only thickness is recorded
 
-      switch (pieces[counter++])
-      {
-        case "TOP_CENTRE":
-          obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Top;
-          break;
-        case "BOT_CENTRE":
-          obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Bottom;
-          break;
-        default:
-          obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Middle;
-          break;
+        switch (pieces[counter++])
+        {
+          case "TOP_CENTRE":
+            obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Top;
+            break;
+          case "BOT_CENTRE":
+            obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Bottom;
+            break;
+          default:
+            obj.ReferenceSurface = Structural2DPropertyReferenceSurface.Middle;
+            break;
+        }
       }
       // Ignore the rest
 
