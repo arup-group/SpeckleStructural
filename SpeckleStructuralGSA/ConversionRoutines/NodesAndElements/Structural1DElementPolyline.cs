@@ -16,8 +16,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSA1DElement> elements)
     {
       if (elements.Count() < 1)
+      {
         return;
-
+      }
       var elementsListCopy = new List<GSA1DElement>(elements);
 
       var obj = new Structural1DElementPolyline
@@ -44,9 +45,14 @@ namespace SpeckleStructuralGSA
         obj.Properties.Add("structural", new Dictionary<string, object>());
       }
 
+      var settings = Initialiser.AppResources.Settings;
+      var anyElement1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+
       Dictionary<string, object> results = null;
-      if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+      if (anyElement1dResults & settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
+      {
         results = new Dictionary<string, object>();
+      }
 
       // Match up coordinates
       var coordinates = new List<Tuple<string, string>>();
@@ -122,7 +128,7 @@ namespace SpeckleStructuralGSA
           endReleases.AddRange(element.EndRelease);
           offsets.AddRange(element.Offset);
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+          if (anyElement1dResults && settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             resultVertices.AddRange(element.ResultVertices);
           }
@@ -140,7 +146,7 @@ namespace SpeckleStructuralGSA
           offsets.Add((element.Offset as List<StructuralVectorThree>).Last());
           offsets.Add((element.Offset as List<StructuralVectorThree>).First());
 
-          if (Initialiser.AppResources.Settings.Element1DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
+          if (anyElement1dResults && settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults)
           {
             for (var i = (element.ResultVertices.Count - 3); i >= 0; i -= 3)
             {
@@ -184,12 +190,12 @@ namespace SpeckleStructuralGSA
                   {
                     foreach (var resultKey in ((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>).Keys)
                     {
-                      var res = (resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<double>;
+                      var res = (resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<object>;
                       if (reverseCoordinates)
                       {
                         res.Reverse();
                       }
-                      (((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<double>)
+                      (((results[loadCase] as Structural1DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<object>)
                         .AddRange(res);
                     }
                   }
@@ -198,7 +204,6 @@ namespace SpeckleStructuralGSA
               else
               {
                 // UNABLE TO MERGE RESULTS
-                //obj.Result = null;
                 results = null;
                 break;
               }
@@ -207,16 +212,12 @@ namespace SpeckleStructuralGSA
           catch
           {
             // UNABLE TO MERGE RESULTS
-            //obj.Result = null;
             results = null;
           }
         }
 
         coordinates.RemoveAt(matchIndex);
         elementsListCopy.RemoveAt(matchIndex);
-
-        this.SubGWACommand.Add(gsaElement.GWACommand);
-        this.SubGWACommand.AddRange(gsaElement.SubGWACommand);
       }
 
       obj.ElementApplicationId = elementAppIds;
@@ -322,6 +323,13 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA1DElementPolyline dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+      var anyElement1dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("1d"));
+      if (settings.TargetLayer == GSATargetLayer.Analysis && settings.StreamSendConfig == StreamContentConfig.TabularResultsOnly && !anyElement1dResults)
+      {
+        return new SpeckleNull();
+      }
+
       var keyword = dummyObject.GetGSAKeyword();
       var polylines = new List<GSA1DElementPolyline>();
       var typeName = dummyObject.GetType().Name;
@@ -329,34 +337,37 @@ namespace SpeckleStructuralGSA
       var uniqueMembers = new List<int>(Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().Select(x => x.Member).Where(m => m > 0).Distinct());
       uniqueMembers.Sort();  //Just for readability and testing
 
+      var all1dElementsByGsaId = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>().GroupBy(x => x.Member).Where(g => g.Key > 0).ToDictionary(x => x.Key, x => x.ToList());
+      var multiElementMemberIds = all1dElementsByGsaId.Keys.Where(k => all1dElementsByGsaId[k].Count() > 1).ToList();
+
       //This loop has been left as serial for now, considering the fact that the sender objects are retrieved and removed-from with each iteration
-      foreach (var member in uniqueMembers)
+      foreach (var member in multiElementMemberIds)
       {
         try
         {
-          var all1dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA1DElement>();
-          var matching1dElementList = all1dElements.Where(x => x.Member == member).OrderBy(m => m.GSAId).ToList();
-          if (matching1dElementList.Count() > 1)
+          //var matching1dElementList = all1dElements.Where(x => x.Member == member).OrderBy(m => m.GSAId).ToList();
+          var matching1dElementList = all1dElementsByGsaId[member];
+          var poly = new GSA1DElementPolyline() { GSAId = Convert.ToInt32(member) };
+          try
           {
-            var poly = new GSA1DElementPolyline() { GSAId = Convert.ToInt32(member) };
-            try
-            {
-              poly.ParseGWACommand(matching1dElementList);
-              polylines.Add(poly);
-            }
-            catch (Exception ex)
-            {
-              Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
-                "Keyword=" + keyword, "Index=" + member);
-            }
-
-            Initialiser.GsaKit.GSASenderObjects.RemoveAll(matching1dElementList);
+            poly.ParseGWACommand(matching1dElementList);
+            polylines.Add(poly);
           }
+          catch (Exception ex)
+          {
+            Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
+              "Keyword=" + keyword, "Index=" + member);
+          }
+
+          Initialiser.GsaKit.GSASenderObjects.RemoveAll(matching1dElementList);
         }
         catch { }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(polylines);
+      if (polylines.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(polylines);
+      }
 
       return new SpeckleNull(); // Return null because ToSpeckle method for GSA1DElement will handle this change
     }

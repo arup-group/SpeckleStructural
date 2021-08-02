@@ -15,8 +15,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSA1DElement> e1Ds, List<GSA2DElement> e2Ds, List<GSA1DMember> m1Ds, List<GSA2DMember> m2Ds)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new StructuralConstructionStage();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -59,7 +60,6 @@ namespace SpeckleStructuralGSA
           if (elementApplicationId != null)
           {
             obj.ElementRefs.Add(elementApplicationId);
-            this.SubGWACommand.Add(elementGwaCommand);
           }
         }
       }
@@ -73,8 +73,6 @@ namespace SpeckleStructuralGSA
 
           obj.ElementRefs.AddRange(memb1Ds.Select(m => m.Value.ApplicationId));
           obj.ElementRefs.AddRange(memb2Ds.Select(m => m.Value.ApplicationId));
-          this.SubGWACommand.AddRange(memb1Ds.Select(m => m.GWACommand));
-          this.SubGWACommand.AddRange(memb2Ds.Select(m => m.GWACommand));
         }
       }
 
@@ -87,8 +85,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var stageDef = this.Value as StructuralConstructionStage;
       if (string.IsNullOrEmpty(stageDef.ApplicationId))
       {
@@ -202,7 +201,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(stageDefs.Values.ToList());
+      if (stageDefs.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(stageDefs.Values.ToList());
+      }
 
       return (stageDefs.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

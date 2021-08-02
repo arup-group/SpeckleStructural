@@ -13,7 +13,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand()
     {
       if (this.GWACommand == null)
+      {
         return;
+      }
 
       var obj = new Structural2DLoadPanel();
 
@@ -26,13 +28,8 @@ namespace SpeckleStructuralGSA
       Helper.GetGridPlaneRef(Convert.ToInt32(pieces[counter++]), out int gridPlaneRefRet, out string gridSurfaceRec);
       Helper.GetGridPlaneData(gridPlaneRefRet, out int gridPlaneAxis, out double gridPlaneElevation, out string gridPlaneRec);
 
-      this.SubGWACommand.Add(gridSurfaceRec);
-      this.SubGWACommand.Add(gridPlaneRec);
-
       string gwaRec = null;
       var axis = Helper.Parse0DAxis(gridPlaneAxis, out gwaRec);
-      if (gwaRec != null)
-        this.SubGWACommand.Add(gwaRec);
       double elevation = gridPlaneElevation;
 
       var polylineDescription = "";
@@ -42,12 +39,13 @@ namespace SpeckleStructuralGSA
         case "PLANE":
           // TODO: Do not handle for now
           return;
+
         case "POLYREF":
           var polylineRef = pieces[counter++];
           string newRec = null;
-         Helper.GetPolylineDesc(Convert.ToInt32(polylineRef), out polylineDescription, out newRec);
-          this.SubGWACommand.Add(newRec);
+          Helper.GetPolylineDesc(Convert.ToInt32(polylineRef), out polylineDescription, out newRec);
           break;
+
         case "POLYGON":
           polylineDescription = pieces[counter++];
           break;
@@ -55,8 +53,9 @@ namespace SpeckleStructuralGSA
       var polyVals = Helper.ParsePolylineDesc(polylineDescription);
 
       for (var i = 2; i < polyVals.Length; i += 3)
+      {
         polyVals[i] = elevation;
-
+      }
       obj.Value = Helper.MapPointsLocal2Global(polyVals, axis).ToList();
       obj.Closed = true;
 
@@ -75,8 +74,6 @@ namespace SpeckleStructuralGSA
       {
         loadAxisId = loadAxisData == "GLOBAL" ? 0 : Convert.ToInt32(loadAxisData);
         loadAxis = Helper.Parse0DAxis(loadAxisId, out gwaRec);
-        if (gwaRec != null)
-          this.SubGWACommand.Add(gwaRec);
       }
       var projected = pieces[counter++] == "YES";
       var direction = pieces[counter++];
@@ -144,7 +141,10 @@ namespace SpeckleStructuralGSA
         loads.Add(load);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

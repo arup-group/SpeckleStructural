@@ -43,7 +43,10 @@ namespace SpeckleStructuralGSA.SchemaConversion
 
       var loads = structural1DLoads.Select(sl => new GSA1DLoad() { Value = sl }).Cast<GSA1DLoad>().ToList();
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }
 

@@ -13,7 +13,7 @@ namespace SpeckleStructuralGSA.Test
 
     //protected GSAProxy GSAInterfacer;
     //protected GSACache GSACache;
-    protected IGSAAppResources appResources;
+    //protected IGSAAppResources appResources;
 
     //This should match the private member in GSAInterfacer
     protected const string SID_APPID_TAG = "speckle_app_id";
@@ -21,7 +21,7 @@ namespace SpeckleStructuralGSA.Test
     protected ProcessorBase(string directory)
     {
       TestDataDirectory = directory;
-      appResources = new MockGSAApp();
+      //appResources = new MockGSAApp();
     }
 
     public List<string> GetKeywords(GSATargetLayer layer)

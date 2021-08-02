@@ -196,6 +196,39 @@
     Reference
   }
 
+  public enum Property2dType
+  {
+    NotSet = 0,
+    Stress,
+    Fabric,
+    Plate,
+    Shell,
+    Curved,
+    Load
+  }
+
+  public enum Property2dRefSurface
+  {
+    [StringValue("CENTROID")]
+    Centroid,
+    [StringValue("TOP_CENTRE")]
+    TopCentre,
+    [StringValue("BOT_CENTRE")]
+    BottomCentre
+  }
+
+  public enum Property2dMaterialType
+  {
+    Generic = 0,  //The default
+    Steel,
+    Concrete,
+    FRP,
+    Aluminium,
+    Glass,
+    Timber,
+    Fabric
+  }
+
   public enum AxisDirection3
   {
     NotSet = 0,

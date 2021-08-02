@@ -48,7 +48,7 @@ namespace SpeckleStructuralGSA.Test
       var mockGsaCom = SetupMockGsaCom();
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
-      var receiverProcessor = new ReceiverProcessor(TestDataDirectory, Initialiser.AppResources);
+      var receiverProcessor = new ReceiverProcessor(TestDataDirectory);
 
       var rxObjs = ExtractObjects(fileName, TestDataDirectory);
       var rx2DElements = rxObjs.Select(t => t.Item2).Where(o => o is Structural2DElement).Cast<Structural2DElement>().ToList();

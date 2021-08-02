@@ -256,6 +256,7 @@
     <Compile Include="Schema\GsaAssembly.cs" />
     <Compile Include="Schema\GsaEl.cs" />
     <Compile Include="Schema\GsaMemb.cs" />
+    <Compile Include="Schema\Properties\GsaProp2d.cs" />
     <Compile Include="Schema\Properties\GsaPropMass.cs" />
     <Compile Include="Schema\Loading\GsaAnal.cs" />
     <Compile Include="Schema\Loading\GsaCombination.cs" />

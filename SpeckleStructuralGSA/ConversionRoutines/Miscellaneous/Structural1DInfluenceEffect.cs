@@ -34,8 +34,6 @@ namespace SpeckleStructuralGSA
         targetElement = e1Ds.Where(e => targetElementRef == e.GSAId.ToString()).FirstOrDefault();
 
         obj.ElementRef = targetElement.Value.ApplicationId;
-
-        this.SubGWACommand.Add(targetElement.GWACommand);
       }
       else
         return;
@@ -103,8 +101,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
-
+      }
       var infl = this.Value as Structural1DInfluenceEffect;
 
       var keyword = typeof(GSA1DInfluenceEffect).GetGSAKeyword();
@@ -190,7 +189,10 @@ namespace SpeckleStructuralGSA
         }
       });
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      if (infls.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(infls.Values.ToList());
+      }
 
       return (infls.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

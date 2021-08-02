@@ -89,7 +89,10 @@ namespace SpeckleStructuralGSA
         loadCases.Add(k, loadCase);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loadCases.Values.ToList());
+      if (loadCases.Values.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loadCases.Values.ToList());
+      }
 
       return (loadCases.Keys.Count > 0) ? new SpeckleObject() : new SpeckleNull();
     }

@@ -28,34 +28,6 @@ namespace SpeckleStructuralGSA
       var axis = pieces[counter++];
       this.Axis = axis == "GLOBAL" ? 0 : Convert.ToInt32(axis);
 
-      //Helper.GetGridPlaneRef(Convert.ToInt32(pieces[counter++]), out int gridPlaneRefRet, out string gridSurfaceRec);
-      //Helper.GetGridPlaneData(gridPlaneRefRet, out int gridPlaneAxis, out double gridPlaneElevation, out string gridPlaneRec);
-
-      //this.SubGWACommand.Add(gridSurfaceRec);
-      //this.SubGWACommand.Add(gridPlaneRec);
-
-      //string gwaRec = null;
-      //var planeAxis = Helper.Parse0DAxis(gridPlaneAxis, Initialiser.Instance.Interface, out gwaRec);
-      //if (gwaRec != null)
-      //  this.SubGWACommand.Add(gwaRec);
-      //double elevation = gridPlaneElevation;
-
-      //var planeLoadAxisId = 0;
-      //var planeLoadAxisData = pieces[counter++];
-      //StructuralAxis planeLoadAxis;
-      //if (planeLoadAxisData == "LOCAL")
-      //  planeLoadAxis = planeAxis;
-      //else
-      //{
-      //  planeLoadAxisId = planeLoadAxisData == "GLOBAL" ? 0 : Convert.ToInt32(planeLoadAxisData);
-      //  planeLoadAxis = Helper.Parse0DAxis(planeLoadAxisId, Initialiser.Instance.Interface, out gwaRec);
-      //  if (gwaRec != null)
-      //    this.SubGWACommand.Add(gwaRec);
-      //}
-      //var planeProjected = pieces[counter++] == "YES";
-      //var planeDirection = pieces[counter++];
-      //var value = Convert.ToDouble(pieces[counter++]);
-
 
       obj.Loading = new StructuralVectorSix(new double[3]);
 
@@ -200,7 +172,10 @@ namespace SpeckleStructuralGSA
         loads.AddRange(loadSubList);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

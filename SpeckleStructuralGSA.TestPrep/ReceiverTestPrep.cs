@@ -24,7 +24,7 @@ namespace SpeckleStructuralGSA.TestPrep
       var mockGsaCom = SetupMockGsaCom();
       Initialiser.AppResources.Proxy.OpenFile("", false, mockGsaCom.Object);
 
-      var receiverProcessor = new ReceiverProcessor(Path.Combine(TestDataDirectory, subdir), Initialiser.AppResources, layer);
+      var receiverProcessor = new ReceiverProcessor(Path.Combine(TestDataDirectory, subdir));
 
       //Run conversion to GWA keywords
       receiverProcessor.JsonSpeckleStreamsToGwaRecords(savedJsonFileNames, out var gwaRecords, layer);

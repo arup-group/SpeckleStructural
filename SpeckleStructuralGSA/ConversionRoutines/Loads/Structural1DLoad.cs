@@ -36,8 +36,7 @@ namespace SpeckleStructuralGSA
         {
           var elems = elements.Where(n => targetElements.Contains(n.GSAId)).ToList();
 
-          obj.ElementRefs = elems.Select(n => ((SpeckleObject)n.Value).ApplicationId).OrderBy(i => i).ToList();
-          this.SubGWACommand.AddRange(elems.Select(n => n.GWACommand));
+          obj.ElementRefs = elems.Select(n => n.Value.ApplicationId).OrderBy(i => i).ToList();
         }
       }
       else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
@@ -48,8 +47,7 @@ namespace SpeckleStructuralGSA
         {
           var membs = members.Where(m => targetGroups.Contains(m.Group)).ToList();
 
-          obj.ElementRefs = membs.Select(m => ((SpeckleObject)m.Value).ApplicationId).ToList();
-          this.SubGWACommand.AddRange(membs.Select(n => n.GWACommand));
+          obj.ElementRefs = membs.Select(m => m.Value.ApplicationId).ToList();
         }
       }
 
@@ -167,9 +165,7 @@ namespace SpeckleStructuralGSA
           var load = new GSA1DLoad
           {
             GWACommand = initLoad.GWACommand,
-            SubGWACommand = new List<string>(initLoad.SubGWACommand)
           };
-          //var speckle1dLoad = load.Value;
 
           load.Value.Name = initLoad.Value.Name;
           load.Value.ApplicationId = initLoad.Value.ApplicationId;
@@ -178,8 +174,8 @@ namespace SpeckleStructuralGSA
           if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Analysis)
           {
             // Transform load to defined axis
-            var gsaElem = elements.Where(e => ((SpeckleObject)e.Value).ApplicationId == nRef).First();
-            var elem = (Structural1DElement)gsaElem.Value;
+            var gsaElem = elements.Where(e => e.Value.ApplicationId == nRef).First();
+            var elem = gsaElem.Value;
             var loadAxis = load.Axis == 0 ? new StructuralAxis(
                 new StructuralVectorThree(new double[] { 1, 0, 0 }),
                 new StructuralVectorThree(new double[] { 0, 1, 0 }),
@@ -269,7 +265,10 @@ namespace SpeckleStructuralGSA
         loads.AddRange(loadSubList);
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

@@ -19,11 +19,6 @@ namespace SpeckleStructuralGSA
     string GWACommand { get; set; }
 
     /// <summary>
-    /// List of GWA records used to read the object.
-    /// </summary>
-    //List<string> SubGWACommand { get; set; }
-
-    /// <summary>
     /// SpeckleObject created
     /// </summary>
     T Value { get; }

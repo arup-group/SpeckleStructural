@@ -17,8 +17,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSA2DElement> elements, List<GSA2DMember> members)
     {
       if (this.GWACommand == null)
+      {
         return;
-
+      }
       var obj = new Structural2DLoad();
 
       var pieces = this.GWACommand.ListSplit(Initialiser.AppResources.Proxy.GwaDelimiter);
@@ -36,7 +37,6 @@ namespace SpeckleStructuralGSA
           var elems = elements.Where(n => targetElements.Contains(n.GSAId)).ToList();
 
           obj.ElementRefs = elems.Select(n => (string)n.Value.ApplicationId).ToList();
-          this.SubGWACommand.AddRange(elems.Select(n => n.GWACommand));
         }
       }
       else if (Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
@@ -48,7 +48,6 @@ namespace SpeckleStructuralGSA
           var membs = members.Where(m => targetGroups.Contains(m.Group)).ToList();
 
           obj.ElementRefs = membs.Select(m => (string)m.Value.ApplicationId).ToList();
-          this.SubGWACommand.AddRange(membs.Select(n => n.GWACommand));
         }
       }
 
@@ -90,14 +89,18 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
+      }
 
       var load = this.Value as Structural2DLoad;
 
       var keyword = typeof(GSA2DLoad).GetGSAKeyword();
 
       if (load.Loading == null)
+      {
         return "";
+      }
 
       List<int> elementRefs = null;
       List<int> groupRefs = null;
@@ -222,8 +225,7 @@ namespace SpeckleStructuralGSA
         }
         catch (Exception ex)
         {
-          Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex,
-            "Keyword=" + keyword, "Index=" + k);
+          Initialiser.AppResources.Messenger.Message(MessageIntent.TechnicalLog, MessageLevel.Error, ex, "Keyword=" + keyword, "Index=" + k);
         }
 
         lock (loadLock)
@@ -232,7 +234,10 @@ namespace SpeckleStructuralGSA
         }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      if (loads.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(loads);
+      }
 
       return (loads.Count() > 0) ? new SpeckleObject() : new SpeckleNull();
     }

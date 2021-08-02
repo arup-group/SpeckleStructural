@@ -15,7 +15,9 @@ namespace SpeckleStructuralGSA
     public void ParseGWACommand(List<GSA2DElement> elements)
     {
       if (elements.Count() < 1)
+      {
         return;
+      }
 
       var obj = new Structural2DElementMesh
       {
@@ -31,11 +33,6 @@ namespace SpeckleStructuralGSA
         Offset = new List<double>()
       };
 
-      if (Initialiser.AppResources.Settings.Element2DResults.Count > 0 && Initialiser.AppResources.Settings.EmbedResults)
-      {
-        obj.Result = new Dictionary<string, object>();
-      }
-
       var axes = obj.Axis ?? new List<StructuralAxis>();
       var offsets = obj.Offset ?? new List<double>();
       var elementAppIds = obj.ElementApplicationId ?? new List<string>();
@@ -44,22 +41,34 @@ namespace SpeckleStructuralGSA
       {
         var verticesOffset = obj.Vertices.Count() / 3;
         obj.Vertices.AddRange(e.Value.Vertices);
-        obj.Faces.Add((e.Value.Faces as List<int>).First());
-        obj.Faces.AddRange((e.Value.Faces as List<int>).Skip(1).Select(x => x + verticesOffset));
-
+        obj.Faces.Add(e.Value.Faces.First());
+        obj.Faces.AddRange(e.Value.Faces.Skip(1).Select(x => x + verticesOffset));
         
         axes.Add(e.Value.Axis);
         offsets.Add(e.Value.Offset ?? 0);
         elementAppIds.Add(e.Value.ApplicationId);
 
         // Result merging
-        if (obj.Result != null && ((Structural2DElement)e.Value).Result != null)
+        if (e.Value.Result != null)
         {
           try
           {
-            foreach (string loadCase in e.Value.Result.Keys)
+            foreach (var loadCase in e.Value.Result.Keys)
             {
-              if (!obj.Result.ContainsKey(loadCase))
+              if (obj.Result == null)
+              {
+                //Can't assign an empty dictionary to obj.Result (due to schema's implementation)
+                obj.Result = new Dictionary<string, object>
+                {
+                  { loadCase, new Structural2DElementResult()
+                      {
+                        Value = new Dictionary<string, object>(),
+                        IsGlobal = !Initialiser.AppResources.Settings.ResultInLocalAxis,
+                      }
+                  }
+                };
+              }
+              else if (!obj.Result.ContainsKey(loadCase))
               {
                 obj.Result[loadCase] = new Structural2DElementResult()
                 {
@@ -79,8 +88,8 @@ namespace SpeckleStructuralGSA
                   else
                     foreach (var resultKey in ((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>).Keys)
                     {
-                      (((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<double>)
-                        .AddRange((resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<double>);
+                      (((obj.Result[loadCase] as Structural2DElementResult).Value[key] as Dictionary<string, object>)[resultKey] as List<object>)
+                        .AddRange((resultExport.Value[key] as Dictionary<string, object>)[resultKey] as List<object>);
                     }
                 }
               }
@@ -98,9 +107,6 @@ namespace SpeckleStructuralGSA
             obj.Result = null;
           }
         }
-
-        this.SubGWACommand.Add(e.GWACommand);
-        this.SubGWACommand.AddRange(e.SubGWACommand);
       }
 
       obj.Axis = axes;
@@ -113,7 +119,9 @@ namespace SpeckleStructuralGSA
     public string SetGWACommand()
     {
       if (this.Value == null)
+      {
         return "";
+      }
 
       var obj = this.Value as Structural2DElementMesh;
       if (obj.ApplicationId == null || Initialiser.AppResources.Settings.TargetLayer == GSATargetLayer.Design)
@@ -159,20 +167,32 @@ namespace SpeckleStructuralGSA
 
     public static SpeckleObject ToSpeckle(this GSA2DElementMesh dummyObject)
     {
+      var settings = Initialiser.AppResources.Settings;
+
+      var anyElement2dResults = settings.ResultTypes != null && settings.ResultTypes.Any(rt => rt.ToString().ToLower().Contains("2d"));
+      //Don't amalgamate into a mesh if embedded results are chosen and there actually are results to embed
+      if (settings.TargetLayer == GSATargetLayer.Analysis 
+        && (settings.StreamSendConfig == StreamContentConfig.ModelWithEmbeddedResults) 
+        && anyElement2dResults)
+      {
+        return new SpeckleNull();
+      }
+
       var meshes = new List<GSA2DElementMesh>();
       var typeName = dummyObject.GetType().Name;
       var keyword = dummyObject.GetGSAKeyword();
 
-      // Perform mesh merging
-      var uniqueMembers = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>().Select(x => x.Member).Where(m => m > 0).Distinct().ToList();
+      var all2dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>();
 
+      var uniqueMembers = all2dElements.Select(x => x.Member).Where(m => m > 0).Distinct().OrderBy(m => m).ToList();
+
+      // Perform mesh merging
       //This loop has been left as serial for now, considering the fact that the sender objects are retrieved and removed-from with each iteration
       foreach (var member in uniqueMembers)
       {
         try
         {
-          var all2dElements = Initialiser.GsaKit.GSASenderObjects.Get<GSA2DElement>();
-          var matching2dElementList = all2dElements.Where(x => x.Member == member).Cast<GSA2DElement>().ToList();
+          var matching2dElementList = all2dElements.Where(x => x.Member == member).Cast<GSA2DElement>().OrderBy(e => e.GSAId).ToList();
           var mesh = new GSA2DElementMesh() { GSAId = Convert.ToInt32(member) };
           mesh.ParseGWACommand(matching2dElementList);
           meshes.Add(mesh);
@@ -186,7 +206,10 @@ namespace SpeckleStructuralGSA
         }
       }
 
-      Initialiser.GsaKit.GSASenderObjects.AddRange(meshes);
+      if (meshes.Count() > 0)
+      {
+        Initialiser.GsaKit.GSASenderObjects.AddRange(meshes);
+      }
 
       return new SpeckleNull(); // Return null because ToSpeckle method for GSA2DElement will handle this change
     }
