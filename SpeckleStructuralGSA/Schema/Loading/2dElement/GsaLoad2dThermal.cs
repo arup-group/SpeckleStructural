@@ -29,8 +29,7 @@ namespace SpeckleStructuralGSA.Schema
       var items = remainingItems;
 
       //LOAD_2D_THERMAL.2 | name | list | case | type | values(n)
-      if (!FromGwaByFuncs(items, out remainingItems, AddName, (v) => AddEntities(v, out Entities), (v) => AddNullableIndex(v, out LoadCaseIndex),
-        (v) => Enum.TryParse(v, true, out Type)))
+      if (!FromGwaByFuncs(items, out remainingItems, AddName, (v) => AddEntities(v, out Entities), (v) => AddNullableIndex(v, out LoadCaseIndex), AddType))
       {
         return false;
       }
@@ -74,11 +73,45 @@ namespace SpeckleStructuralGSA.Schema
     {
       if (Values != null && Values.Count() > 0)
       {
-        return string.Join(" ", Values);
+        return string.Join("\t", Values);
       }
       else
       {
         return "";
+      }
+    }
+    private string AddType()
+    {
+      switch (Type)
+      {
+        case Load2dThermalType.Uniform:
+          return "CONS";
+        case Load2dThermalType.Gradient:
+          return "DZ";
+        case Load2dThermalType.General:
+          return "GEN";
+        default:
+          return "";
+      }
+    }
+    #endregion
+
+    #region from_gwa_fns
+    private bool AddType(string v)
+    {
+      switch (v)
+      {
+        case "CONS":
+          Type = Load2dThermalType.Uniform;
+          return true;
+        case "DZ":
+          Type = Load2dThermalType.Gradient;
+          return true;
+        case "GEN":
+          Type = Load2dThermalType.General;
+          return true;
+        default:
+          return false;
       }
     }
     #endregion

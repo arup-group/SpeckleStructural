@@ -709,6 +709,19 @@
     GENERIC
   }
 
+  public enum MatConcreteType
+  {
+    CUBE,
+    CYLINDER
+  }
+
+  public enum MatConcreteCement
+  {
+    N,
+    S,
+    R
+  }
+
   public enum Colour
   {
     NotSet = 0,

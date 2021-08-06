@@ -11,7 +11,7 @@ namespace SpeckleStructuralGSA.Schema
   {
     public string Name { get => name; set { name = value; } }
     public string Desc;
-    public bool Bridge;
+    public bool? Bridge;
     public string Note;
 
     public GsaCombination()
@@ -27,7 +27,13 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //COMBINATION | case | name | desc | bridge | note
-      return FromGwaByFuncs(remainingItems, out var _, AddName, (v) => AddStringValue(v, out Desc), AddBridge, (v) => AddStringValue(v, out Note));
+      if (!FromGwaByFuncs(remainingItems, out remainingItems, AddName, (v) => AddStringValue(v, out Desc)))
+      {
+        return false;
+      }
+      FromGwaByFuncs(remainingItems, out remainingItems, AddBridge); //Bridge might be blank
+      FromGwaByFuncs(remainingItems, out remainingItems, (v) => AddStringValue(v, out Note)); //Notes might be blank
+      return true;
     }
 
     public override bool Gwa(out List<string> gwa, bool includeSet = false)
@@ -39,7 +45,9 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //COMBINATION | case | name | desc | bridge | note
-      AddItems(ref items, Name, Desc, AddBridge(), Note);
+      AddItems(ref items, Name, Desc);
+      if (Bridge != null) AddItems(ref items, AddBridge());
+      if (Note != null) AddItems(ref items, Note);
 
       gwa = Join(items, out var gwaLine) ? new List<string>() { gwaLine } : new List<string>();
       return (gwa.Count() > 0);
@@ -48,7 +56,7 @@ namespace SpeckleStructuralGSA.Schema
     #region to_gwa_fns
     private string AddBridge()
     {
-      return (Bridge) ? "BRIDGE" : "";
+      return (Bridge == true) ? "BRIDGE" : "";
     }
     #endregion
 
@@ -56,7 +64,7 @@ namespace SpeckleStructuralGSA.Schema
     private bool AddBridge(string v)
     {
       Bridge = !(string.IsNullOrEmpty(v));
-      return false;
+      return true;
     }
 
     #endregion

@@ -62,8 +62,8 @@ namespace SpeckleStructuralGSA.Schema
         }
         if (Type == Load2dFaceType.Point)
         {
-          R = (double.TryParse(items[total + 1], out var r) && r != 0) ? (double?)r : null;
-          S = (double.TryParse(items[total + 2], out var s) && s != 0) ? (double?)s : null;
+          R = (double.TryParse(items[total], out var r)) ? (double?)r : null;
+          S = (double.TryParse(items[total + 1], out var s)) ? (double?)s : null;
         }
       }
       return true;
@@ -78,7 +78,11 @@ namespace SpeckleStructuralGSA.Schema
       }
 
       //LOAD_2D_FACE.2 | name | list | case | axis | type | proj | dir | value(n) | r | s
-      AddItems(ref items, Name, AddEntities(Entities), LoadCaseIndex ?? 0, AddAxis(), AddType(), AddProj(), LoadDirection, AddValues(), R, S);
+      AddItems(ref items, Name, AddEntities(Entities), LoadCaseIndex ?? 0, AddAxis(), AddType(), AddProj(), LoadDirection, AddValues());
+      if (Type == Load2dFaceType.Point)
+      {
+        AddItems(ref items, R, S);
+      }
 
       gwa = (Join(items, out var gwaLine)) ? new List<string>() { gwaLine } : new List<string>();
       return gwa.Count() > 0;
@@ -101,19 +105,17 @@ namespace SpeckleStructuralGSA.Schema
 
     private string AddType()
     {
-      if (Type == Load2dFaceType.Uniform)
+      switch (Type)
       {
-        return "CONS";
+        case Load2dFaceType.Uniform:
+          return "CONS";
+        case Load2dFaceType.General:
+          return "GEN";
+        case Load2dFaceType.Point:
+          return "POINT";
+        default:
+          return "";
       }
-      if (Type == Load2dFaceType.General)
-      {
-        return "GEN";
-      }
-      if (Type == Load2dFaceType.Point)
-      {
-        return "POINT";
-      }
-      return "";
     }
 
     private string AddProj()
@@ -153,16 +155,20 @@ namespace SpeckleStructuralGSA.Schema
 
     private bool AddType(string v)
     {
-      Enum.TryParse<Load2dFaceType>(v, out Type);
-      /*if (Enum.TryParse<Load2dFaceType>(v, true, out var load2dFaceType))
+      switch (v)
       {
-        Type = load2dFaceType;
+        case "CONS":
+          Type = Load2dFaceType.Uniform;
+          break;
+        case "GEN":
+          Type = Load2dFaceType.General;
+          break;
+        case "POINT":
+          Type = Load2dFaceType.Point;
+          break;
+        default:
+          return false;
       }
-      else
-      {
-        return false;
-      }
-      */
       return true;
     }
 

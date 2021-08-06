@@ -39,7 +39,6 @@ namespace SpeckleStructuralGSA.Schema
     public double? Cost;
     public MatType Type;
 
-
     public GsaMat() : base()
     {
       //Defaults
@@ -53,9 +52,23 @@ namespace SpeckleStructuralGSA.Schema
 
     public bool FromGwa(string gwa, out List<string> remainingItems)
     {
-      if (!BasicFromGwa(gwa, out remainingItems))
+      //Process the first part of gwa string
+      remainingItems = Split(gwa);
+      if (remainingItems[0].StartsWith("set", StringComparison.OrdinalIgnoreCase))
+      {
+        remainingItems.Remove(remainingItems[0]);
+      }
+      if (!ParseKeywordVersionSid(remainingItems[0]))
       {
         return false;
+      }
+      remainingItems = remainingItems.Skip(1).ToList();
+
+      //Detect presence or absense of num (record index) argument based on number of items
+      if (int.TryParse(remainingItems[0], out var foundIndex))
+      {
+        Index = foundIndex;
+        remainingItems = remainingItems.Skip(1).ToList();
       }
 
       //MAT.10 | num | name | E | f | nu | G | rho | alpha | <prop> | num_uc (| abs | ord | pts[] |) num_sc (| abs | ord | pts[] |) num_ut (| abs | ord | pts[] |) num_st (| abs | ord | pts[] |) eps | <uls> | <sls> | cost | type
@@ -92,14 +105,17 @@ namespace SpeckleStructuralGSA.Schema
         gwa = new List<string>();
         return false;
       }
-
+      if (Index == null) //embedded
+      {
+        items.RemoveAt(items.Count - 1);
+      }
       //MAT.10 | num | name | E | f | nu | G | rho | alpha | <prop> | num_uc (| abs | ord | pts[] |) num_sc (| abs | ord | pts[] |) num_ut (| abs | ord | pts[] |) num_st (| abs | ord | pts[] |) eps | <uls> | <sls> | cost | type
       AddItems(ref items, Name, E, F, Nu, G, Rho, Alpha); //Add items up until <prop>
       AddObject(ref items, Prop); //Add GsaMatAnal object
       AddExplicitCurves(ref items); //Add items associated with the explicit curves
       AddItems(ref items, Eps);
-      AddObject(ref items, Sls); //Add GsaMatCurveParam object
       AddObject(ref items, Uls); //Add GsaMatCurveParam object
+      AddObject(ref items, Sls); //Add GsaMatCurveParam object
       AddItems(ref items, Cost, Type);
 
       gwa = Join(items, out var gwaLine) ? new List<string>() { gwaLine } : new List<string>();

@@ -9,6 +9,12 @@ namespace SpeckleStructuralGSA.Schema
   [GsaType(GwaKeyword.MAT_ANAL, GwaSetCommandType.Set, false, false, true)]
   public class GsaMatAnal : GsaRecord
   {
+    //The current documentation doesn't align with the GSA 10.1 keyword example. 
+    //A bug ticket has been placed with the GSA developers. This class will need to be updated once the documentation is up to date.
+    //
+    //In most cases, 2 undocuemnted parameters are included in the current GSA 10.1 keywords. These are ignored as they are zero. 
+    //When creating a gwa string, 2 additional zeros are added at the end corresponding to the 2 undocuemented parameters.
+
     public MatAnalType Type;
     public string Name { get => name; set { name = value; } }  //If not embedded
     public Colour Colour = Colour.NO_RGB; //If not embedded
@@ -82,22 +88,27 @@ namespace SpeckleStructuralGSA.Schema
       //Detect presence or absense of num (record index) argument based on number of items
       if (int.TryParse(remainingItems[0], out var foundIndex))
       {
+        //Not embedded - MAT_ANAL | Index | Type | Name | Colour | NumParams | etc...
         Index = foundIndex;
         remainingItems = remainingItems.Skip(1).ToList();
       }
-
-      //MAT_ANAL | num | MAT_ELAS_ISO | name | colour | 6 | E | nu | rho | alpha | G | damp |
-      //MAT_ANAL | num | MAT_DRUCKER_PRAGER | name | colour | 10 | G | nu | rho | cohesion | phi | psi | Eh | scribe | alpha | damp
-      //MAT_ANAL | num | MAT_ELAS_ORTHO | name | colour | 14 | Ex | Ey | Ez | nuxy | nuyz | nuzx | rho | alphax | alphay | alphaz | Gxy | Gyz | Gzx | damp
-      //MAT_ANAL | num | MAT_ELAS_PLAS_ISO | name | colour | 9 | E | nu | rho | alpha | yield | ultimate | Eh | beta | damp
-      //MAT_ANAL | num | MAT_FABRIC | name | colour | 4 | Ex | Ey | nu | G | 1 | comp
-      //MAT_ANAL | num | MAT_MOHR_COULOMB | name | colour | 9 | G | nu | rho | cohesion | phi | psi | Eh | alpha | damp
+      else
+      {
+        //Embedded - MAT_ANAL | Name | Index | Type | NumParams | etc...
+        if (!FromGwaByFuncs(remainingItems, out remainingItems, AddName)) return false;
+        if (int.TryParse(remainingItems[0], out foundIndex))
+        {
+          Index = foundIndex; // will be negative
+          remainingItems = remainingItems.Skip(1).ToList();
+        }
+      }
 
       //Process common items
       //When embedded, name and colour are omitted
       if (!FromGwaByFuncs(remainingItems, out remainingItems, (v) => Enum.TryParse<MatAnalType>(v, true, out Type)))  return false;
-      if (Index > 0) //not embedded
+      if (Index > 0)
       {
+        //Not embedded
         Embedded = false;
         if (!FromGwaByFuncs(remainingItems, out remainingItems, AddName, (v) => AddColour(v, out Colour))) return false;
       }
@@ -163,10 +174,13 @@ namespace SpeckleStructuralGSA.Schema
       //Process common items
       if (Embedded)
       {
-        AddItems(ref items, Type.ToString(), NumParams);
+        //Embedded - MAT_ANAL | Name | Index | Type | NumParams | etc...
+        items.Insert(items.Count - 1, Name);
+        AddItems(ref items, Type.ToString(), NumParams); 
       }
       else
       {
+        //Not embedded - MAT_ANAL | Index | Type | Name | Colour | NumParams | etc...
         AddItems(ref items, Type.ToString(), Name, Colour.ToString(), NumParams);
       }
 

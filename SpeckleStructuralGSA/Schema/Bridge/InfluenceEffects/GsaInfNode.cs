@@ -20,7 +20,7 @@ namespace SpeckleStructuralGSA.Schema
     public GsaInfNode() : base()
     {
       //Defaults
-      Version = 2;
+      Version = 1;
     }
 
     public override bool FromGwa(string gwa)
